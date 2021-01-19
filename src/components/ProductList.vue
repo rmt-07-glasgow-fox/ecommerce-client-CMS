@@ -5,7 +5,10 @@
     <td> {{ product.name }}</td>
     <td> {{ maskPrice }}</td>
     <td> {{ maskStock }} </td>
-    <td> <button class="btn btn-warning">Edit</button> <button type="button" class="btn btn-danger">Delete</button></td>
+    <td>
+        <button class="btn btn-warning mr-3" @click="editData(product.id)">Edit</button>
+        <button type="button" class="btn btn-danger" @click="deleteData(product.id)">Delete</button>
+    </td>
   </tr>
 </template>
 
@@ -19,6 +22,15 @@ export default {
     },
     maskStock () {
       return Number(this.product.stock).toLocaleString('id-ID')
+    }
+  },
+  methods: {
+    editData (id) {
+      this.$emit('editProductId', id)
+      // this.$router.push('/editproduct/' + id)
+    },
+    deleteData (id) {
+      this.$emit('deleteDataId', id)
     }
   }
 }

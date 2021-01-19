@@ -4,6 +4,7 @@ import Auth from '../views/Auth.vue'
 import Page404 from '../views/Page404.vue'
 import Dashboard from '../views/Dashboard.vue'
 import AddNewProduct from '../components/AddNewProduct.vue'
+import EditProduct from '../components/EditProduct'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
         path: '/addproduct',
         name: 'AddNewProduct',
         component: AddNewProduct
+      },
+      {
+        path: '/editproduct/:id',
+        name: 'EditProduct',
+        component: EditProduct
       }
     ]
   },

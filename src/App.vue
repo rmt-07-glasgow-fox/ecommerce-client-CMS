@@ -5,7 +5,10 @@
       @handleLogout="isLoggedOut"
       :products="this.products"
       :fetchProducts="fetchProducts"
-      @handleAddProduct="handleAddProduct"/>
+      @handleAddProduct="handleAddProduct"
+      @getDataById="getDataById"
+      @deleteDataById="deleteDataById"
+      :productById="this.productById"/>
   </div>
 </template>
 
@@ -15,7 +18,8 @@ import axios from './api/axios'
 export default {
   data () {
     return {
-      products: []
+      products: [],
+      productById: []
     }
   },
   components: { },
@@ -82,6 +86,40 @@ export default {
         .then(res => {
           this.fetchProducts()
           this.$router.push('/dashboard')
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    getDataById (payload) {
+      axios({
+        method: 'GET',
+        url: '/products/' + payload,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(res => {
+          this.productById = res.data
+          console.log(this.productById)
+          this.$router.push('/editproduct/' + payload)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    deleteDataById (payload) {
+      console.log('KEKL', payload)
+      axios({
+        method: 'DELETE',
+        url: 'products/' + payload,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(res => {
+          console.log(res.data)
+          this.fetchProducts()
         })
         .catch(err => {
           console.log(err.response)

@@ -7,7 +7,9 @@
           <b-button variant="primary" @click="handleAddNewProduct" >Add new product</b-button>
         </div>
       </div>
-      <router-view @newProductData="handleAddProduct"/>
+      <router-view
+        @newProductData="handleAddProduct"
+        :productById="productById"/>
       <div class="row">
         <div class="col table-product text-center">
           <table class="table">
@@ -17,7 +19,12 @@
               </tr>
             </thead>
             <tbody>
-              <product-list v-for="product in products" :key="product.id" :product="product" />
+              <product-list
+                v-for="product in products"
+                :key="product.id"
+                :product="product"
+                @editProductId="getDataById"
+                @deleteDataId="deleteDataById"/>
             </tbody>
           </table>
         </div>
@@ -38,7 +45,7 @@ export default {
     }
   },
   components: { Navbar, ProductList },
-  props: ['products', 'fetchProducts'],
+  props: ['products', 'fetchProducts', 'productById'],
   methods: {
     handleLogout (payload) {
       this.$emit('handleLogout', payload)
@@ -48,6 +55,12 @@ export default {
     },
     handleAddProduct (payload) {
       this.$emit('handleAddProduct', payload)
+    },
+    getDataById (payload) {
+      this.$emit('getDataById', payload)
+    },
+    deleteDataById (payload) {
+      this.$emit('deleteDataById', payload)
     }
   },
   created () {
