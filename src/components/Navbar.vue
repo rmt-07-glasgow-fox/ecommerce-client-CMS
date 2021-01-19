@@ -1,20 +1,21 @@
 <template>
   <div id="nav">
     <div>
-      <router-link class="nav-child" to="/">Home</router-link>
-      <router-link class="nav-child" to="/products">Products</router-link>
-      <router-link class="nav-child" to="/banners">Banners</router-link>
-      <router-link class="nav-child" to="/categories">Categories</router-link>
+      <b-button variant="link" v-b-toggle.sidebar-1 style="color: #2c3e50;">E-COMMERCE CMS</b-button>
     </div>
     <div>
       <a href="#" @click="handleLogout">Logout</a>
     </div>
+    <sidebar />
   </div>
 </template>
 
 <script>
+import Sidebar from './Sidebar.vue'
+
 export default {
   name: 'Navbar',
+  components: { Sidebar },
   methods: {
     handleLogout () {
       this.$emit('handleLogout', true)
