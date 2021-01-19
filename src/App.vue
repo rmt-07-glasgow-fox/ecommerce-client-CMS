@@ -2,11 +2,36 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/dashboard">Dashboard</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
+
+<script>
+// import axios from './api/axiosInstance'
+
+export default {
+  name: 'App',
+  data () {
+    return {
+      products: []
+    }
+  },
+  methods: {
+    checkAuth () {
+      if (localStorage.getItem('access_token')) {
+        this.$router.push('/dashboard')
+      } else {
+        this.$router.push('/')
+      }
+    },
+    created () {
+      this.checkAuth()
+    }
+  }
+}
+</script>
 
 <style>
 #app {
