@@ -1,10 +1,10 @@
 <template>
   <div id="nav">
     <div>
-      <b-button variant="link" v-b-toggle.sidebar-1 style="color: #2c3e50;">E-COMMERCE CMS</b-button>
+      <b-button variant="link" v-b-toggle.sidebar-1>E-COMMERCE CMS</b-button>
     </div>
     <div>
-      <a href="#" @click="handleLogout">Logout</a>
+      <b-button variant="link" @click="handleLogout">Logout</b-button>
     </div>
     <sidebar />
   </div>
@@ -44,6 +44,10 @@ export default {
 
 .nav-child {
   margin-right: 10px;
+}
+
+button {
+  color: #2c3e50;
 }
 
 </style>
