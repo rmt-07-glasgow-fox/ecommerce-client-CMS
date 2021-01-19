@@ -1,0 +1,49 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  height: 550px;
+}
+
+.box1 {
+  height: 100%;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+.description p {
+  font-size: 10px;
+  margin: 0;
+}
+
+.edit {
+  padding: 0.1px;
+}
+
+.fa-plus {
+  font-size: 20px;
+}
+
+#login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(244,163,5);
+  background: linear-gradient(180deg, rgba(244,163,5,1) 0%, rgba(255,250,161,0.861782212885154) 52%, rgba(255,255,255,0) 100%);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+.welcome {
+  color: white;
+  text-shadow: 2px 5px 10px black;
+}
