@@ -31,7 +31,6 @@ export default {
       try {
         this.loading = true
         const response = await axios.post('/login', payload)
-        this.loading = false
         const accessToken = response.data.access_token
         this.$swal({
           toast: true,
@@ -41,6 +40,8 @@ export default {
           icon: 'success',
           title: 'Success'
         }).then(() => {
+          this.loading = false
+          this.$router.push('/dashboard')
           localStorage.setItem('access_token', accessToken)
           this.clearFormLogin()
         })
