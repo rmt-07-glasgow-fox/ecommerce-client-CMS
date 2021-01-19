@@ -1,0 +1,16 @@
+*{
+  margin: 0;
+  padding: 0;
+  
+}
+
+body {
+  background-image: url('https://png.pngtree.com/thumb_back/fw800/background/20190222/ourmid/pngtree-color-gradient-fluid-sense-blue-purple-yellow-red-colorful-background-image_48444.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.card {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
