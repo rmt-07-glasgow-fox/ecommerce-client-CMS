@@ -11,15 +11,27 @@
     <div class="d-flex justify-content-between p-3 bg-light rounded-start">
       <div class="w-70 rounded">
         <div v-if="isAdd" class="p-3 mb-2 bg-white rounded shadow-sm">
-          <FormAdd :isAdd="isAdd"></FormAdd>
+          <FormAdd
+            :isAdd="isAdd"
+            @cancel="cancel"
+            @addProduct="addProduct"
+          ></FormAdd>
         </div>
         <div :class="checkAdd">
-          <ListProducts />
+          <ListProducts
+            :products="products"
+            @productDetail="productDetail"
+          ></ListProducts>
         </div>
       </div>
       <div class="w-30 p-3 bg-white rounded shadow-sm">
-        <CardProducts />
-        <!-- <FormEdit /> -->
+        <CardProducts
+          :product="product"
+          :productToEdit="productToEdit"
+          @getProductId="getProductId"
+          @editProduct="editProduct"
+          @deleteProduct="deleteProduct"
+        ></CardProducts>
       </div>
     </div>
   </div>
@@ -29,19 +41,48 @@
 import FormAdd from './FormAdd'
 import ListProducts from './ListProducts'
 import CardProducts from './CardProducts'
-// import FormEdit from './FormEdit'
 
 export default {
   name: 'Products',
   components: {
     FormAdd,
-    // FormEdit,
     ListProducts,
     CardProducts
   },
+  props: ['products', 'productToEdit'],
   data () {
     return {
-      isAdd: false
+      isAdd: false,
+      isDetail: false,
+      product: {}
+    }
+  },
+  methods: {
+    addProduct (payload) {
+      this.isAdd = false
+      this.$emit('addProduct', payload)
+    },
+    getProductId (id) {
+      this.$emit('getProductId', id)
+    },
+    editProduct (payload) {
+      this.$emit('editProduct', payload)
+    },
+    deleteProduct (id) {
+      this.product = {}
+      this.$emit('deleteProduct', id)
+    },
+    cancel () {
+      this.isAdd = false
+    },
+    productDetail (payload) {
+      this.isDetail = true
+      this.product = payload
+    },
+    defaultProductDetail () {
+      if (!this.isDetail) {
+        this.product = this.products[0]
+      }
     }
   },
   computed: {
@@ -52,6 +93,17 @@ export default {
         return { 'table-wraper2': true }
       }
     }
+  },
+  mounted () {
+    console.log('mounted')
+    this.defaultProductDetail()
+  },
+  updated () {
+    console.log('updated')
+    this.defaultProductDetail()
+  },
+  destroyed () {
+    console.log('destroy')
   }
 }
 </script>

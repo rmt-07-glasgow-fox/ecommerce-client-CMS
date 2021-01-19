@@ -1,12 +1,16 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Login</router-link> |
-      <router-link to="/home">Home</router-link>
-    </div>
     <router-view
       :user="user"
+      :getProducts="getProducts"
+      :products="products"
+      :productToEdit="productToEdit"
       @handleLogin="handleLogin"
+      @handleLogout="handleLogout"
+      @addProduct="addProduct"
+      @getProductId="getProductId"
+      @editProduct="handleEditProduct"
+      @deleteProduct="deleteProduct"
     />
   </div>
 </template>
@@ -17,7 +21,9 @@ import axios from './api/axios'
 export default {
   data () {
     return {
-      user: {}
+      user: {},
+      products: [],
+      productToEdit: {}
     }
   },
   methods: {
@@ -32,7 +38,96 @@ export default {
         }
       }).then(res => {
         console.log(res.data)
+        this.user = {}
         localStorage.setItem('access_token', res.data.access_token)
+        this.$router.push('/products')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    handleLogout () {
+      localStorage.clear()
+      this.$router.push('/login')
+    },
+    getProducts () {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'GET',
+        url: '/products',
+        headers: {
+          access_token: accessToken
+        }
+      }).then(res => {
+        console.log(res.data)
+        this.products = res.data
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    addProduct (payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'POST',
+        url: '/products',
+        headers: {
+          access_token: accessToken
+        },
+        data: payload
+      }).then(res => {
+        console.log(res.data)
+        this.getProducts()
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getProductId (id) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'GET',
+        url: `/products/${id}`,
+        headers: {
+          access_token: accessToken
+        }
+      }).then(res => {
+        console.log(res.data)
+        this.productToEdit = res.data
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    handleEditProduct (payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'PUT',
+        url: `/products/${payload.id}`,
+        headers: {
+          access_token: accessToken
+        },
+        data: {
+          name: payload.name,
+          iamge_url: payload.iamge_url,
+          price: payload.price,
+          stock: payload.stock,
+          description: payload.description
+        }
+      }).then(res => {
+        console.log(res.data)
+        this.getProducts()
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    deleteProduct (id) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'DELETE',
+        url: `/products/${id}`,
+        headers: {
+          access_token: accessToken
+        }
+      }).then(res => {
+        console.log(res.data)
+        this.getProducts()
       }).catch(err => {
         console.log(err)
       })

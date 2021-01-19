@@ -2,19 +2,19 @@
   <div>
     <form @submit.prevent="addProducts" class="row g-3">
       <div class="col-md-6">
-        <input v-model="products.name" type="text" class="form-control" placeholder="Name">
+        <input v-model="product.name" type="text" class="form-control" placeholder="Name">
       </div>
       <div class="col-md-4">
-        <input v-model="products.price" type="number" class="form-control" placeholder="Price">
+        <input v-model="product.price" type="number" class="form-control" placeholder="Price">
       </div>
       <div class="col-md-2">
-        <input v-model="products.stock" type="number" class="form-control" placeholder="Stock">
+        <input v-model="product.stock" type="number" class="form-control" placeholder="Stock">
       </div>
       <div class="col-12">
-        <input v-model="products.imageUrl" type="text" class="form-control" placeholder="Image Url">
+        <input v-model="product.image_url" type="text" class="form-control" placeholder="Image Url">
       </div>
       <div class="col-md-12">
-        <textarea v-model="products.description" class="form-control" placeholder="Description"></textarea>
+        <textarea v-model="product.description" class="form-control" placeholder="Description"></textarea>
       </div>
       <div class="col-12">
         <button type="submit" class="btn btn-outline-primary">Add</button>
@@ -30,21 +30,21 @@ export default {
   props: ['isAdd'],
   data () {
     return {
-      products: {
+      product: {
         name: '',
         price: '',
         stock: '',
-        imageUrl: '',
+        image_url: '',
         description: ''
       }
     }
   },
   methods: {
     cancel () {
-      this.isAdd = false
+      this.$emit('cancel')
     },
     addProducts () {
-      console.log(this.products)
+      this.$emit('addProduct', this.product)
     }
   }
 }

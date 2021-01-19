@@ -2,19 +2,33 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import Products from '../components/Products/Products'
+import Banner from '../components/Banner/Banner'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/login',
     name: 'Login',
     component: Login
   },
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: 'products',
+        name: 'Products',
+        component: Products
+      },
+      {
+        path: 'banner',
+        name: 'Banner',
+        component: Banner
+      }
+    ]
   }
 ]
 
@@ -24,12 +38,10 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.name !== 'Login' && localStorage.getItem('access_token')) {
-//     next({ name: 'Login' })
-//   } else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('access_token')
+  if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  else next()
+})
 
 export default router

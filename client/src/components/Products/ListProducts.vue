@@ -3,111 +3,22 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">No</th>
           <th scope="col">Name</th>
           <th scope="col">Price</th>
           <th scope="col">Stock</th>
-          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>Edit | Delete</td>
-        </tr>
-                      <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>Edit | Delete</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>Edit | Delete</td>
+        <tr v-for="( product, idx ) in products"
+          :key="product.id">
+          <th scope="row">{{ idx + 1 }}</th>
+          <td class="text-primary product-name"
+            @click="productDetail(product)">
+            {{ product.name }}
+          </td>
+          <td>IDR {{ product.price }}</td>
+          <td>{{ product.stock }}</td>
         </tr>
       </tbody>
     </table>
@@ -116,10 +27,18 @@
 
 <script>
 export default {
-  name: 'ListProducts'
+  name: 'ListProducts',
+  props: ['products'],
+  methods: {
+    productDetail (product) {
+      this.$emit('productDetail', product)
+    }
+  }
 }
 </script>
 
 <style>
-
+.product-name:hover {
+  cursor: pointer;
+}
 </style>

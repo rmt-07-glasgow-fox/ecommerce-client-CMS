@@ -1,24 +1,64 @@
 <template>
-  <div class="">
-    <img src="https://assets.adidas.com/images/w_600,f_auto,q_auto/f479cdd34819412d8270aa2c01164ca6_9366/Magmur_Runner_Shoes_White_EE5139_01_standard.jpg" class="card-img-top p-2 border border-5" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Adidas Runer</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <p>Rp. 800.000</p>
-      <p>Stock: 10</p>
-      <button class="btn btn-outline-primary">Edit</button>
-      <button class="btn btn-outline-danger mx-2">Delete</button>
+  <div>
+    <div v-if="!isEdit && product">
+      <img :src="product.image_url" alt="Product image">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.description }}</p>
+        <p>Price: IDR {{ product.price }}</p>
+        <p>Stock: {{ product.stock }}</p>
+        <button @click="getProductId(product.id)" class="btn btn-outline-primary">Edit</button>
+        <button @click="deleteProduct(product.id)" class="btn btn-outline-danger mx-2">Delete</button>
+      </div>
     </div>
+    <FormEdit
+      v-if="isEdit"
+      :product="productToEdit"
+      @cancel="cancel"
+      @editProduct="editProduct"
+    ></FormEdit>
   </div>
 </template>
 
 <script>
+import FormEdit from './FormEdit'
 export default {
-  name: 'CardProducts'
-
+  name: 'CardProducts',
+  components: {
+    FormEdit
+  },
+  props: ['product', 'productToEdit'],
+  data () {
+    return {
+      isEdit: false
+    }
+  },
+  methods: {
+    cancel () {
+      this.isEdit = false
+    },
+    getProductId (id) {
+      this.isEdit = true
+      this.$emit('getProductId', id)
+    },
+    editProduct (payload) {
+      this.isEdit = false
+      this.$emit('editProduct', payload)
+    },
+    deleteProduct (id) {
+      this.$emit('deleteProduct', id)
+    }
+  }
 }
 </script>
 
-<style>
-
+<style scoped>
+img {
+  width: 18.5rem;
+  height: 17rem;
+}
+.card-text {
+  max-height: 3rem;
+  overflow-y: auto;
+}
 </style>

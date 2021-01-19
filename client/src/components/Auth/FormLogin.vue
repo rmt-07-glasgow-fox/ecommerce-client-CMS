@@ -1,8 +1,8 @@
 <template>
-    <div class="d-flex justify-content-between w-75 mx-auto mt-5">
+    <div class="d-flex justify-content-between w-75 mx-auto mt-5 pt-5">
       <div class="w-50 p-3 text-center">
         <h3>This app just for administrator area</h3>
-        <img class="img" src="../../assets/bg.svg" alt="">
+        <img class="img" src="../../assets/cms.svg" alt="">
       </div>
       <div class="w-50 rounded">
         <div class="shadow rounded">
