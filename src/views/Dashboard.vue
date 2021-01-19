@@ -1,23 +1,28 @@
 <template>
   <div>
     <navbar @handleLogout="handleLogout"/>
-    <section class="table-product container mt-3 text-center">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">id</th>
-            <th scope="col">Image</th>
-            <th scope="col">Title</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <product-list v-for="product in products" :key="product.id" :product="product" />
-        </tbody>
-      </table>
-    </section>
+    <div class="container mt-3">
+      <div class="row mb-3 mt-3">
+        <div class="col">
+          <b-button variant="primary" @click="handleAddNewProduct" >Add new product</b-button>
+        </div>
+      </div>
+      <router-view @newProductData="handleAddProduct"/>
+      <div class="row">
+        <div class="col table-product text-center">
+          <table class="table">
+            <thead>
+              <tr>
+                <th v-for="(field, idx) in fields" :key="idx" scope="col">{{ field }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <product-list v-for="product in products" :key="product.id" :product="product" />
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,11 +32,22 @@ import ProductList from '../components/ProductList.vue'
 
 export default {
   name: 'Dashboard',
+  data () {
+    return {
+      fields: ['id', 'Image', 'Title', 'Price', 'Stock', 'Action']
+    }
+  },
   components: { Navbar, ProductList },
   props: ['products', 'fetchProducts'],
   methods: {
     handleLogout (payload) {
       this.$emit('handleLogout', payload)
+    },
+    handleAddNewProduct () {
+      this.$router.push('/addproduct')
+    },
+    handleAddProduct (payload) {
+      this.$emit('handleAddProduct', payload)
     }
   },
   created () {

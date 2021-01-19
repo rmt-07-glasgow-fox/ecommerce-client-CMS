@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <router-view @loginData="handleLogin" @handleLogout="isLoggedOut" :products="this.products" :fetchProducts="fetchProducts"/>
+    <router-view
+      @loginData="handleLogin"
+      @handleLogout="isLoggedOut"
+      :products="this.products"
+      :fetchProducts="fetchProducts"
+      @handleAddProduct="handleAddProduct"/>
   </div>
 </template>
 
@@ -54,6 +59,29 @@ export default {
       })
         .then(res => {
           this.products = res.data
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
+    handleAddProduct (payload) {
+      console.log(payload)
+      axios({
+        method: 'POST',
+        url: 'products',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: payload.price,
+          stock: payload.stock
+        }
+      })
+        .then(res => {
+          this.fetchProducts()
+          this.$router.push('/dashboard')
         })
         .catch(err => {
           console.log(err.response)

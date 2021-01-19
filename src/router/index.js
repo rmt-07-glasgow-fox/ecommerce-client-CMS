@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Auth from '../views/Auth.vue'
 import Page404 from '../views/Page404.vue'
 import Dashboard from '../views/Dashboard.vue'
+import AddNewProduct from '../components/AddNewProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -15,7 +16,14 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: Dashboard
+    component: Dashboard,
+    children: [
+      {
+        path: '/addproduct',
+        name: 'AddNewProduct',
+        component: AddNewProduct
+      }
+    ]
   },
   {
     path: '*',
