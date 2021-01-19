@@ -13,11 +13,14 @@ import ProductList from '../components/ProductList.vue'
 export default {
   name: 'Dashboard',
   components: { Navbar, ProductList },
-  props: ['products'],
+  props: ['products', 'fetchProducts'],
   methods: {
     handleLogout (payload) {
       this.$emit('handleLogout', payload)
     }
+  },
+  created () {
+    this.fetchProducts()
   }
 }
 </script>

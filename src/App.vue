@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view @loginData="handleLogin" @handleLogout="isLoggedOut" :products="this.products"/>
+    <router-view @loginData="handleLogin" @handleLogout="isLoggedOut" :products="this.products" :fetchProducts="fetchProducts"/>
   </div>
 </template>
 
