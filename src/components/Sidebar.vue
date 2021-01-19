@@ -17,11 +17,6 @@
         <router-link class="nav-child" to="/categories"><b-icon icon="bookmark-fill" class="mr-2"/>Categories</router-link>
       </div>
     </div>
-    <template #footer="{ hide }">
-      <div class="d-flex bg-dark text-light align-items-center justify-content-end px-3 py-2">
-      <b-button variant="danger" size="sm" @click="hide">Logout</b-button>
-      </div>
-    </template>
   </b-sidebar>
 </template>
 
