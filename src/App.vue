@@ -1,32 +1,76 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view @loginData="handleLogin" @handleLogout="isLoggedOut" :products="this.products"/>
   </div>
 </template>
+
+<script>
+import axios from './api/axios'
+
+export default {
+  data () {
+    return {
+      products: []
+    }
+  },
+  components: { },
+  methods: {
+    handleLogin (payload) {
+      axios({
+        method: 'POST',
+        url: 'login',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+        .then(res => {
+          localStorage.setItem('access_token', res.data.access_token)
+          localStorage.setItem('email', res.data.email)
+          this.email = ''
+          this.password = ''
+          this.$router.push('/dashboard')
+          this.fetchProducts()
+        })
+        .catch(err => {
+          console.log(err.response)
+          this.email = ''
+          this.password = ''
+        })
+    },
+    isLoggedOut (payload) {
+      if (payload) {
+        localStorage.clear()
+        this.$router.push('/')
+      }
+    },
+    fetchProducts () {
+      axios({
+        method: 'GET',
+        url: 'products',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(res => {
+          this.products = res.data
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    }
+  },
+  created () { }
+}
+</script>
 
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  background-color: #e4e3e3;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
