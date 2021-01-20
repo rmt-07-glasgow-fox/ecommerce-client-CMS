@@ -2,26 +2,28 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from '../views/Login.vue';
 import Dashboard from '../views/Dashboard.vue';
-import store from '../store/index';
+import Home from '../components/home/Home.vue';
+import Banners from '../components/banners/Banners.vue';
+import Categories from '../components/categories/Categories.vue';
+import Products from '../components/products/Products.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    redirect: '/login',
-  },
-  {
     path: '/login',
     name: 'Login',
     component: Login,
-    meta: { requiresUnauth: true },
   },
   {
-    path: '/dashboard',
-    name: 'Dashboard',
+    path: '/',
     component: Dashboard,
-    meta: { requiresAuth: true },
+    children: [
+      { path: '', name: 'Home', component: Home },
+      { path: 'banners', name: 'Banners', component: Banners },
+      { path: 'categories', name: 'Categories', component: Categories },
+      { path: 'products', name: 'Products', component: Products },
+    ],
   },
 ];
 
@@ -32,10 +34,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, _, next) => {
-  if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
+  if (to.name !== 'Login' && !localStorage.getItem('access_token')) {
     next('/login');
-  } else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
-    next('/dashboard');
+  } else if (to.name === 'Login' && localStorage.getItem('access_token')) {
+    next('/');
   } else {
     next();
   }

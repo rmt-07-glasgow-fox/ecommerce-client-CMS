@@ -37,9 +37,13 @@ export default {
         this.email = '';
         this.password = '';
 
-        this.$router.replace('/dashboard');
+        this.$router.replace('/');
       } catch (err) {
-        console.log(err);
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: err,
+        });
       }
     },
   },
