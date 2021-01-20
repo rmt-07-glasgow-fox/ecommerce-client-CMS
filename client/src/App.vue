@@ -4,7 +4,6 @@
       :getProducts="getProducts"
       :products="products"
       :productToEdit="productToEdit"
-      @handleLogout="handleLogout"
       @addProduct="addProduct"
       @getProductId="getProductId"
       @editProduct="handleEditProduct"
@@ -24,28 +23,6 @@ export default {
     }
   },
   methods: {
-    // handleLogin (payload) {
-    //   console.log(payload)
-    //   axios({
-    //     method: 'POST',
-    //     url: '/login',
-    //     data: {
-    //       email: payload.email,
-    //       password: payload.password
-    //     }
-    //   }).then(res => {
-    //     console.log(res.data)
-    //     this.user = {}
-    //     localStorage.setItem('access_token', res.data.access_token)
-    //     this.$router.push('/products')
-    //   }).catch(err => {
-    //     console.log(err)
-    //   })
-    // },
-    handleLogout () {
-      localStorage.clear()
-      this.$router.push('/login')
-    },
     getProducts () {
       const accessToken = localStorage.getItem('access_token')
       axios({

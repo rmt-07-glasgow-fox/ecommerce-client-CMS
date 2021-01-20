@@ -58,7 +58,8 @@ export default {
   },
   methods: {
     handleLogout () {
-      this.$emit('handleLogout')
+      localStorage.clear()
+      this.$router.push('/login')
     }
   }
 

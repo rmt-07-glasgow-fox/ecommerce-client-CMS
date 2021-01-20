@@ -1,8 +1,6 @@
 <template>
   <div class="d-flex justify-content-start">
-    <Navbar
-      @handleLogout="handleLogout"
-    ></Navbar>
+    <Navbar></Navbar>
     <router-view
       :products="products"
       :productToEdit="productToEdit"
