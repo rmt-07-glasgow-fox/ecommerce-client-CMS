@@ -16,6 +16,7 @@ export default {
   methods: {
     checkAuth () {
       if (localStorage.getItem('access_token')) {
+        this.$router.push('/products')
         this.fetchProducts()
       } else {
         this.$router.push('/')
