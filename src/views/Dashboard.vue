@@ -54,7 +54,7 @@
                 Account
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Logout</a>
+                <a class="dropdown-item" @click="logout" href="#">Logout</a>
               </div>
             </li>
           </ul>
@@ -76,6 +76,12 @@ export default {
     return {
       toggled: true,
     };
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.replace('/login');
+    },
   },
 };
 </script>
