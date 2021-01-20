@@ -10,20 +10,25 @@
       <router-view />
       <div class="row">
         <div class="col table-product text-center">
-          <table class="table">
-            <thead>
-              <tr>
-                <th v-for="(field, idx) in fields" :key="idx" scope="col">{{ field }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <product-list
-                v-for="(product, idx) in products"
-                :key="product.id"
-                :product="product"
-                :idx="idx"/>
-            </tbody>
-          </table>
+          <div v-if="products.length > 0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th v-for="(field, idx) in fields" :key="idx" scope="col">{{ field }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <product-list
+                  v-for="(product, idx) in products"
+                  :key="product.id"
+                  :product="product"
+                  :idx="idx"/>
+              </tbody>
+            </table>
+          </div>
+          <div v-else>
+            <h1>No Data. Please create a new one</h1>
+          </div>
         </div>
       </div>
     </div>
