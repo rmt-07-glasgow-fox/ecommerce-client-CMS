@@ -10,20 +10,25 @@
       <router-view />
       <div class="row">
         <div class="col table-product text-center">
-          <table class="table">
-            <thead>
-              <tr>
-                <th v-for="(field, idx) in fields" :key="idx" scope="col">{{ field }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <banner-list
-                v-for="(banner, idx) in banners"
-                :key="banner.id"
-                :banner="banner"
-                :idx="idx"/>
-            </tbody>
-          </table>
+          <div v-if="banners.length > 0">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th v-for="(field, idx) in fields" :key="idx" scope="col">{{ field }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <banner-list
+                  v-for="(banner, idx) in banners"
+                  :key="banner.id"
+                  :banner="banner"
+                  :idx="idx"/>
+              </tbody>
+            </table>
+          </div>
+          <div v-else>
+            <h1>No Banner. Please create a new one</h1>
+          </div>
         </div>
       </div>
     </div>
