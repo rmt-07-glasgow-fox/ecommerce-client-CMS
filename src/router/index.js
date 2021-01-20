@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
+// import Products from '../components/Products.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,18 @@ const routes = [
       }
     }
   },
+  // {
+  //   path: '/products',
+  //   name: 'products',
+  //   component: Products,
+  //   beforeEnter: (to, from, next) => {
+  //     if (localStorage.access_token) {
+  //       next()
+  //     } else {
+  //       router.push('/')
+  //     }
+  //   }
+  // },
   {
     path: '/about',
     name: 'About',

@@ -34,14 +34,46 @@
 import { AtomSpinner } from 'epic-spinners'
 export default {
   name: 'Login',
-  props: ['loading', 'email', 'password'],
+  data () {
+    return {
+      email: '',
+      password: '',
+      loading: false
+    }
+  },
   methods: {
-    login () {
-      const payload = {
-        email: this.email,
-        password: this.password
+    async login () {
+      try {
+        this.loading = true
+        const payload = { email: this.email, password: this.password }
+        const response = await this.$store.dispatch('login', payload)
+        const accessToken = response.data.access_token
+        localStorage.setItem('access_token', accessToken)
+        this.successLogin()
+      } catch (err) {
+        this.loading = false
+        if (err.response.status === 400) {
+          this.$swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Not Authorized'
+          })
+        }
       }
-      this.$emit('login', payload)
+    },
+    successLogin () {
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        icon: 'success',
+        title: 'Success'
+      }).then(() => {
+        this.loading = false
+        this.$router.push('/dashboard')
+        this.clearFormLogin()
+      })
     }
   },
 

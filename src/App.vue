@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import axios from '../src/api/axios.js'
 
 export default {
   name: 'App',
@@ -28,34 +27,11 @@ export default {
     },
 
     async login (payload) {
-      try {
-        this.loading = true
-        const response = await axios.post('/login', payload)
-        const accessToken = response.data.access_token
-        this.$swal({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          icon: 'success',
-          title: 'Success'
-        }).then(() => {
-          this.loading = false
-          this.$router.push('/dashboard')
-          localStorage.setItem('access_token', accessToken)
-          this.clearFormLogin()
-        })
-      } catch (err) {
-        console.log(err.response.status)
-        this.loading = false
-        if (err.response.status === 400) {
-          this.$swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Not Authorized'
-          })
-        }
-      }
+    }
+  },
+  created () {
+    if (localStorage.access_token) {
+      this.$router.push('/dashboard')
     }
   }
 }
