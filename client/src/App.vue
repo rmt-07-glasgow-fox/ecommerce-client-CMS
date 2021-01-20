@@ -2,7 +2,6 @@
   <div id="app">
     <router-view
       :productToEdit="productToEdit"
-      @addProduct="addProduct"
       @getProductId="getProductId"
       @editProduct="handleEditProduct"
       @deleteProduct="deleteProduct"
@@ -35,22 +34,22 @@ export default {
     //     console.log(err)
     //   })
     // },
-    addProduct (payload) {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'POST',
-        url: '/products',
-        headers: {
-          access_token: accessToken
-        },
-        data: payload
-      }).then(res => {
-        console.log(res.data)
-        this.getProducts()
-      }).catch(err => {
-        console.log(err)
-      })
-    },
+    // addProduct (payload) {
+    //   const accessToken = localStorage.getItem('access_token')
+    //   axios({
+    //     method: 'POST',
+    //     url: '/products',
+    //     headers: {
+    //       access_token: accessToken
+    //     },
+    //     data: payload
+    //   }).then(res => {
+    //     console.log(res.data)
+    //     this.getProducts()
+    //   }).catch(err => {
+    //     console.log(err)
+    //   })
+    // },
     getProductId (id) {
       const accessToken = localStorage.getItem('access_token')
       axios({

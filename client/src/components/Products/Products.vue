@@ -12,9 +12,7 @@
       <div class="w-70 rounded">
         <div v-if="isAdd" class="p-3 mb-2 bg-white rounded shadow-sm">
           <FormAdd
-            :isAdd="isAdd"
-            @cancel="cancel"
-            @addProduct="addProduct"
+            @closeAdd="closeAdd"
           ></FormAdd>
         </div>
         <div :class="checkAdd">
@@ -58,9 +56,8 @@ export default {
     }
   },
   methods: {
-    addProduct (payload) {
+    closeAdd () {
       this.isAdd = false
-      this.$emit('addProduct', payload)
     },
     getProductId (id) {
       this.$emit('getProductId', id)
@@ -71,9 +68,6 @@ export default {
     deleteProduct (id) {
       this.product = {}
       this.$emit('deleteProduct', id)
-    },
-    cancel () {
-      this.isAdd = false
     },
     productDetail (payload) {
       this.isDetail = true

@@ -16,7 +16,6 @@ export default new Vuex.Store({
   },
   actions: {
     handleLogin (context, payload) {
-      console.log(payload)
       axios({
         method: 'POST',
         url: '/login',
@@ -43,6 +42,22 @@ export default new Vuex.Store({
       }).then(res => {
         console.log(res.data)
         context.commit('setProducts', res.data)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    addProduct (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'POST',
+        url: '/products',
+        headers: {
+          access_token: accessToken
+        },
+        data: payload
+      }).then(res => {
+        console.log(res.data)
+        context.dispatch('getProducts')
       }).catch(err => {
         console.log(err)
       })

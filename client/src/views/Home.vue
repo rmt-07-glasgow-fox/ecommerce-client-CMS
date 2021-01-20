@@ -3,7 +3,6 @@
     <Navbar></Navbar>
     <router-view
       :productToEdit="productToEdit"
-      @addProduct="addProduct"
       @getProductId="getProductId"
       @editProduct="editProduct"
       @deleteProduct="deleteProduct"
@@ -21,9 +20,6 @@ export default {
   },
   props: ['productToEdit'],
   methods: {
-    addProduct (payload) {
-      this.$emit('addProduct', payload)
-    },
     getProductId (id) {
       this.$emit('getProductId', id)
     },

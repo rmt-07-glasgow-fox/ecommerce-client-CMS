@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="addProducts" class="row g-3">
+    <form @submit.prevent="addProduct" class="row g-3">
       <div class="col-md-6">
         <input v-model="product.name" type="text" class="form-control" placeholder="Name">
       </div>
@@ -18,7 +18,7 @@
       </div>
       <div class="col-12">
         <button type="submit" class="btn btn-outline-primary">Add</button>
-        <button @click="cancel" class="btn btn-outline-secondary mx-2">Cancel</button>
+        <button @click="closeAdd" class="btn btn-outline-secondary mx-2">Cancel</button>
       </div>
     </form>
   </div>
@@ -27,24 +27,18 @@
 <script>
 export default {
   name: 'FormAdd',
-  props: ['isAdd'],
   data () {
     return {
-      product: {
-        name: '',
-        price: '',
-        stock: '',
-        image_url: '',
-        description: ''
-      }
+      product: {}
     }
   },
   methods: {
-    cancel () {
-      this.$emit('cancel')
+    closeAdd () {
+      this.$emit('closeAdd')
     },
-    addProducts () {
-      this.$emit('addProduct', this.product)
+    addProduct () {
+      this.closeAdd()
+      this.$store.dispatch('addProduct', this.product)
     }
   }
 }
