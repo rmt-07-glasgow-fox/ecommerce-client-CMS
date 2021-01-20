@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import axios from '../api/axios'
 import router from '../router'
 
@@ -46,9 +47,25 @@ const bannerStore = {
         .then(res => {
           router.push('/banners')
           this.dispatch('fetchBanners')
+          Vue.swal({
+            title: 'Success',
+            text: 'Your banner has been added!',
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false
+          })
         })
         .catch(err => {
           console.log(err.response)
+          const errors = err.response.data.errors.join('\n')
+          Vue.swal({
+            title: 'Oopsie!',
+            text: errors,
+            icon: 'error'
+          })
         })
     },
     getBannerById (context, payload) {
@@ -84,25 +101,63 @@ const bannerStore = {
           console.log(res.data)
           router.push('/banners')
           this.dispatch('fetchBanners')
+          Vue.swal({
+            title: 'Success',
+            text: res.data.message,
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false
+          })
         })
         .catch(err => {
           console.log(err.response)
+          const errors = err.response.data.errors.join('\n')
+          Vue.swal({
+            title: 'Oopsie!',
+            text: errors,
+            icon: 'error'
+          })
         })
     },
     deleteBannerById (context, payload) {
-      axios({
-        method: 'DELETE',
-        url: 'banners/' + payload,
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        }
+      Vue.swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
       })
+        .then((result) => {
+          if (result.isConfirmed) {
+            return axios({
+              method: 'DELETE',
+              url: 'banners/' + payload,
+              headers: {
+                access_token: localStorage.getItem('access_token')
+              }
+            })
+          }
+        })
         .then(res => {
-          console.log(res.data)
           this.dispatch('fetchBanners')
+          Vue.swal(
+            'Deleted!',
+            res.data.message,
+            'success'
+          )
         })
         .catch(err => {
-          console.log(err.response)
+          const errors = err.response.data.errors.join('\n')
+          Vue.swal({
+            title: 'Oopsie!',
+            text: errors,
+            icon: 'error'
+          })
         })
     }
   }
