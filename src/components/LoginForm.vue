@@ -6,22 +6,33 @@
     <h3 class="text-center" style="font-weight: 600">Welcome back!</h3>
     <p class="text-center">Login to get going.</p>
 
-    <form>
+    <form @submit.prevent="login">
       <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" />
+        <label for="email-login" class="form-label">Email address</label>
+        <input
+          v-model="payload.email"
+          type="email"
+          class="form-control"
+          id="email-login"
+        />
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <label for="password-login" class="form-label">Password</label>
         <input
-          type="password"
+          v-model="payload.password"
+          :type="passwordType"
           class="form-control"
-          id="exampleInputPassword1"
+          id="password-login"
         />
       </div>
       <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1"
+        <input
+          @click="showPassword"
+          type="checkbox"
+          class="form-check-input"
+          id="show-password-login"
+        />
+        <label class="form-check-label" for="show-password-login"
           >Show password</label
         >
       </div>
@@ -29,7 +40,6 @@
         type="submit"
         class="btn btn-primary w-100"
         style="font-weight: 600; letter-spacing: 2px"
-        @click.prevent="login"
       >
         LOGIN
       </button>
@@ -44,9 +54,21 @@
 <script>
 export default {
   name: 'LoginForm',
+  data () {
+    return {
+      passwordType: 'password',
+      payload: {
+        email: '',
+        password: ''
+      }
+    }
+  },
   methods: {
     login () {
-      this.$router.push('admin')
+      this.$store.dispatch('login', this.payload)
+    },
+    showPassword () {
+      this.passwordType === 'password' ? this.passwordType = 'text' : this.passwordType = 'password'
     }
   }
 }
