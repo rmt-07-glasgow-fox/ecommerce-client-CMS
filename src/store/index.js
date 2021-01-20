@@ -57,9 +57,10 @@ export default new Vuex.Store({
         console.log(err)
       }
     },
-    async addProduct(context, payload) {
+    async addProduct(context, newProduct) {
       try {
-        await axios.post('/products', payload, { headers: { access_token: localStorage.access_token } })
+        console.log('>>> newProduct in store', newProduct)
+        await axios.post('/products', newProduct, { headers: { access_token: localStorage.access_token } })
         this.dispatch('getAllProducts')
         this.dispatch('getAllBrands')
       } catch (err) {

@@ -54,9 +54,6 @@ import { mapState } from "vuex";
 import NavigationBar from "../components/NavigationBar";
 
 export default {
-  data() {
-    return {};
-  },
   methods: {
     deleteProduct(idProduct) {
       // console.log(">>> delete product", idProduct);
@@ -67,7 +64,7 @@ export default {
     },
   },
   components: {
-    NavigationBar
+    NavigationBar,
   },
   created() {
     this.$store.dispatch("getAllProducts");
