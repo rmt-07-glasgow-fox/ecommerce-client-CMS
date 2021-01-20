@@ -5,7 +5,7 @@
     <button class="btn btn-danger btn-sm">Logout</button>
   </nav>
   <br>
-  <button type="button" class="btn btn-info btn-sm">Add Product</button>
+  <router-link to="/addProduct"><button type="button" class="btn btn-info btn-sm">Add Product</button></router-link>
   <br>
   <div class="container">
     <div class="row title">

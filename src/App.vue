@@ -14,9 +14,21 @@ export default {
     }
   },
   methods: {
+    checkAuth () {
+      if (localStorage.getItem('access_token')) {
+        this.fetchProducts()
+      } else {
+        this.$router.push('/')
+      }
+    },
     fetchProducts () {
-      axios
-        .get('/products')
+      axios({
+        method: 'GET',
+        url: '/products',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
         .then(({ data }) => {
           this.products = data
         })
@@ -26,7 +38,7 @@ export default {
     }
   },
   created () {
-    this.fetchProducts()
+    this.checkAuth()
   }
 }
 </script>
@@ -38,7 +50,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   justify-content: center;
   align-items: center;
-  color: #edf0f3;
 }
 
 #nav a {

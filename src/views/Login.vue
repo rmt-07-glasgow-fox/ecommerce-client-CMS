@@ -8,10 +8,18 @@
           <h2>Admin Login</h2>
           <form action="" @submit.prevent="login">
             <div class="inputBox">
-              <input type="text" placeholder="Username" v-model="username">
+              <input
+                type="text"
+                placeholder="Email"
+                v-model="email"
+                >
             </div>
             <div class="inputBox">
-              <input type="password" placeholder="Password" v-model="password">
+              <input
+                type="password"
+                placeholder="Password"
+                v-model="password"
+                >
             </div>
             <div class="inputBox">
               <input type="submit" value="Login">
@@ -22,6 +30,39 @@
   </section>
 </div>
 </template>
+
+<script>
+import axios from '../api/axios'
+
+export default {
+  name: 'Login',
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    login () {
+      axios({
+        method: 'POST',
+        url: '/login',
+        data: {
+          email: this.email,
+          password: this.password
+        }
+      })
+        .then(({ data }) => {
+          localStorage.setItem('access_token', data.access_token)
+          this.$router.push('products')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  }
+}
+</script>
 
 <style lang="css" scoped>
   @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
@@ -127,4 +168,7 @@ video {
   padding: 4px 5px;
 }
 
+h2 {
+  color:#fff;
+}
 </style>

@@ -133,4 +133,8 @@ video {
   padding: 4px 5px;
 }
 
+h2 {
+  color: #fff
+}
+
 </style>
