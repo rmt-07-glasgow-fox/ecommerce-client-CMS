@@ -1,5 +1,16 @@
 <template>
   <div class="dashboard">
-    <h1>This is the CMS dashboard</h1>
+    <NavbarDashboard />
+    <h1>Dashboard</h1>
+    <p>Welcome, admin!</p>
   </div>
 </template>
+
+<script>
+import NavbarDashboard from '../components/NavbarDashboard'
+export default {
+  components: {
+    NavbarDashboard
+  }
+}
+</script>
