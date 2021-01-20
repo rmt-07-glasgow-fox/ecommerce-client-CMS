@@ -15,7 +15,7 @@ const routes = [
     children: [
       {
         path: '/add',
-        component: EddProduct
+        component: AddProduct
       },
       {
         path: '/edit',
