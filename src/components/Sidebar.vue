@@ -8,9 +8,6 @@
         <router-link class="nav-child" to="/"><b-icon icon="house-door-fill" class="mr-2"/>Home</router-link>
       </div>
       <div class="mt-3">
-        <router-link class="nav-child" to="/products"><b-icon icon="list-ul" class="mr-2"/>Products</router-link>
-      </div>
-      <div class="mt-3">
         <router-link class="nav-child" to="/banners"><b-icon icon="card-text" class="mr-2"/>Banners</router-link>
       </div>
       <div class="mt-3">
