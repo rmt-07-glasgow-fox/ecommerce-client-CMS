@@ -9,8 +9,6 @@
 </template>
 
 <script>
-// import axios from './api/axiosInstance'
-
 export default {
   name: 'App',
   data () {

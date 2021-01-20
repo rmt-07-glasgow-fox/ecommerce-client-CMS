@@ -8,12 +8,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    email: '',
-    password: ''
+    username: ''
   },
   mutations: {
     insertProduct (state, payload) {
       state.products = payload
+    },
+    getUserName (state, payload) {
+      state.username = payload.email.split('@')[0]
     }
   },
   actions: {
@@ -33,8 +35,8 @@ export default new Vuex.Store({
       axios
         .post('/login', payload)
         .then(({ data }) => {
-          console.log(payload)
           localStorage.setItem('access_token', data)
+          context.commit('getUserName', payload)
           router.push('/dashboard')
         })
         .catch(console.log)
