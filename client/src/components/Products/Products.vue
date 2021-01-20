@@ -19,13 +19,13 @@
         </div>
         <div :class="checkAdd">
           <ListProducts
-            :products="products"
             @productDetail="productDetail"
           ></ListProducts>
         </div>
       </div>
       <div class="w-30 p-3 bg-white rounded shadow-sm">
         <CardProducts
+          v-if="isDetail"
           :product="product"
           :productToEdit="productToEdit"
           @getProductId="getProductId"
@@ -49,7 +49,7 @@ export default {
     ListProducts,
     CardProducts
   },
-  props: ['products', 'productToEdit'],
+  props: ['productToEdit'],
   data () {
     return {
       isAdd: false,
@@ -93,18 +93,18 @@ export default {
         return { 'table-wraper2': true }
       }
     }
-  },
-  mounted () {
-    console.log('mounted')
-    this.defaultProductDetail()
-  },
-  updated () {
-    console.log('updated')
-    this.defaultProductDetail()
-  },
-  destroyed () {
-    console.log('destroy')
   }
+  // mounted () {
+  //   console.log('mounted')
+  //   this.defaultProductDetail()
+  // },
+  // updated () {
+  //   console.log('updated')
+  //   this.defaultProductDetail()
+  // },
+  // destroyed () {
+  //   console.log('destroy')
+  // }
 }
 </script>
 

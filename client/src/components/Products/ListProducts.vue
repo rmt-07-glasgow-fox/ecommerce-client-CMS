@@ -26,13 +26,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'ListProducts',
-  props: ['products'],
   methods: {
     productDetail (product) {
       this.$emit('productDetail', product)
     }
+  },
+  computed: {
+    ...mapState([
+      'products'
+    ])
+  },
+  created () {
+    console.log('created')
+    this.$store.dispatch('getProducts')
   }
 }
 </script>

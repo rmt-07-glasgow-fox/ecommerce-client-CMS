@@ -2,7 +2,6 @@
   <div class="d-flex justify-content-start">
     <Navbar></Navbar>
     <router-view
-      :products="products"
       :productToEdit="productToEdit"
       @addProduct="addProduct"
       @getProductId="getProductId"
@@ -20,7 +19,7 @@ export default {
   components: {
     Navbar
   },
-  props: ['getProducts', 'products', 'productToEdit'],
+  props: ['productToEdit'],
   methods: {
     addProduct (payload) {
       this.$emit('addProduct', payload)
@@ -37,9 +36,6 @@ export default {
     handleLogout () {
       this.$emit('handleLogout')
     }
-  },
-  created () {
-    this.getProducts()
   }
 }
 </script>

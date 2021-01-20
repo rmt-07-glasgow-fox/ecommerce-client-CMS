@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <router-view
-      :getProducts="getProducts"
-      :products="products"
       :productToEdit="productToEdit"
       @addProduct="addProduct"
       @getProductId="getProductId"
@@ -18,26 +16,25 @@ import axios from './api/axios'
 export default {
   data () {
     return {
-      products: [],
       productToEdit: {}
     }
   },
   methods: {
-    getProducts () {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'GET',
-        url: '/products',
-        headers: {
-          access_token: accessToken
-        }
-      }).then(res => {
-        console.log(res.data)
-        this.products = res.data
-      }).catch(err => {
-        console.log(err)
-      })
-    },
+    // getProducts () {
+    //   const accessToken = localStorage.getItem('access_token')
+    //   axios({
+    //     method: 'GET',
+    //     url: '/products',
+    //     headers: {
+    //       access_token: accessToken
+    //     }
+    //   }).then(res => {
+    //     console.log(res.data)
+    //     this.products = res.data
+    //   }).catch(err => {
+    //     console.log(err)
+    //   })
+    // },
     addProduct (payload) {
       const accessToken = localStorage.getItem('access_token')
       axios({
