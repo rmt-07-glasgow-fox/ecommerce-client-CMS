@@ -25,7 +25,7 @@
         <span class="align-text-bottom mx-3">Products</span>
       </div>
     </router-link>
-    <router-link to="/banner" class="router">
+    <router-link to="/banners" class="router">
       <div class="d-flex justify-content-start align-items-end p-2 mt-2 rounded">
         <span>
           <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

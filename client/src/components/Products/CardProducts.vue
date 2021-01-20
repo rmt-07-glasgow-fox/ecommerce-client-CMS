@@ -27,7 +27,6 @@ export default {
   components: {
     FormEdit
   },
-  // props: ['product'],
   data () {
     return {
       isEdit: false
