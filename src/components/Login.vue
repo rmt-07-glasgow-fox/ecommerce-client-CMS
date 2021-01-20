@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     login () {
-      this.$emit('login', this.email, this.password)
+      this.$store.dispatch('login', { email: this.email, password: this.password })
     }
   }
 }

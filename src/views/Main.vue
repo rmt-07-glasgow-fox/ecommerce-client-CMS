@@ -2,29 +2,24 @@
   <div>
     <input type="checkbox" id="check" checked>
     <div class="sidebar">
-      <a href="" @click.prevent="navigateToProduct"><i class="fas fa-desktop"></i><span>Dashboard</span></a>
-      <a href="#"><i class="fas fa-cogs"></i><span>Components</span></a>
-      <a href="#"><i class="fas fa-table"></i><span>Tables</span></a>
-      <a href="#"><i class="fas fa-th"></i><span>Forms</span></a>
-      <a href="" @click.prevent="logout"><i class="fas fa-sign-out"></i><span>Logout</span></a>
+      <a href="" @click.prevent="navigateToProduct"><i class="fas fa-desktop"></i><span>Product</span></a>
+      <a href="" @click.prevent="navigateToCategory"><i class="fas fa-th"></i><span>Category</span></a>
+      <a href="" @click.prevent="navigateToBanner"><i class="fas fa-table"></i><span>Banner</span></a>
+      <a href="" @click.prevent="logout" class="mt-5 text-danger"><i class="fas fa-sign-out"></i><span>Logout</span></a>
       <a href="" @click.prevent="changeSideBar" class="hide"><i class="fas fa-sliders-h"></i><span>Hide</span></a>
     </div>
     <!--sidebar end-->
 
     <div class="content">
-      <Content
-        @addProduct="addProduct"
-        :products="products"
-      />
+      <div class="row">
+        <router-view />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Content from '../components/Content.vue'
 export default {
-  components: { Content },
-  props: ['products'],
   name: 'Main',
   data () {
     return {
@@ -40,14 +35,30 @@ export default {
       }
     },
     logout () {
-      this.$emit('logout')
+      this.$store.dispatch('logout')
     },
     navigateToProduct () {
-      this.$router.push('/')
+      if (this.$route.path !== '/') this.$router.push('/')
+    },
+    navigateToCategory () {
+      if (this.$route.path !== '/categories') this.$router.push('/categories')
+    },
+    navigateToBanner () {
+      if (this.$route.path !== '/banners') this.$router.push('/banners')
     },
     addProduct (name, price, stock, imageUrl) {
       this.$emit('addProduct', name, price, stock, imageUrl)
+    },
+    getProduct () {
+      this.$store.dispatch('getProduct')
+    },
+    getCategory () {
+      this.$store.dispatch('getCategory')
     }
+  },
+  created () {
+    this.getProduct()
+    this.getCategory()
   }
 }
 </script>

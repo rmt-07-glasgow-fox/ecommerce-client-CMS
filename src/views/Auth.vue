@@ -1,8 +1,6 @@
 <template>
   <div class="d-flex justify-content-center align-items-center bg-login">
-    <login
-      @login="login"
-    />
+    <login />
   </div>
 </template>
 
@@ -14,9 +12,7 @@ export default {
   components: { Login },
   name: 'Auth',
   methods: {
-    login (email, password) {
-      this.$emit('login', email, password)
-    }
+
   }
 }
 </script>

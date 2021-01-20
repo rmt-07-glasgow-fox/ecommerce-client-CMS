@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Auth from '../views/Auth.vue'
-import Content from '../components/Content'
 import Product from '../components/Product'
-import ProductAdd from '../components/ProductAdd'
+import Category from '../components/Category'
+import Banner from '../components/Banner'
 
 Vue.use(VueRouter)
 
@@ -15,7 +15,7 @@ const routes = [
   },
   {
     path: '/',
-    name: 'Main',
+    name: '',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -23,17 +23,16 @@ const routes = [
     children: [
       {
         path: '/',
-        component: Content,
-        children: [
-          {
-            path: '/',
-            component: Product
-          },
-          {
-            path: '/add',
-            component: ProductAdd
-          }
-        ]
+        name: 'Product',
+        component: Product
+      },
+      {
+        path: '/categories',
+        component: Category
+      },
+      {
+        path: '/banners',
+        component: Banner
       }
     ]
   }
@@ -43,6 +42,12 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/login' && !localStorage.access_token) next({ name: 'Auth' })
+  else if (to.path === '/login' && localStorage.access_token) next({ name: 'Product' })
+  else next()
 })
 
 export default router
