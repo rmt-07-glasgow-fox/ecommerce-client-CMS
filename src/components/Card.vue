@@ -19,10 +19,10 @@ export default {
   props: ['item'],
   methods: {
     getEdit (id) {
-      this.$emit('getEdit', id)
+      this.$store.dispatch('getEdit', id)
     },
     destroy (id) {
-      this.$emit('destroy', id)
+      this.$store.dispatch('destroy', id)
     }
   }
 }

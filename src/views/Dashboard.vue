@@ -2,17 +2,15 @@
   <div>
     <div>
       <Navbar
-      @logout="logout"
       />
     </div><br><br>
+    <div><h3 style="margin-left:20px;">Your Products: </h3></div>
     <div class="container">
     <div class="row">
       <Card
       v-for="item in items"
       :key="item.id"
       :item="item"
-      @getEdit="getEdit"
-      @destroy="destroy"
       />
     </div>
   </div>
@@ -26,24 +24,19 @@ import Navbar from '@/components/Navbar'
 
 export default {
   name: 'Dashboard',
-  props: ['items'],
   components: {
     Card,
     Navbar
   },
   methods: {
-    logout () {
-      this.$emit('logout')
-    },
-    getEdit (id) {
-      this.$emit('getEdit', id)
-    },
-    destroy (id) {
-      this.$emit('destroy', id)
-    }
   },
   created () {
-    this.$emit('fetchAllData')
+    this.$store.dispatch('fetchAllData')
+  },
+  computed: {
+    items () {
+      return this.$store.state.items
+    }
   }
 }
 </script>

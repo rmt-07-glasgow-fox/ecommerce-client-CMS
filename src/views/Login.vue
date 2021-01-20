@@ -1,7 +1,7 @@
 <template>
   <div class="container " style="display: flex; flex-direction: column; height: 100vh; width: 50vh; justify-content: center; align-item:center; ">
   <form>
-    <p style="color: red;">{{loginErr}}</p>
+    <p style="color: red;">{{errHandler}}</p>
   <div class="form-group">
   <label for="exampleInputEmail1">Email address</label>
   <input type="email" class="form-control" id="exampleInputEmail1" v-model="user.email" aria-describedby="emailHelp" placeholder="Enter email">
@@ -27,10 +27,14 @@ export default {
       }
     }
   },
-  props: ['loginErr'],
   methods: {
     login () {
-      this.$emit('login', this.user)
+      this.$store.dispatch('login', this.user)
+    }
+  },
+  computed: {
+    errHandler () {
+      return this.$store.state.loginErr
     }
   }
 }

@@ -24,7 +24,7 @@ export default {
   name: 'Navbar',
   methods: {
     logout () {
-      this.$emit('logout')
+      this.$store.dispatch('logout')
     },
     add () {
       this.$router.push('/products/add')

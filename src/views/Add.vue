@@ -2,13 +2,12 @@
   <div>
     <div>
     <Navbar
-    @logout="logout"
     />
     </div>
     <div class="container" style="display: flex; flex-direction: column; height: 100vh; width: 50vh; justify-content: center; align-item:center; ">
     <div >
     <form >
-      <p style="color: red;">{{loginErr}}</p>
+      <p style="color: red;">{{errHandler}}</p>
   <div class="mb-3" >
     <label for="exampleInputEmail1" class="form-label">Name</label>
     <input type="text" class="form-control" v-model="addItem.name" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -47,16 +46,17 @@ export default {
       }
     }
   },
-  props: ['loginErr'],
   components: {
     Navbar
   },
   methods: {
-    logout () {
-      this.$emit('logout')
-    },
     create () {
-      this.$emit('create', this.addItem)
+      this.$store.dispatch('create', this.addItem)
+    }
+  },
+  computed: {
+    errHandler () {
+      return this.$store.state.loginErr
     }
   }
 }
