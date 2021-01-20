@@ -1,12 +1,22 @@
 <template>
-  <div>
-    <h1>Hello from product</h1>
-  </div>
+<div class="container">
+        <section class="content-header">
+            <h1>
+                Manage Products
+            </h1>
+        </section>
+
+        <section class="content">
+            <div class="row">
+                <router-view></router-view>
+            </div>
+        </section>
+    </div>
 </template>
 
 <script>
 
 export default {
-  name: 'Product'
+  name: 'ProductIndex'
 }
 </script>

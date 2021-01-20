@@ -2,16 +2,18 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from './stores/auth'
+import product from './stores/product'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
-    auth
+    auth,
+    product
   },
   state: {
-    token: localStorage.getItem('token'),
-    errors: []
+    token: localStorage.token,
+    errors: ''
   },
   getters: {
     isAuth: state => {
@@ -26,7 +28,7 @@ const store = new Vuex.Store({
       state.errors = payload
     },
     CLEAR_ERRORS (state) {
-      state.errors = []
+      state.errors = ''
     }
   }
 })

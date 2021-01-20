@@ -26,7 +26,7 @@
       </div>
 
       <!-- Nav Item - Product -->
-      <router-link class="nav-item"  tag="li" :to="{ name: 'product' }" >
+      <router-link class="nav-item"  tag="li" :to="{ name: 'product.data' }" >
         <a class="nav-link" type="button">
           <i class="fas fa-fw fa-home"></i>
           <span>Product</span>

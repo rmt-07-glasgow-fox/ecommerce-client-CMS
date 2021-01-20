@@ -32,7 +32,7 @@ export default {
   name: 'Header',
   methods: {
     logout () {
-      localStorage.removeItem('token')
+      localStorage.clear()
       this.$store.state.token = localStorage.getItem('token')
       this.$router.push('/login')
     }
