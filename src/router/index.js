@@ -5,6 +5,9 @@ import Page404 from '../views/Page404.vue'
 import Dashboard from '../views/Dashboard.vue'
 import AddNewProduct from '../components/AddNewProduct.vue'
 import EditProduct from '../components/EditProduct'
+import Banners from '../views/Banners.vue'
+import AddNewBanner from '../components/AddNewBanner.vue'
+import EditBanner from '../components/EditBanner.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +31,23 @@ const routes = [
         path: '/editproduct/:id',
         name: 'EditProduct',
         component: EditProduct
+      }
+    ]
+  },
+  {
+    path: '/banners',
+    name: 'Banners',
+    component: Banners,
+    children: [
+      {
+        path: '/addbanner',
+        name: 'AddNewBanner',
+        component: AddNewBanner
+      },
+      {
+        path: '/editbanner/:id',
+        name: 'EditBanner',
+        component: EditBanner
       }
     ]
   },
