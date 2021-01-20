@@ -4,6 +4,9 @@ import Dashboard from '../views/Dashboard.vue'
 import Login from '../views/Login.vue'
 import Add from '../views/Add.vue'
 import Edit from '../views/Edit.vue'
+import Banner from '../views/Banner.vue'
+import AddBanner from '../views/AddBanner.vue'
+import EditBanner from '../views/EditBanner.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +30,21 @@ const routes = [
     path: '/products/:id',
     name: 'Edit',
     component: Edit
+  },
+  {
+    path: '/banners',
+    name: 'Banner',
+    component: Banner
+  },
+  {
+    path: '/banners/add',
+    name: 'AddBanner',
+    component: AddBanner
+  },
+  {
+    path: '/banners/:id',
+    name: 'EditBanner',
+    component: EditBanner
   }
 ]
 

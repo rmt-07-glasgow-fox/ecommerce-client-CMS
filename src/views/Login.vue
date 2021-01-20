@@ -1,5 +1,6 @@
 <template>
-  <div class="container " style="display: flex; flex-direction: column; height: 100vh; width: 50vh; justify-content: center; align-item:center; ">
+  <div class="container " style="display: flex; flex-direction: column; height: 100vh; width: 35vw; justify-content: center; align-item:center; ">
+  <h3 class="card-title">Welcome to E-commerce CMS</h3>
   <form>
     <p style="color: red;">{{errHandler}}</p>
   <div class="form-group">
