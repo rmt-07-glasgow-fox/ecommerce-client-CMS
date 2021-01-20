@@ -12,6 +12,19 @@ export default {
   name: 'Home',
   components: {
     Product
+  },
+  methods: {
+    findAll () {
+      this.$store.dispatch('findAll')
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  },
+  created () {
+    this.findAll()
   }
 }
 </script>

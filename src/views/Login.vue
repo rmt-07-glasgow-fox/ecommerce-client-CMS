@@ -10,18 +10,18 @@
             </div>
           </div>
           <div class="card-body">
-            <form>
+            <form @submit.prevent="login()">
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" placeholder="username">
+                <input v-model="user.email" type="text" class="form-control" placeholder="username">
               </div>
               <div class="input-group form-group p-4">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
-                <input type="password" class="form-control" placeholder="password">
+                <input v-model="user.password" type="password" class="form-control" placeholder="password">
               </div>
               <div class="form-group">
                 <input type="submit" value="Login" class="btn float-right login_btn">
@@ -41,7 +41,20 @@
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Login',
+  data () {
+    return {
+      user: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    login () {
+      this.$store.dispatch('loginUser', this.user)
+    }
+  }
 }
 </script>
 
