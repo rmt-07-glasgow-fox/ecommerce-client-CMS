@@ -37,10 +37,12 @@ export default {
   },
   methods: {
     handleLogin () {
-      this.$emit('handleLogin', {
+      this.$store.dispatch('handleLogin', {
         email: this.email,
         password: this.password
       })
+      this.email = ''
+      this.password = ''
     }
   }
 }

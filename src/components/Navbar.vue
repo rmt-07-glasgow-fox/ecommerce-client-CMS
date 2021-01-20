@@ -18,7 +18,7 @@ export default {
   components: { Sidebar },
   methods: {
     handleLogout () {
-      this.$emit('handleLogout', true)
+      this.$store.dispatch('handleLogout', true)
     }
   }
 }
