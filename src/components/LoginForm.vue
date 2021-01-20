@@ -1,6 +1,6 @@
 <template>
 <div class='container'>
-    <form @submit.prevent='login'>
+    <form class='login-form' @submit.prevent='login'>
       <!-- Email input -->
       <h3 class="h3 mb-3 font-weight-normal">Please login</h3>
       <div class="form-outline mb-4">
@@ -42,5 +42,18 @@ export default {
 </script>
 
 <style scoped>
-
+.login-form {
+  min-width: 500px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem
+}
+@media (max-width: 500px) {
+  .login-form {
+    min-width: 90%;
+  }
+}
 </style>
