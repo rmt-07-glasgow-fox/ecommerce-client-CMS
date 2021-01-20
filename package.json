@@ -9,6 +9,8 @@
     "start": "vue-cli-service serve --open"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
     "core-js": "^3.6.5",
     "mdbvue": "6.7.2",
     "vue": "^2.6.11",
