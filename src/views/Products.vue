@@ -12,7 +12,7 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Name</th>
+              <th scope="col" style="width: 30%">Name</th>
               <th scope="col">Image</th>
               <th scope="col">Price</th>
               <th scope="col">Stock</th>

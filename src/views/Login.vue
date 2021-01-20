@@ -15,7 +15,7 @@
 
 <script>
 // @ is an alias to /src
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 // import { mapGetters } from 'vuex'
 
 export default {
@@ -38,9 +38,8 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'currentUser'
-    ])
+  },
+  created () {
   }
 }
 </script>

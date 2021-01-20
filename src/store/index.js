@@ -8,12 +8,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentUser: {},
+    isLoggedIn: '',
     productList: []
   },
   mutations: {
-    updateCurrentUser (state, user) {
-      state.currentUser = user
+    updateLoginStatus (state, payload) {
+      state.isLoggedIn = payload
     },
     updateProductList (state, payload) {
       state.productList = payload
@@ -32,13 +32,22 @@ export default new Vuex.Store({
         .then(({ data }) => {
           // console.log(data)
           localStorage.access_token = data.access_token
-          context.commit('updateCurrentUser', data)
           router.push({ path: '/products' })
         })
         .catch((error) => {
           if (error.response) {
             // Request made and server responded
-            console.log(error.response.data)
+            // console.log(error.response.data.errors[0])
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.errors[0],
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              toast: true,
+              position: 'top-right'
+            })
             console.log(error.response.status)
             console.log(error.response.headers)
           } else if (error.request) {
@@ -107,7 +116,17 @@ export default new Vuex.Store({
         .catch(error => {
           if (error.response) {
             // Request made and server responded
-            console.log(error.response.data)
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.errors[0],
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              toast: true,
+              position: 'top-right'
+            })
+            // console.log(error.response.data)
             console.log(error.response.status)
             console.log(error.response.headers)
           } else if (error.request) {
@@ -142,6 +161,16 @@ export default new Vuex.Store({
         .catch(error => {
           if (error.response) {
             // Request made and server responded
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.errors[0],
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              toast: true,
+              position: 'top-right'
+            })
             console.log(error.response.data)
             console.log(error.response.status)
             console.log(error.response.headers)
