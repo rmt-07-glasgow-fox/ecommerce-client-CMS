@@ -32,16 +32,42 @@ export default new Vuex.Store({
         .then(res => {
           localStorage.setItem('access_token', res.data.access_token)
           localStorage.setItem('email', res.data.email)
+          Vue.swal({
+            title: 'Halo Admin!',
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            timer: 2000,
+            timerProgressBar: true,
+            showConfirmButton: false
+          })
           router.push('/dashboard')
         })
         .catch(err => {
-          console.log(err.response)
+          if (err.response.data) {
+            Vue.swal({
+              icon: 'error',
+              title: 'Oops...',
+              text: err.response.data.message
+            })
+          } else {
+            console.log(err.response)
+          }
         })
     },
     handleLogout (context, payload) {
       if (payload) {
         localStorage.clear()
         router.push('/')
+        Vue.swal({
+          title: 'Bye Admin!',
+          icon: 'success',
+          toast: true,
+          position: 'top-end',
+          timer: 2000,
+          timerProgressBar: true,
+          showConfirmButton: false
+        })
       }
     },
     fetchProducts (context) {
@@ -77,25 +103,62 @@ export default new Vuex.Store({
           console.log(res.data)
           this.dispatch('fetchProducts')
           router.push('/dashboard')
+          Vue.swal({
+            title: 'Success',
+            text: 'Your product has been added!',
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false
+          })
         })
         .catch(err => {
-          console.log(err.response)
+          const errors = err.response.data.errors.join('\n')
+          Vue.swal({
+            title: 'Oopsie!',
+            text: errors,
+            icon: 'error'
+          })
         })
     },
     deleteDataById (context, payload) {
-      axios({
-        method: 'DELETE',
-        url: 'products/' + payload,
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        }
+      Vue.swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
       })
+        .then((result) => {
+          if (result.isConfirmed) {
+            return axios({
+              method: 'DELETE',
+              url: 'products/' + payload,
+              headers: {
+                access_token: localStorage.getItem('access_token')
+              }
+            })
+          }
+        })
         .then(res => {
-          console.log(res.data)
           this.dispatch('fetchProducts')
+          Vue.swal(
+            'Deleted!',
+            res.data.message,
+            'success'
+          )
         })
         .catch(err => {
-          console.log(err.response)
+          const errors = err.response.data.errors.join('\n')
+          Vue.swal({
+            title: 'Oopsie!',
+            text: errors,
+            icon: 'error'
+          })
         })
     },
     getDataById (context, payload) {
@@ -129,13 +192,26 @@ export default new Vuex.Store({
         }
       })
         .then(res => {
-          console.log(res)
-          console.log('update', payload)
           this.dispatch('fetchProducts')
           router.push('/dashboard')
+          Vue.swal({
+            title: 'Success',
+            text: res.data.message,
+            icon: 'success',
+            toast: true,
+            position: 'top-end',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false
+          })
         })
         .catch(err => {
-          console.log(err.response)
+          const errors = err.response.data.errors.join('\n')
+          Vue.swal({
+            title: 'Oopsie!',
+            text: errors,
+            icon: 'error'
+          })
         })
     }
   },
