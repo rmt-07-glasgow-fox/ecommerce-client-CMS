@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router'
 import bannerStore from './bannerStore'
+import categoryStore from './categoryStore'
 
 Vue.use(Vuex)
 
@@ -219,6 +220,7 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    banner: bannerStore
+    banner: bannerStore,
+    category: categoryStore
   }
 })

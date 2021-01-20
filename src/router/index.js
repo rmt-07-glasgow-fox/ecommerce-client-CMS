@@ -8,6 +8,9 @@ import EditProduct from '../components/EditProduct'
 import Banners from '../views/Banners.vue'
 import AddNewBanner from '../components/AddNewBanner.vue'
 import EditBanner from '../components/EditBanner.vue'
+import Category from '../views/Category.vue'
+import AddNewCategory from '../components/AddNewCategory.vue'
+import EditCategory from '../components/EditCategory.vue'
 
 Vue.use(VueRouter)
 
@@ -48,6 +51,23 @@ const routes = [
         path: '/editbanner/:id',
         name: 'EditBanner',
         component: EditBanner
+      }
+    ]
+  },
+  {
+    path: '/categories',
+    name: 'Category',
+    component: Category,
+    children: [
+      {
+        path: '/addcategory',
+        name: 'AddNewCategory',
+        component: AddNewCategory
+      },
+      {
+        path: '/editcategory/:id',
+        name: 'EditCategory',
+        component: EditCategory
       }
     ]
   },
