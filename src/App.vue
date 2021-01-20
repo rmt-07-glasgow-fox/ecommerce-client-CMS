@@ -2,12 +2,25 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/product">Product</router-link>
-      <router-link to="/auth">Login</router-link>
+      <router-link to="/product">Product</router-link> |
+      <router-link to="/add-product">Add Product</router-link>
+      <router-link to="/auth" id="login"
+       v-if="!isLogin">Login</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'App',
+  data () {
+    return {
+      isLogin: false
+    }
+  }
+}
+</script>
 
 <style>
 #app {
@@ -29,5 +42,9 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+#login{
+  float: right;
 }
 </style>

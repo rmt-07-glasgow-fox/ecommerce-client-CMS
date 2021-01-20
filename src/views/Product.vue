@@ -5,7 +5,10 @@
       <div class="row">
         <div class="col-3">
           <div class="card-deck">
-            <product-card/>
+            <product-card
+             v-for="product in products"
+             :key="product.id"
+             :data="product"/>
           </div>
         </div>
       </div>
