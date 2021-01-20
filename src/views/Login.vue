@@ -45,7 +45,6 @@ export default {
   methods: {
     login () {
       const payload = { email: this.email, password: this.password }
-      console.log(payload)
       this.$store.dispatch('login', payload)
         .then(data => {
           this.$router.push('/home')

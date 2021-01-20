@@ -6,8 +6,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    dataProduct: []
   },
   mutations: {
+    getData (state, payload) {
+      state.dataProduct = payload
+    }
   },
   actions: {
     login (context, payload) {
@@ -16,6 +20,50 @@ export default new Vuex.Store({
         url: 'http://localhost:3000/login',
         data: payload
       })
+        .then(res => {
+          localStorage.setItem('access_token', res.data.access_token)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    fetchData (context) {
+      console.log('masuk fetch data')
+      return axios({
+        method: 'GET',
+        url: 'http://localhost:3000/products',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(res => {
+          console.log(res.data)
+          context.commit('getData', res.data)
+        })
+        .catch(err => {
+          console.log('masuk err')
+          console.log(err)
+        })
+    },
+    deleteProduct (context, payload) {
+      console.log(payload, 'axios delete')
+      return axios({
+        method: 'DELETE',
+        url: 'http://localhost:3000/products/' + payload,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(res => {
+          console.log(res.data)
+          this.dispatch('fetchData')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    logOut (context) {
+      localStorage.clear()
     }
   }
 })
