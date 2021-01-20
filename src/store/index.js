@@ -11,6 +11,9 @@ export default new Vuex.Store({
     product: ''
   },
   mutations: {
+    setProducts (state, payload) {
+      state.products = payload
+    }
   },
   actions: {
     handleLogin (context, payload) {
@@ -36,6 +39,21 @@ export default new Vuex.Store({
         localStorage.clear()
         router.push('/')
       }
+    },
+    fetchProducts (context) {
+      axios({
+        method: 'GET',
+        url: 'products',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(res => {
+          context.commit('setProducts', res.data)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
     }
   },
   modules: {

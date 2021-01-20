@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar @handleLogout="handleLogout"/>
+    <navbar />
     <div class="container mt-3">
       <div class="row mb-3 mt-3">
         <div class="col">
@@ -45,10 +45,10 @@ export default {
     }
   },
   components: { Navbar, ProductList },
-  props: ['products', 'fetchProducts', 'productById'],
+  props: ['productById'],
   methods: {
-    handleLogout (payload) {
-      this.$emit('handleLogout', payload)
+    fetchProducts () {
+      this.$store.dispatch('fetchProducts')
     },
     handleAddNewProduct () {
       this.$router.push('/addproduct')
@@ -65,6 +65,11 @@ export default {
   },
   created () {
     this.fetchProducts()
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
   }
 }
 </script>

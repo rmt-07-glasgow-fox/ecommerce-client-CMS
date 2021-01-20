@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <router-view
-      :products="this.products"
-      :fetchProducts="fetchProducts"
       @handleAddProduct="handleAddProduct"
       @getDataById="getDataById"
       @deleteDataById="deleteDataById"
@@ -16,27 +14,11 @@ import axios from './api/axios'
 export default {
   data () {
     return {
-      products: [],
       productById: []
     }
   },
   components: { },
   methods: {
-    fetchProducts () {
-      axios({
-        method: 'GET',
-        url: 'products',
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        }
-      })
-        .then(res => {
-          this.products = res.data
-        })
-        .catch(err => {
-          console.log(err.response)
-        })
-    },
     handleAddProduct (payload) {
       console.log(payload)
       axios({
