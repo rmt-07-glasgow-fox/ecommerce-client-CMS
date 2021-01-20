@@ -30,10 +30,14 @@
 <script>
 export default {
   name: 'FormLogin',
-  props: ['user'],
+  data () {
+    return {
+      user: {}
+    }
+  },
   methods: {
     handleLogin () {
-      this.$emit('handleLogin', this.user)
+      this.$store.dispatch('handleLogin', this.user)
     }
   }
 }

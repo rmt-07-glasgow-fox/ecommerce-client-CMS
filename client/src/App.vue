@@ -1,11 +1,9 @@
 <template>
   <div id="app">
     <router-view
-      :user="user"
       :getProducts="getProducts"
       :products="products"
       :productToEdit="productToEdit"
-      @handleLogin="handleLogin"
       @handleLogout="handleLogout"
       @addProduct="addProduct"
       @getProductId="getProductId"
@@ -21,30 +19,29 @@ import axios from './api/axios'
 export default {
   data () {
     return {
-      user: {},
       products: [],
       productToEdit: {}
     }
   },
   methods: {
-    handleLogin (payload) {
-      console.log(payload)
-      axios({
-        method: 'POST',
-        url: '/login',
-        data: {
-          email: payload.email,
-          password: payload.password
-        }
-      }).then(res => {
-        console.log(res.data)
-        this.user = {}
-        localStorage.setItem('access_token', res.data.access_token)
-        this.$router.push('/products')
-      }).catch(err => {
-        console.log(err)
-      })
-    },
+    // handleLogin (payload) {
+    //   console.log(payload)
+    //   axios({
+    //     method: 'POST',
+    //     url: '/login',
+    //     data: {
+    //       email: payload.email,
+    //       password: payload.password
+    //     }
+    //   }).then(res => {
+    //     console.log(res.data)
+    //     this.user = {}
+    //     localStorage.setItem('access_token', res.data.access_token)
+    //     this.$router.push('/products')
+    //   }).catch(err => {
+    //     console.log(err)
+    //   })
+    // },
     handleLogout () {
       localStorage.clear()
       this.$router.push('/login')
@@ -139,7 +136,7 @@ export default {
 <style>
 #app {
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
   background-image: url('./assets/live_bg3.svg');
 }
 

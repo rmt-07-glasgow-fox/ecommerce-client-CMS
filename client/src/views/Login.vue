@@ -1,9 +1,6 @@
 <template>
   <div>
-    <FormLogin
-      :user="user"
-      @handleLogin="handleLogin"
-    />
+    <FormLogin/>
   </div>
 </template>
 
@@ -13,12 +10,6 @@ export default {
   name: 'Login',
   components: {
     FormLogin
-  },
-  props: ['user'],
-  methods: {
-    handleLogin (payload) {
-      this.$emit('handleLogin', payload)
-    }
   }
 }
 </script>
