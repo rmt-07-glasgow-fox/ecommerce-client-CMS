@@ -10,7 +10,7 @@
       <router-view />
       <div class="row">
         <div class="col table-product text-center">
-          <div v-if="products.length > 0">
+          <div v-if="categories.length > 0">
             <table class="table">
               <thead>
                 <tr>
