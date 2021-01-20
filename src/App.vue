@@ -40,29 +40,6 @@ export default {
   },
   components: {},
   methods: {
-    login (user) {
-      const userObj = { email: user.email, password: user.password }
-      axios
-        .post('/login', userObj)
-        .then(response => {
-          localStorage.setItem('access_token', response.data.access_token)
-          this.$router.push('/products')
-        })
-        .catch(err => {
-          const errors = err.response.data.message
-          Swal.fire({
-            title: 'Ops...',
-            text: errors,
-            icon: 'error',
-            confirmButtonText: 'Okay'
-          })
-        })
-    },
-
-    logout () {
-      localStorage.clear()
-      this.$router.push('/')
-    },
 
     fetchAllProducts () {
       const headers = { access_token: localStorage.access_token }
@@ -82,7 +59,6 @@ export default {
         })
     },
 
-    // Notes: masih belum jalan, sequelizedatabase error. isi sudah kebaca tp belum kesimpan
     addProduct (product) {
       const headers = { access_token: localStorage.access_token }
       const newProduct = {
@@ -94,8 +70,6 @@ export default {
       axios
         .post('/products', newProduct, { headers })
         .then(response => {
-          console.log(response.data)
-          console.log('========= response data addProduct')
           this.$router.push('/products')
         })
         .catch(err => {

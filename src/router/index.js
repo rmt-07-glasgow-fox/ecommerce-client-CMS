@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-import Dashboard from '../views/Dashboard.vue'
+import Products from '../views/Products.vue'
 import Add from '../views/Add.vue'
 import Edit from '../views/Edit.vue'
 
@@ -10,13 +11,18 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
+    path: '/login',
     name: 'Login',
     component: Login
   },
   {
     path: '/products',
-    name: 'Dashboard',
-    component: Dashboard
+    name: 'Products',
+    component: Products
   },
   {
     path: '/products/add',
@@ -42,7 +48,7 @@ router.beforeEach((to, from, next) => {
   } else if (localStorage.access_token || to.name === 'Login') {
     next()
   } else {
-    next({ name: 'Login' })
+    next({ name: 'Home' })
   }
 })
 

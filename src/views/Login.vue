@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     login () {
-      this.$emit('login', this.user)
+      this.$store.dispatch('login', this.user)
     }
   }
 }
