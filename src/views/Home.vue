@@ -2,6 +2,9 @@
   <div class="home">
     <img alt="Vue logo" :src="poster">
     <HelloWorld msg="Welcome to Your new Online Shop!"/>
+    <div class="container">
+      <LoginForm/>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -12,7 +15,9 @@
 
 <script>
 // @ is an alias to /src
+// import axios from '../api/axios'
 import HelloWorld from '@/components/HelloWorld.vue'
+import LoginForm from '../components/LoginForm'
 
 export default {
   name: 'Home',
@@ -22,7 +27,17 @@ export default {
     }
   },
   components: {
-    HelloWorld
+    HelloWorld,
+    LoginForm
+  },
+  methods: {
+    // login () {
+    //   axios
+    //     .post('/login')
+    //     .then(({ data }) => {
+    //       this.
+    //     })
+    // }
   }
 }
 </script>
