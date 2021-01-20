@@ -174,6 +174,9 @@ export default new Vuex.Store({
           router.push('/editproduct/' + payload)
         })
         .catch(err => {
+          if (err.response.status === 404) {
+            router.push('/datanotfound')
+          }
           console.log(err.response)
         })
     },

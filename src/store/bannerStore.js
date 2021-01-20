@@ -81,6 +81,9 @@ const bannerStore = {
           router.push('/editbanner/' + payload)
         })
         .catch(err => {
+          if (err.response.status === 404) {
+            router.push('/datanotfound')
+          }
           console.log(err.response)
         })
     },

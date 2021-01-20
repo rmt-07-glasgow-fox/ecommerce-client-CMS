@@ -8,8 +8,8 @@
           <h3 class="mt-4"> Error code: 404</h3>
           <h3 class="mt-3">Here's some usefull link</h3>
           <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/products">Products</a></li>
+            <li><a href="/">Product Dashboard</a></li>
+            <li><a href="/banners">Banners</a></li>
           </ul>
         </div>
       </div>
