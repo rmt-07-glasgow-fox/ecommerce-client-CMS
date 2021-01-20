@@ -19,7 +19,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    fetchProducts (context, state) {
+    fetchProducts (context) {
       axios
         .get('/products', {
           headers: {
@@ -35,7 +35,7 @@ export default new Vuex.Store({
       axios
         .post('/login', payload)
         .then(({ data }) => {
-          localStorage.setItem('access_token', data)
+          localStorage.setItem('access_token', data.access_token)
           context.commit('getUserName', payload)
           router.push('/dashboard')
         })

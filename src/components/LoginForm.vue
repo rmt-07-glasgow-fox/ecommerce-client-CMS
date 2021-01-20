@@ -2,7 +2,7 @@
 <div class='container'>
     <form class='login-form' @submit.prevent='login'>
       <!-- Email input -->
-      <h3 class="h3 mb-3 font-weight-normal">Please login</h3>
+      <h2 class="mb-4 font-weight-bold">Please login</h2>
       <div class="form-outline mb-4">
         <input type="email" id="form2Example1" class="form-control" v-model="email" required="" autofocus="" />
         <label class="form-label" for="form2Example1">Email address</label>
