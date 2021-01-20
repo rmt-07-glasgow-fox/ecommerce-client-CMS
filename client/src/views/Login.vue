@@ -1,23 +1,23 @@
 <template>
   <section id="login-page">
     <div class="center">
-      <!-- <h1 style="margin-bottom: 3rem;" class="welcome">E-COMMERCE CMS</h1> -->
+      <h1 style="margin-bottom: 3rem;" class="welcome">E-COMMERCE CMS</h1>
       <div class="container-fluid d-flex flex-row">
         <!-- LOGIN FORM -->
         <div id="login-form-page">
           <div class="container d-flex justify-content-center">
-            <form style="width: 20rem;">
+            <form @submit.prevent="login" style="width: 20rem;">
               <div class="mb-3">
                 <h2 class="white">Sign In</h2>
               </div>
               <div class="mb-3">
                 <label for="email" class="white form-label">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                <input v-model="newUser.email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
                 <div id="emailHelp" class="white form-text">Whether you speak secretly or openly—He surely knows best what is ˹hidden˺ in the heart.</div>
               </div>
               <div class="mb-3">
                 <label for="password" class="white form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
+                <input v-model="newUser.password" type="password" class="form-control" id="password" placeholder="Password">
               </div>
               <button type="submit" class="btn btn-light" id="login-btn">Sign in</button>
             </form>
@@ -29,9 +29,26 @@
 </template>
 
 <script>
+// import axios from '../api/axios'
+
 export default {
-  name: 'Login'
+  name: 'Login',
+  data () {
+    return {
+      newUser: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    login () {
+      const payload = this.newUser
+      this.$store.dispatch('login', payload)
+    }
+  }
 }
+
 </script>
 
 <style scoped>
