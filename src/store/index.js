@@ -9,10 +9,25 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    userInfo: {}
   },
   mutations: {
+    getUserInfo (state, payload) {
+      state.userInfo = payload
+    }
   },
   actions: {
+    getUserInfo (context) {
+      axios({
+        method: 'GET',
+        url: `${baseURL}/getuser`,
+        headers: { access_token: localStorage.getItem('access_token') }
+      })
+        .then(({ data }) => {
+          context.commit('getUserInfo', data)
+        })
+        .catch(err => console.log(err))
+    },
     login (context, payload) {
       // console.log(payload.email, payload.password) //デバッグ用
       axios({
