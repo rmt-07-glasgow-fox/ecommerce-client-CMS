@@ -38,7 +38,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   justify-content: center;
   align-items: center;
-  color: #2c3e50;
+  color: #edf0f3;
 }
 
 #nav a {

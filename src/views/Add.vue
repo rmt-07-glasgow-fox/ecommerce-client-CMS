@@ -5,16 +5,22 @@
   <section id="login">
       <div class="container-fluid ">
         <div class="form">
-          <h2>Admin Login</h2>
+          <h2>Add Product</h2>
           <form action="" @submit.prevent="login">
             <div class="inputBox">
-              <input type="text" placeholder="Username" v-model="username">
+              <input type="text" placeholder="Product Name" v-model="name">
             </div>
             <div class="inputBox">
-              <input type="password" placeholder="Password" v-model="password">
+              <input type="text" placeholder="Url Product" v-model="url">
             </div>
             <div class="inputBox">
-              <input type="submit" value="Login">
+              <input type="password" placeholder="Product Price" v-model="price">
+            </div>
+            <div class="inputBox">
+              <input type="password" placeholder="Stock" v-model="stock">
+            </div>
+            <div class="inputBox">
+              <input type="submit" value="add">
             </div>
           </form>
         </div>
@@ -52,7 +58,7 @@ video {
 }
 
 .d-flex  {
-  padding-top: 100px;
+  padding-top: 60px;
 }
 
 #login {
