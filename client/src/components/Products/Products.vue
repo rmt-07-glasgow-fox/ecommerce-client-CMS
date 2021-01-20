@@ -16,16 +16,11 @@
           ></FormAdd>
         </div>
         <div :class="checkAdd">
-          <ListProducts
-            @productDetail="productDetail"
-          ></ListProducts>
+          <ListProducts></ListProducts>
         </div>
       </div>
       <div class="w-30 p-3 bg-white rounded shadow-sm">
-        <CardProducts
-          v-if="isDetail"
-          :product="product"
-        ></CardProducts>
+        <CardProducts></CardProducts>
       </div>
     </div>
   </div>
@@ -45,18 +40,12 @@ export default {
   },
   data () {
     return {
-      isAdd: false,
-      isDetail: false,
-      product: {}
+      isAdd: false
     }
   },
   methods: {
     closeAdd () {
       this.isAdd = false
-    },
-    productDetail (payload) {
-      this.isDetail = true
-      this.product = payload
     }
   },
   computed: {

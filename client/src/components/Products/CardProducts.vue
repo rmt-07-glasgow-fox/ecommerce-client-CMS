@@ -19,13 +19,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import FormEdit from './FormEdit'
+
 export default {
   name: 'CardProducts',
   components: {
     FormEdit
   },
-  props: ['product'],
+  // props: ['product'],
   data () {
     return {
       isEdit: false
@@ -42,6 +44,11 @@ export default {
     deleteProduct (id) {
       this.$store.dispatch('deleteProduct', id)
     }
+  },
+  computed: {
+    ...mapState([
+      'product'
+    ])
   }
 }
 </script>

@@ -8,11 +8,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
+    product: {},
     productToEdit: {}
   },
   mutations: {
     setProducts (state, payload) {
       state.products = payload
+    },
+    setProduct (state, payload) {
+      state.product = payload
     },
     setProductToEdit (state, payload) {
       state.productToEdit = payload
@@ -76,6 +80,9 @@ export default new Vuex.Store({
       }).catch(err => {
         console.log(err)
       })
+    },
+    productDetail (context, payload) {
+      context.commit('setProduct', payload)
     },
     editProduct (context, payload) {
       const accessToken = localStorage.getItem('access_token')

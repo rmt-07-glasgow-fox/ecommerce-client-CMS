@@ -32,7 +32,7 @@ export default {
   name: 'ListProducts',
   methods: {
     productDetail (product) {
-      this.$emit('productDetail', product)
+      this.$store.dispatch('productDetail', product)
     }
   },
   computed: {
@@ -41,11 +41,9 @@ export default {
     ])
   },
   created () {
-    console.log('created')
     this.$store.dispatch('getProducts')
   },
   updated () {
-    console.log('updated')
     const length = this.products.length
     this.productDetail(this.products[length - 1])
   }
