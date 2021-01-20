@@ -1,41 +1,59 @@
 <template>
-  <div>
-    <div class="mb-3 bg-white p-3 rounded shadow-sm position-relative">
-      <span class="fs-5 text-success mx-2">Active Banner</span>
-      <span class="fs-5">: Promo Otomotif</span>
-      <img :src="image" class="img-fluid rounded shadow-sm" alt="...">
-      <div class="edit position-absolute bg-light p-3 rounded">
-        <button class="btn btn-outline-primary btn-lg mx-2">Edit</button>
-        <button class="btn btn-outline-danger btn-lg mx-2">Delete</button>
+<div>
+  <div v-for="banner in banners" :key="banner.id" class="mb-3 bg-white p-3 rounded shadow-sm position-relative">
+    <div class="d-flex justify-content-between mb-2">
+      <span class="fs-5">{{ banner.title }}</span>
+      <div class="form-check form-switch">
+        <input v-if="banner.status" @click="editStatusBanner(banner)" class="form-check-input" type="checkbox" checked>
+        <input v-if="!banner.status" @click="editStatusBanner(banner)" class="form-check-input" type="checkbox">
+        <label v-text="checkActive(banner.status)" class="form-check-label"></label>
       </div>
     </div>
-    <div class="mb-3 bg-white p-3 rounded shadow-sm position-relative">
-      <span class="fs-5 text-secondary mx-2">Non Active Banner</span>
-      <span class="fs-5">: Promo Otomotif</span>
-      <img :src="image2" class="img-fluid rounded shadow-sm" alt="...">
-      <div class="edit position-absolute bg-light p-3 rounded">
-        <button class="btn btn-outline-primary btn-lg mx-2">Edit</button>
-        <button class="btn btn-outline-danger btn-lg mx-2">Delete</button>
-      </div>
+    <img :src="banner.image_url" class="img-fluid rounded shadow-sm" alt="Image Banner">
+    <div class="edit position-absolute">
+      <button @click="deleteBanner(banner.id)" class="btn btn-danger btn-lg mx-2">Delete</button>
     </div>
   </div>
+</div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'ListBanner',
-  data () {
-    return {
-      image: 'https://ecs7-p.tokopedia.net/img/cache/1208/NsjrJu/2021/1/19/01a3786a-0c1a-4fe3-add4-ea4a93c47b00.jpg.webp',
-      image2: 'https://ecs7-p.tokopedia.net/img/cache/1208/NsjrJu/2021/1/19/c6a16239-1384-47d8-9645-5158a1e1e243.jpg.webp'
+  methods: {
+    checkActive (status) {
+      if (status) {
+        return 'Active'
+      } else {
+        return 'Non Active'
+      }
+    },
+    deleteBanner (id) {
+      this.$store.dispatch('deleteBanner', id)
+    },
+    editStatusBanner (banner) {
+      const payload = {
+        id: banner.id,
+        status: !banner.status
+      }
+      this.$store.dispatch('editStatusBanner', payload)
     }
+  },
+  computed: {
+    ...mapState([
+      'banners'
+    ])
+  },
+  created () {
+    this.$store.dispatch('getBanners')
   }
 }
 </script>
 
 <style scoped>
 .edit {
-  opacity: 90%;
   bottom: 3rem;
   right: 5rem;
 }

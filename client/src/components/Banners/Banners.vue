@@ -8,7 +8,9 @@
     <div class="d-flex justify-content-between p-3 bg-light rounded-start">
       <div class="rounded">
         <div v-if="isAdd" class="p-3 mb-2 w-100 bg-white rounded shadow-sm">
-          <FormAddBanner></FormAddBanner>
+          <FormAddBanner
+            @closeAdd="closeAdd"
+          ></FormAddBanner>
         </div>
         <div :class="checkAdd">
           <ListBanner></ListBanner>

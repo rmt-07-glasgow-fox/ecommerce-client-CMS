@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     product: {},
-    productToEdit: {}
+    productToEdit: {},
+    banners: []
   },
   mutations: {
     setProducts (state, payload) {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     setProductToEdit (state, payload) {
       state.productToEdit = payload
+    },
+    setBanners (state, payload) {
+      state.banners = payload
     }
   },
   actions: {
@@ -115,6 +119,68 @@ export default new Vuex.Store({
         }
       }).then(res => {
         context.dispatch('getProducts')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
+    getBanners (context) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'GET',
+        url: '/banners',
+        headers: {
+          access_token: accessToken
+        }
+      }).then(res => {
+        console.log(res)
+        context.commit('setBanners', res.data)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    addBanner (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'POST',
+        url: '/banners',
+        headers: {
+          access_token: accessToken
+        },
+        data: payload
+      }).then(res => {
+        context.dispatch('getBanners')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    editStatusBanner (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'PATCH',
+        url: `/banners/${payload.id}`,
+        headers: {
+          access_token: accessToken
+        },
+        data: {
+          status: payload.status
+        }
+      }).then(res => {
+        context.dispatch('getBanners')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    deleteBanner (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'DELETE',
+        url: `/banners/${payload}`,
+        headers: {
+          access_token: accessToken
+        }
+      }).then(res => {
+        context.dispatch('getBanners')
       }).catch(err => {
         console.log(err)
       })
