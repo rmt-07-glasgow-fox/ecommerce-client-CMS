@@ -82,6 +82,27 @@ export default new Vuex.Store({
           this.dispatch('getAllProduct')
         })
         .catch(err => console.log(err))
+    },
+    login (context, payload) {
+      const email = payload.email
+      const password = payload.password
+      axios({
+        method: 'POST',
+        url: '/login',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          email, password
+        }
+      })
+        .then(data => {
+          localStorage.setItem('access_token', data.data.access_token)
+          this.dispatch('getAllProduct')
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
     }
   }
 })
