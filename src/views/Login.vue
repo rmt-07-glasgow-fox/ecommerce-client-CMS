@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import LoginForm from '../components/LoginForm.vue'
+import LoginForm from '../components/C_Login/Form.vue'
+
 // @ is an alias to /src
 export default {
   name: 'Login',

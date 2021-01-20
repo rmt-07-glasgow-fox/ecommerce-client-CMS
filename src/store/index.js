@@ -9,14 +9,40 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    products: [],
     userInfo: {}
   },
   mutations: {
+    fetchProducts (state, payload) {
+      state.products = payload
+    },
     getUserInfo (state, payload) {
       state.userInfo = payload
     }
   },
   actions: {
+    fetchProducts (context) {
+      axios({
+        method: 'GET',
+        url: `${baseURL}/product`
+      })
+        .then(({ data }) => {
+          context.commit('fetchProducts', data)
+        })
+        .catch(err => console.log(err))
+    },
+    deleteProduct (context, id) {
+      console.log(id)
+      axios({
+        method: 'DELETE',
+        url: `${baseURL}/product/${id}`,
+        headers: { access_token: localStorage.getItem('access_token') }
+      })
+        .then(({ data }) => {
+          this.dispatch('fetchProducts').then(() => console.log(data.message))
+        })
+        .catch(err => console.log(err))
+    },
     getUserInfo (context) {
       axios({
         method: 'GET',

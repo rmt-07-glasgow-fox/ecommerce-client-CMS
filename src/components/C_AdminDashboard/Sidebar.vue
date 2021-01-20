@@ -15,26 +15,26 @@
     </h6>
     <div class="position-sticky pt-3">
       <ul class="nav flex-column">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">
             <span class="feather" v-html="iconSVG('home')"></span>
             Dashboard
           </a>
-        </li>
+        </li> -->
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link active" href="">
             <span class="feather" v-html="iconSVG('shopping-cart')"></span>
             Products
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="">
             <span class="feather" v-html="iconSVG('list')"></span>
             Categories
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="">
             <span class="feather" v-html="iconSVG('bookmark')"></span>
             Banners
           </a>
