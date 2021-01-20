@@ -30,6 +30,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.name !== 'Login' && !localStorage.getItem('access_token')) return next({ name: 'Login' })
+  if (to.name === 'Login' && localStorage.getItem('access_token')) return next({ name: 'AdminDashboard' })
 
   return next()
 })

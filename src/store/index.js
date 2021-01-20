@@ -28,6 +28,10 @@ export default new Vuex.Store({
           router.push({ name: 'AdminDashboard' })
         })
         .catch(err => console.log(err))
+    },
+    logout (context) {
+      localStorage.removeItem('access_token')
+      router.push('/')
     }
   },
   modules: {
