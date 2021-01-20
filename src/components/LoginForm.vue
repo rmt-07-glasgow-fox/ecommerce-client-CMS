@@ -38,8 +38,7 @@ export default {
         email: this.formData.email,
         password: this.formData.password
       }
-      console.log(obj)
-      this.$emit('loginHandle', obj)
+      this.$store.dispatch('loginHandle', obj)
     }
   }
 }
@@ -48,7 +47,8 @@ export default {
 <style>
 .login-form {
   padding: 2em;
-  border: 1px solid #a8a8a8;
+  border: 3px solid #000000;
+  background: #ffffff;
   border-radius: .5em;
   box-sizing: border-box;
 }

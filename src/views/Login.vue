@@ -1,40 +1,23 @@
 <template>
-  <div class="login">
-    <LoginForm
-      @loginHandle='loginHandle'
-    />
-  </div>
+<div class="loginForm">
+    <div id="nav">
+      <NavbarHome />
+    </div>
+    <div class="login">
+      <LoginForm />
+    </div>
+</div>
 </template>
 
 <script>
-import axios from '@/api/axios'
+import NavbarHome from '@/components/NavbarHome.vue'
 import LoginForm from '@/components/LoginForm'
 
 export default {
   name: 'Login',
   components: {
-    LoginForm
-  },
-  methods: {
-    loginHandle (payload) {
-      console.log(payload)
-      axios({
-        method: 'POST',
-        url: '/login',
-        data: {
-          email: payload.email,
-          password: payload.password
-        }
-      })
-        .then(res => {
-          console.log(res.data)
-          this.user = {}
-          localStorage.setItem('access_token', res.data.access_token)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
+    LoginForm,
+    NavbarHome
   }
 }
 </script>
@@ -43,5 +26,26 @@ export default {
 .login {
   width: 325px;
   margin: auto;
+}
+
+.loginForm {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>

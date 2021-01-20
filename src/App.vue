@@ -1,41 +1,30 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <NavbarHome />
-    </div>
     <router-view/>
   </div>
 </template>
 
 <script>
-import NavbarHome from '@/components/NavbarHome.vue'
-
 export default {
   components: {
-    NavbarHome
   }
 }
 </script>
 
 <style>
+body {
+    background: url(https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80) center center no-repeat;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
