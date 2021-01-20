@@ -15,6 +15,8 @@
 
 <script>
 // @ is an alias to /src
+import { mapState } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
   name: 'Login',
@@ -31,8 +33,14 @@ export default {
         password: this.password
       }
       // console.log(loginData)
-      this.$emit('login', loginData)
+      this.$store.dispatch('login', loginData)
+      // this.$emit('login', loginData)
     }
+  },
+  computed: {
+    ...mapState([
+      'currentUser'
+    ])
   }
 }
 </script>

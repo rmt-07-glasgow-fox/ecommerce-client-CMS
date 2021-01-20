@@ -48,18 +48,14 @@
       </div>
     </nav>
 
-    <router-view
-    @login="login"
-    @deleteProduct="deleteProduct"
-    :productList="productList"/>
+    <router-view />
 
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import axios from './api/axios'
-import Swal from 'sweetalert2'
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -69,109 +65,13 @@ export default {
     }
   },
   methods: {
-    login (loginData) {
-      console.log(loginData)
-      axios({
-        url: '/login',
-        method: 'POST',
-        data: {
-          email: loginData.email,
-          password: loginData.password
-        }
-      })
-        .then(({ data }) => {
-          // console.log(data)
-          localStorage.access_token = data.access_token
-        })
-        .catch((error) => {
-          if (error.response) {
-            // Request made and server responded
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.log(error.request)
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message)
-          }
-        })
-    },
-    getProducts () {
-      axios({
-        url: '/products',
-        method: 'GET',
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then(({ data }) => {
-          this.productList = data
-        })
-        .catch(error => {
-          if (error.response) {
-            // Request made and server responded
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.log(error.request)
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message)
-          }
-        })
-    },
-    deleteProduct (id) {
-      Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      })
-        .then((result) => {
-          if (result.isConfirmed) {
-            return axios({
-              url: '/products/' + id,
-              method: 'DELETE',
-              headers: {
-                access_token: localStorage.access_token
-              }
-            })
-          }
-        })
-        .then(({ data }) => {
-          console.log(data)
-          Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          )
-          this.getProducts()
-        })
-        .catch(error => {
-          if (error.response) {
-            // Request made and server responded
-            console.log(error.response.data)
-            console.log(error.response.status)
-            console.log(error.response.headers)
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.log(error.request)
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message)
-          }
-        })
-    }
   },
   created () {
-    this.getProducts()
+  },
+  computed: {
+    ...mapState([
+      'currentUser'
+    ])
   }
 }
 </script>

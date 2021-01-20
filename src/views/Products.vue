@@ -5,7 +5,7 @@
         <div class="text-center">
           <h1 class="display-4">Products</h1>
           <p class="lead">Our selection of finest products.</p>
-          <button class="btn btn-primary my-1">Add product</button>
+          <button class="btn btn-primary my-1" @click="addProduct">Add product</button>
         </div>
 
         <table class="table my-4">
@@ -27,7 +27,8 @@
               <td class="align-middle text-right">{{product.price}}</td>
               <td class="align-middle text-right">{{product.stock}}</td>
               <td class="align-middle">
-                <button class="btn btn-primary mx-1">
+                <button class="btn btn-primary mx-1"
+                  @click="editProduct(product.id)">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                   Edit
                   </button>
@@ -46,14 +47,31 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'Products',
-  props: ['productList'],
   methods: {
+    addProduct () {
+      this.$router.push({ path: '/products/add' })
+    },
+    getProducts () {
+      this.$store.dispatch('getProducts')
+    },
+    editProduct (id) {
+      this.$router.push({ path: `/products/${id}/edit` })
+    },
     deleteProduct (id) {
-      // console.log(id, 'hapus nih')
-      this.$emit('deleteProduct', id)
+      this.$store.dispatch('deleteProduct', id)
     }
+  },
+  computed: {
+    ...mapState([
+      'productList'
+    ])
+  },
+  created () {
+    this.getProducts()
   }
 
 }
