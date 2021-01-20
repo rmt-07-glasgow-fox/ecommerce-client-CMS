@@ -12,9 +12,7 @@ const routes = [
     component: Home,
     beforeEnter (to, from, next) {
       if (localStorage.getItem('access_token')) {
-        next({
-          name: 'Dashboard'
-        })
+        next({ name: 'Dashboard' })
       } else {
         next()
       }
@@ -23,14 +21,7 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
-    beforeEnter (to, from, next) {
-      if (localStorage.getItem('access_token')) {
-        next()
-      } else {
-        next({ name: 'Home' })
-      }
-    }
+    component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue')
   },
   {
     path: '*',
@@ -43,6 +34,18 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/') {
+    if (localStorage.getItem('access_token')) {
+      next()
+    } else {
+      next({ name: 'Home' })
+    }
+  } else {
+    next()
+  }
 })
 
 export default router
