@@ -1,10 +1,10 @@
 <template>
-    <div class="d-flex justify-content-between w-75 mx-auto mt-5 pt-5">
-      <div class="w-50 p-3 text-center">
-        <h3>This app just for administrator area</h3>
+    <div class="login d-flex justify-content-arround w-75 mx-auto text-light">
+      <div class="text-center">
+        <h3 class="mb-3">This app just for administrator area</h3>
         <img class="img" src="../../assets/cms.svg" alt="">
       </div>
-      <div class="w-50 rounded">
+      <div class="rounded mx-auto">
         <div class="shadow rounded">
           <div id="login" class="p-5">
             <div class="mb-3 text-center">
@@ -47,5 +47,8 @@ export default {
 .img {
   height: 20rem;
   width: 30rem;
+}
+.login {
+  margin-top: 10rem;
 }
 </style>

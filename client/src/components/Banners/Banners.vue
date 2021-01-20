@@ -55,6 +55,6 @@ export default {
 <style scoped>
 .table-wraper {
   overflow-y: auto;
-  max-height: 24rem;
+  max-height: 23rem;
 }
 </style>

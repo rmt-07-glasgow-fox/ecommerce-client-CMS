@@ -8,7 +8,7 @@
           <input class="form-control" id="search-task" type="search" placeholder="Search Product">
         </div>
     </div>
-    <div class="d-flex justify-content-between p-3 bg-light rounded-start">
+    <div class="d-flex justify-content-between h-100 p-3 bg-light rounded-start">
       <div class="w-70 rounded">
         <div v-if="isAdd" class="p-3 mb-2 bg-white rounded shadow-sm">
           <FormAdd

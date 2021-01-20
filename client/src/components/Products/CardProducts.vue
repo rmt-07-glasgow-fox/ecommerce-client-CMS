@@ -5,7 +5,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
         <p class="card-text">{{ product.description }}</p>
-        <p>Price: IDR {{ product.price }}</p>
+        <p>Price: {{ priceFormat }}</p>
         <p>Stock: {{ product.stock }}</p>
         <button @click="getProductId(product.id)" class="btn btn-outline-primary">Edit</button>
         <button @click="deleteProduct(product.id)" class="btn btn-outline-danger mx-2">Delete</button>
@@ -47,7 +47,10 @@ export default {
   computed: {
     ...mapState([
       'product'
-    ])
+    ]),
+    priceFormat () {
+      return this.product.price.toLocaleString('id-ID') + ' IDR'
+    }
   }
 }
 </script>

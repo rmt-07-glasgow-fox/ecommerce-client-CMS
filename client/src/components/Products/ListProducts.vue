@@ -10,14 +10,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="( product, idx ) in products"
+        <tr class="product-list"
+          v-for="( product, idx ) in products"
           :key="product.id">
           <th scope="row">{{ idx + 1 }}</th>
           <td class="text-primary product-name"
             @click="productDetail(product)">
             {{ product.name }}
           </td>
-          <td>IDR {{ product.price }}</td>
+          <td>{{ priceFormat(product.price) }}</td>
           <td>{{ product.stock }}</td>
         </tr>
       </tbody>
@@ -27,12 +28,16 @@
 
 <script>
 import { mapState } from 'vuex'
+import $ from 'jquery'
 
 export default {
   name: 'ListProducts',
   methods: {
     productDetail (product) {
       this.$store.dispatch('productDetail', product)
+    },
+    priceFormat (price) {
+      return price.toLocaleString('id-ID') + ' IDR'
     }
   },
   computed: {
@@ -46,6 +51,13 @@ export default {
   updated () {
     const length = this.products.length
     this.productDetail(this.products[length - 1])
+
+    $('#search-task').on('keyup', function () {
+      const value = $(this).val().toLowerCase()
+      $('.product-list').filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      })
+    })
   }
 }
 </script>
