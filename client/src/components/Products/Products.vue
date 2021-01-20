@@ -25,10 +25,6 @@
         <CardProducts
           v-if="isDetail"
           :product="product"
-          :productToEdit="productToEdit"
-          @getProductId="getProductId"
-          @editProduct="editProduct"
-          @deleteProduct="deleteProduct"
         ></CardProducts>
       </div>
     </div>
@@ -47,7 +43,6 @@ export default {
     ListProducts,
     CardProducts
   },
-  props: ['productToEdit'],
   data () {
     return {
       isAdd: false,
@@ -59,24 +54,9 @@ export default {
     closeAdd () {
       this.isAdd = false
     },
-    getProductId (id) {
-      this.$emit('getProductId', id)
-    },
-    editProduct (payload) {
-      this.$emit('editProduct', payload)
-    },
-    deleteProduct (id) {
-      this.product = {}
-      this.$emit('deleteProduct', id)
-    },
     productDetail (payload) {
       this.isDetail = true
       this.product = payload
-    },
-    defaultProductDetail () {
-      if (!this.isDetail) {
-        this.product = this.products[0]
-      }
     }
   },
   computed: {
@@ -88,17 +68,6 @@ export default {
       }
     }
   }
-  // mounted () {
-  //   console.log('mounted')
-  //   this.defaultProductDetail()
-  // },
-  // updated () {
-  //   console.log('updated')
-  //   this.defaultProductDetail()
-  // },
-  // destroyed () {
-  //   console.log('destroy')
-  // }
 }
 </script>
 

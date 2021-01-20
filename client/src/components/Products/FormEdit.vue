@@ -24,23 +24,30 @@
       </div>
       <div class="col-12">
         <button type="submit" class="btn btn-outline-primary">Edit</button>
-        <button @click="cancel" class="btn btn-outline-secondary mx-2">Cancel</button>
+        <button @click="closeEdit" class="btn btn-outline-secondary mx-2">Cancel</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'FormEdit',
-  props: ['product'],
   methods: {
-    cancel () {
-      this.$emit('cancel')
+    closeEdit () {
+      this.$emit('closeEdit')
     },
     editProduct () {
-      this.$emit('editProduct', this.product)
+      this.closeEdit()
+      this.$store.dispatch('editProduct', this.product)
     }
+  },
+  computed: {
+    ...mapState({
+      product: 'productToEdit'
+    })
   }
 
 }

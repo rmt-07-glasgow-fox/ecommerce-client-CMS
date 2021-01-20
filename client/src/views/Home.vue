@@ -1,12 +1,7 @@
 <template>
   <div class="d-flex justify-content-start">
-    <Navbar></Navbar>
-    <router-view
-      :productToEdit="productToEdit"
-      @getProductId="getProductId"
-      @editProduct="editProduct"
-      @deleteProduct="deleteProduct"
-    ></router-view>
+    <Navbar />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -17,21 +12,6 @@ export default {
   name: 'Home',
   components: {
     Navbar
-  },
-  props: ['productToEdit'],
-  methods: {
-    getProductId (id) {
-      this.$emit('getProductId', id)
-    },
-    editProduct (payload) {
-      this.$emit('editProduct', payload)
-    },
-    deleteProduct (id) {
-      this.$emit('deleteProduct', id)
-    },
-    handleLogout () {
-      this.$emit('handleLogout')
-    }
   }
 }
 </script>

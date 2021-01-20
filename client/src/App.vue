@@ -1,107 +1,12 @@
 <template>
   <div id="app">
-    <router-view
-      :productToEdit="productToEdit"
-      @getProductId="getProductId"
-      @editProduct="handleEditProduct"
-      @deleteProduct="deleteProduct"
-    />
+    <router-view/>
   </div>
 </template>
 
 <script>
-import axios from './api/axios'
-
 export default {
-  data () {
-    return {
-      productToEdit: {}
-    }
-  },
   methods: {
-    // getProducts () {
-    //   const accessToken = localStorage.getItem('access_token')
-    //   axios({
-    //     method: 'GET',
-    //     url: '/products',
-    //     headers: {
-    //       access_token: accessToken
-    //     }
-    //   }).then(res => {
-    //     console.log(res.data)
-    //     this.products = res.data
-    //   }).catch(err => {
-    //     console.log(err)
-    //   })
-    // },
-    // addProduct (payload) {
-    //   const accessToken = localStorage.getItem('access_token')
-    //   axios({
-    //     method: 'POST',
-    //     url: '/products',
-    //     headers: {
-    //       access_token: accessToken
-    //     },
-    //     data: payload
-    //   }).then(res => {
-    //     console.log(res.data)
-    //     this.getProducts()
-    //   }).catch(err => {
-    //     console.log(err)
-    //   })
-    // },
-    getProductId (id) {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'GET',
-        url: `/products/${id}`,
-        headers: {
-          access_token: accessToken
-        }
-      }).then(res => {
-        console.log(res.data)
-        this.productToEdit = res.data
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    handleEditProduct (payload) {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'PUT',
-        url: `/products/${payload.id}`,
-        headers: {
-          access_token: accessToken
-        },
-        data: {
-          name: payload.name,
-          iamge_url: payload.iamge_url,
-          price: payload.price,
-          stock: payload.stock,
-          description: payload.description
-        }
-      }).then(res => {
-        console.log(res.data)
-        this.getProducts()
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    deleteProduct (id) {
-      const accessToken = localStorage.getItem('access_token')
-      axios({
-        method: 'DELETE',
-        url: `/products/${id}`,
-        headers: {
-          access_token: accessToken
-        }
-      }).then(res => {
-        console.log(res.data)
-        this.getProducts()
-      }).catch(err => {
-        console.log(err)
-      })
-    }
   }
 }
 </script>

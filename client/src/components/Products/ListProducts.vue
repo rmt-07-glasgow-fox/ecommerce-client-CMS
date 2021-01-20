@@ -43,6 +43,11 @@ export default {
   created () {
     console.log('created')
     this.$store.dispatch('getProducts')
+  },
+  updated () {
+    console.log('updated')
+    const length = this.products.length
+    this.productDetail(this.products[length - 1])
   }
 }
 </script>

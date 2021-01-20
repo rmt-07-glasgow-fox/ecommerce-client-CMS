@@ -13,9 +13,7 @@
     </div>
     <FormEdit
       v-if="isEdit"
-      :product="productToEdit"
-      @cancel="cancel"
-      @editProduct="editProduct"
+      @closeEdit="closeEdit"
     ></FormEdit>
   </div>
 </template>
@@ -27,26 +25,22 @@ export default {
   components: {
     FormEdit
   },
-  props: ['product', 'productToEdit'],
+  props: ['product'],
   data () {
     return {
       isEdit: false
     }
   },
   methods: {
-    cancel () {
+    closeEdit () {
       this.isEdit = false
     },
     getProductId (id) {
       this.isEdit = true
-      this.$emit('getProductId', id)
-    },
-    editProduct (payload) {
-      this.isEdit = false
-      this.$emit('editProduct', payload)
+      this.$store.dispatch('getProductId', id)
     },
     deleteProduct (id) {
-      this.$emit('deleteProduct', id)
+      this.$store.dispatch('deleteProduct', id)
     }
   }
 }
