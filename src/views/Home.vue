@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" :src="poster" height="300px">
+    <img alt="Poster" :src="poster" height="300px">
     <HelloWorld msg="Welcome to Munthe E-Commerce"/>
   </div>
 </template>
