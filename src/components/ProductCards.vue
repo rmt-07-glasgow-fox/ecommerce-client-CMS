@@ -54,6 +54,7 @@ export default {
       })
         .then((response) => {
           console.log('Delete product success!')
+          this.$store.dispatch('fetchProducts')
         })
         .catch((err) => {
           console.log('Error message:', err.response.data.message)
@@ -75,8 +76,8 @@ export default {
         }
       })
         .then((response) => {
-          console.log('Update product success!')
           console.log(response.data.message)
+          this.$store.dispatch('fetchProducts')
         })
         .catch((err) => {
           console.log('Error message:' + err.response.data.message)

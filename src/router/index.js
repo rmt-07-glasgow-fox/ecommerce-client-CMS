@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Dashboard from '../views/Dashboard.vue'
+import AddProduct from '../components/AddProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -27,8 +28,20 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: Dashboard
+    component: Dashboard,
+    children: [
+      {
+        path: 'add-product',
+        name: 'AddProduct',
+        component: AddProduct
+      }
+    ]
   }
+  // {
+  //   path: '/add-product',
+  //   name: 'AddProduct',
+  //   component: AddProduct
+  // }
 ]
 
 const router = new VueRouter({

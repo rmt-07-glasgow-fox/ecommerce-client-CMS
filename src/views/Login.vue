@@ -1,6 +1,7 @@
 <template>
     <!-- LOGIN PAGE -->
   <div id="loginPage" class="container-fluid">
+    <h1>Please login as an admin</h1>
     <div class="row" style="justify-content: center;">
       <div class="loginContainer col-4 rounded" style="background-color: aliceblue;">
         <div>
@@ -49,10 +50,11 @@ export default {
           localStorage.setItem('user', this.email)
           this.email = ''
           this.password = ''
-          this.$router.push('/dashboard')
+          this.$store.commit('setLoginStatus', true)
+          this.$router.push('/')
         })
         .catch((err) => {
-          console.log('errResp:', err)
+          console.log(err.response.data.message)
         })
     }
   }

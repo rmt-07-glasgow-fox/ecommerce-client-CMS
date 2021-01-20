@@ -1,44 +1,33 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/login">Login</router-link>
+    <div id="nav" v-if="isLogin == true">
+      <router-link to="/" class="mx-3">Home</router-link>
+      <router-link to="/about" class="mx-3">About</router-link>
+      <a href="#" class="mx-3"
+        @click.prevent="logout">Logout</a>
+      <router-link
+        class="mx-3"
+        to="/dashboard">Dashboard</router-link>
     </div>
-    <router-view
-      :products="this.products"/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import axios from './api/axios'
-
 export default {
-  data () {
-    return {
-      products: {}
+  methods: {
+    logout () {
+      this.$store.dispatch('logout')
     }
   },
-  methods: {
-    fetchProducts () {
-      axios({
-        method: 'GET',
-        url: '/products',
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then((response) => {
-          console.log('Fetch products success!')
-          this.products = response.data
-        })
-        .catch((err) => {
-          console.log('errResp:', err)
-        })
+  computed: {
+    isLogin () {
+      return this.$store.state.isLogin
     }
   },
   created () {
-    this.fetchProducts()
+    this.$store.dispatch('auth')
+    this.$store.dispatch('fetchProducts')
   }
 }
 </script>

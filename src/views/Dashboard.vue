@@ -1,7 +1,8 @@
 <template>
   <div class="dashboard">
     <h1>This is dashboard</h1>
-    <h3><a href="">Add Product</a></h3>
+    <h3><a href="" @click.prevent="addProduct">Add Product</a></h3>
+    <router-view />
     <div class="row productContainer">
       <ProductCards
       v-for="(product, index) in products"
@@ -16,9 +17,18 @@ import ProductCards from '../components/ProductCards.vue'
 
 export default {
   name: 'Dashboard',
-  props: ['products'],
   components: {
     ProductCards
+  },
+  methods: {
+    addProduct () {
+      this.$router.push('/dashboard/add-product')
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
   }
 }
 </script>
