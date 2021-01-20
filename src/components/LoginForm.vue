@@ -1,6 +1,5 @@
 <template>
 <div class='container'>
-  <div class='card'>
     <form @submit.prevent='login'>
       <!-- Email input -->
       <h3 class="h3 mb-3 font-weight-normal">Please login</h3>
@@ -18,7 +17,6 @@
       <!-- Submit button -->
       <button type="submit" class="btn btn-primary btn-block mb-4">Login</button>
     </form>
-  </div>
 </div>
 </template>
 
@@ -37,7 +35,7 @@ export default {
         email: this.email,
         password: this.password
       }
-      this.$emit('login', payload)
+      this.$store.dispatch('login', payload)
     }
   }
 }
