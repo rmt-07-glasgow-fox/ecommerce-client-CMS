@@ -1,6 +1,7 @@
 <template>
   <div class="row mb-3 mt-3">
     <div class="col">
+      <h1 class="mb-3">Add Product</h1>
       <form @submit.prevent="handleAddNewProduct">
         <div class="form-group mt-1 row">
           <label for="input-name" class="col-sm-2 col-2 col-form-label">Name</label>
@@ -48,7 +49,7 @@ export default {
   methods: {
     handleAddNewProduct () {
       const { name, imageUrl, price, stock } = this
-      this.$emit('newProductData', {
+      this.$store.dispatch('handleAddProduct', {
         name,
         image_url: imageUrl,
         price,

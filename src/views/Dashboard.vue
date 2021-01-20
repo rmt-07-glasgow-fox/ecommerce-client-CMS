@@ -7,9 +7,7 @@
           <b-button variant="primary" @click="handleAddNewProduct" >Add new product</b-button>
         </div>
       </div>
-      <router-view
-        @newProductData="handleAddProduct"
-        :productById="productById"/>
+      <router-view />
       <div class="row">
         <div class="col table-product text-center">
           <table class="table">
@@ -20,11 +18,10 @@
             </thead>
             <tbody>
               <product-list
-                v-for="product in products"
+                v-for="(product, idx) in products"
                 :key="product.id"
                 :product="product"
-                @editProductId="getDataById"
-                @deleteDataId="deleteDataById"/>
+                :idx="idx"/>
             </tbody>
           </table>
         </div>
@@ -41,26 +38,17 @@ export default {
   name: 'Dashboard',
   data () {
     return {
-      fields: ['id', 'Image', 'Title', 'Price', 'Stock', 'Action']
+      fields: ['#', 'Image', 'Title', 'Price', 'Stock', 'Action']
     }
   },
   components: { Navbar, ProductList },
-  props: ['productById'],
+  props: [],
   methods: {
     fetchProducts () {
       this.$store.dispatch('fetchProducts')
     },
     handleAddNewProduct () {
       this.$router.push('/addproduct')
-    },
-    handleAddProduct (payload) {
-      this.$emit('handleAddProduct', payload)
-    },
-    getDataById (payload) {
-      this.$emit('getDataById', payload)
-    },
-    deleteDataById (payload) {
-      this.$emit('deleteDataById', payload)
     }
   },
   created () {

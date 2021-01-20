@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <th> {{ product.id }} </th>
+    <th> {{ idx + 1 }} </th>
     <td><img :src="product.image_url" alt="" class="img-product"></td>
     <td> {{ product.name }}</td>
     <td> {{ maskPrice }}</td>
@@ -15,7 +15,7 @@
 <script>
 export default {
   name: 'ProductList',
-  props: ['product'],
+  props: ['product', 'idx'],
   computed: {
     maskPrice () {
       return `Rp. ${Number(this.product.price).toLocaleString('id-ID')}`
@@ -26,11 +26,10 @@ export default {
   },
   methods: {
     editData (id) {
-      this.$emit('editProductId', id)
-      // this.$router.push('/editproduct/' + id)
+      this.$store.dispatch('getDataById', id)
     },
     deleteData (id) {
-      this.$emit('deleteDataId', id)
+      this.$store.dispatch('deleteDataById', id)
     }
   }
 }
