@@ -1,12 +1,6 @@
 <template>
   <div id="app">
     <Navbar />
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/add">Add</router-link> |
-      <router-link to="/update">Update</router-link> |
-      <router-link to="/login">Login</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
@@ -23,14 +17,6 @@ export default {
   data () {
     return {
     }
-  },
-  methods: {
-    getAllProduct () {
-      this.$store.dispatch('getAllProduct')
-    }
-  },
-  created () {
-    this.getAllProduct()
   }
 }
 </script>

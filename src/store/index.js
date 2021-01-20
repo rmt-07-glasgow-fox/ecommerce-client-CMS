@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
+import router from '../router'
 
 Vue.use(Vuex)
 
@@ -8,7 +9,8 @@ export default new Vuex.Store({
   state: {
     allProduct: [],
     productId: '',
-    oneProduct: ''
+    oneProduct: '',
+    page: 'login'
   },
   mutations: {
     insertAllProduct (state, payload) {
@@ -39,7 +41,7 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
-          this.checkAuth()
+          this.dispatch('getAllProduct')
         })
         .catch(err => {
           console.log(err.response)
@@ -50,6 +52,19 @@ export default new Vuex.Store({
         .get('/products', { headers: { access_token: localStorage.access_token } })
         .then(({ data }) => {
           context.commit('insertAllProduct', data)
+        })
+        .catch(err => console.log(err))
+    },
+    getOneProduct (context, id) {
+      axios({
+        method: 'GET',
+        url: '/products/' + id,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(data => {
+          context.commit('insertOneProduct', data)
         })
         .catch(err => console.log(err))
     },
@@ -73,7 +88,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           this.dispatch('getAllProduct')
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err.response))
     },
     deleteProduct (context, id) {
       axios
@@ -99,6 +114,7 @@ export default new Vuex.Store({
         .then(data => {
           localStorage.setItem('access_token', data.data.access_token)
           this.dispatch('getAllProduct')
+          router.push('/')
         })
         .catch(err => {
           console.log(err.response)

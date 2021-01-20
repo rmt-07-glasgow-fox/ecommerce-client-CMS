@@ -57,6 +57,7 @@ export default {
         price: this.price
       }
       this.$store.dispatch('createProduct', payload)
+      this.$router.push('/')
     }
   }
 }

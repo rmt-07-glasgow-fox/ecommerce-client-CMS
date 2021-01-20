@@ -58,14 +58,19 @@ export default {
         price: this.price
       }
       this.$store.dispatch('updateProduct', payload)
+      this.$router.push('/')
     }
+    // getOneFromDatabase () {
+    //   const id = this.$route.params
+    //   this.$store.dispatch('getOneProduct', id)
+    // }
   },
   computed: {
     getProduct () {
       return this.$store.state.oneProduct
     }
   },
-  created () {
+  mounted () {
     this.name = this.getProduct.name
     this.imageUrl = this.getProduct.imageUrl
     this.genre = this.getProduct.genre

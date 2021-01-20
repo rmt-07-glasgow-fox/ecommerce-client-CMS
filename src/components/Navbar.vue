@@ -7,15 +7,15 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div v-if="isLogin" class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <router-link to="/" class="nav-link active" aria-current="page" >Home</router-link>
           </li>
         </ul>
 
-        <button class="btn btn-light btn-sm mt-1 me-3" style="font-weight: bold;">Add Product</button>
-        <button class="btn btn-dark btn-sm mt-1 me-3" style="background-color: red; font-weight: bold;">Logout</button>
+        <router-link to="/add" class="btn btn-light btn-sm mt-1 me-3" style="font-weight: bold;">Add Product</router-link>
+        <button @click.prevent="logout" class="btn btn-dark btn-sm mt-1 me-3" style="background-color: red; font-weight: bold;">Logout</button>
 
       </div>
     </div>
@@ -25,7 +25,21 @@
 
 <script>
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  methods: {
+    toAddForm () {
+      this.$router.push('add')
+    },
+    logout () {
+      localStorage.clear()
+      this.$router.push('login')
+    }
+  },
+  computed: {
+    isLogin () {
+      return this.$route.name !== 'Login'
+    }
+  }
 }
 </script>
 

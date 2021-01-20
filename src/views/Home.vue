@@ -30,6 +30,9 @@ export default {
     allProduct () {
       return this.$store.state.allProduct
     }
+  },
+  created () {
+    this.$store.dispatch('getAllProduct')
   }
 }
 </script>
