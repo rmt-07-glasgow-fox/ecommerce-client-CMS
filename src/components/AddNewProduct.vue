@@ -27,6 +27,18 @@
             <input type="number" v-model="stock" class="form-control" id="input-stock" placeholder="Product's stock">
           </div>
         </div>
+        <div class="form-group mt-1 row">
+          <label for="input-category" class="col-sm-2 col-2 col-form-label">Category</label>
+          <div class="col-sm-10 col-10">
+            <b-form-select
+              v-model="CategoryId"
+              :options="categories"
+              class="mb-3 form-control"
+              value-field="id"
+              text-field="name"
+              id="input-category"/>
+          </div>
+        </div>
         <div class="create-btn">
           <button type="submit" class="mt-4 btn btn-primary">Create</button>
         </div>
@@ -43,22 +55,36 @@ export default {
       name: '',
       imageUrl: '',
       price: '',
-      stock: ''
+      stock: '',
+      CategoryId: ''
     }
   },
   methods: {
     handleAddNewProduct () {
-      const { name, imageUrl, price, stock } = this
+      const { name, imageUrl, price, stock, CategoryId } = this
       this.$store.dispatch('handleAddProduct', {
         name,
         image_url: imageUrl,
         price,
-        stock
+        stock,
+        CategoryId
       })
       this.name = ''
       this.imageUrl = ''
       this.price = ''
       this.stock = ''
+      this.CategoryId = ''
+    },
+    getCategories () {
+      this.$store.dispatch('fetchCategories')
+    }
+  },
+  created () {
+    this.getCategories()
+  },
+  computed: {
+    categories () {
+      return this.$store.state.category.categories
     }
   }
 }

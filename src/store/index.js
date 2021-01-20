@@ -97,7 +97,8 @@ export default new Vuex.Store({
           name: payload.name,
           image_url: payload.image_url,
           price: payload.price,
-          stock: payload.stock
+          stock: payload.stock,
+          CategoryId: payload.CategoryId
         }
       })
         .then(res => {
