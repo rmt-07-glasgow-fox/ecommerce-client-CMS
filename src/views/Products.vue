@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <NavigationBar />
     <table class="table">
       <thead>
         <tr>
@@ -35,8 +36,12 @@
             />
           </td>
           <td>
-            <button class="btn btn-danger">Delete</button>
-            <button class="btn btn-success">Edit</button>
+            <button @click="deleteProduct(product.id)" class="btn btn-danger">
+              Delete
+            </button>
+            <button @click="editProduct(product.id)" class="btn btn-success">
+              Edit
+            </button>
           </td>
         </tr>
       </tbody>
@@ -46,13 +51,27 @@
 
 <script>
 import { mapState } from "vuex";
+import NavigationBar from "../components/NavigationBar";
 
 export default {
   data() {
     return {};
   },
+  methods: {
+    deleteProduct(idProduct) {
+      // console.log(">>> delete product", idProduct);
+      this.$store.dispatch("deleteProduct", idProduct);
+    },
+    editProduct(idProduct) {
+      console.log(">>> edit product", idProduct);
+    },
+  },
+  components: {
+    NavigationBar
+  },
   created() {
     this.$store.dispatch("getAllProducts");
+    this.$store.dispatch("getAllBrands");
   },
   computed: {
     ...mapState(["products", "baseURL"]),

@@ -22,7 +22,6 @@ export default new Vuex.Store({
     async getAllProducts(context, payload) {
       try {
         let response = await axios.get('/products', { headers: { access_token: localStorage.access_token } })
-        console.log('>>> data', response.data)
         context.commit('insertStateProducts', response.data)
       } catch (err) {
         console.log(err)
@@ -30,16 +29,42 @@ export default new Vuex.Store({
     },
     async login(context, payload) {
       try {
-        // console.log('>>> input login', payload)
         let user = await axios.post('/user/login', payload)
-        // console.log('>>> user login : ', user.data)
         localStorage.setItem('access_token', user.data.access_token)
       } catch (err) {
         console.log(err.message)
       }
     },
     logout(context, payload) {
-      localStorage.clear()
+      console.log('logout')
+      // localStorage.clear()
+    },
+    async getAllBrands(context, payload) {
+      try {
+        let response = await axios.get('/brands', { headers: { access_token: localStorage.access_token } })
+        context.commit('insertStateBrands', response.data)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async deleteProduct(context, idProduct) {
+      try {
+        // console.log('>>> axios : ', idProduct)
+        await axios.delete(`/products/${idProduct}`, { headers: { access_token: localStorage.access_token } })
+        this.dispatch('getAllProducts')
+        this.dispatch('getAllBrands')
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async addProduct(context, payload) {
+      try {
+        await axios.post('/products', payload, { headers: { access_token: localStorage.access_token } })
+        this.dispatch('getAllProducts')
+        this.dispatch('getAllBrands')
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 })
