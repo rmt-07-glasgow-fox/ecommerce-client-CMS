@@ -3,6 +3,9 @@
     <div class='row'>
       <h1>Dashboard</h1>
     </div>
+    <div class='row justify-content-end'>
+      <button class="btn btn-sm btn-outline-primary mb-3" @click='toAddProductPage'>Add a product</button>
+    </div>
     <div class='row'>
       <div class='col-3 pl-0 pr-0 mb-4' v-for='product in products' :key='product.id'>
         <div class='card'>
@@ -13,6 +16,9 @@
           <div class="card-body">
             <p class="card-text">Stock: {{ product.stock }}</p>
             <p class="card-text">Price: {{ formatPrice(product.price) }}</p>
+          </div>
+          <div class="card-footer">
+            <i class="fas fa-trash" @click='deleteProduct(product.id)'></i>
           </div>
         </div>
       </div>
@@ -34,6 +40,12 @@ export default {
           id
         }
       })
+    },
+    deleteProduct (id) {
+      this.$store.dispatch('deleteProduct', id)
+    },
+    toAddProductPage () {
+      this.$router.push('/addproduct')
     }
   },
   computed: {
@@ -52,5 +64,8 @@ export default {
     width: 100%;
     height: 15vw;
     object-fit: cover;
+}
+.fa-trash {
+  color: rgb(209,26,42);
 }
 </style>
