@@ -1,18 +1,27 @@
 <template>
-  <div class="container border shadow p-3 mb-5 bg-white rounded">
-    <div class="login">
-      <LoginCard/>
+  <div>
+    <div class="container border shadow p-3 mb-5 bg-white rounded">
+      <div class="login">
+          <h1>Login</h1>
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input v-model="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input v-model="password" type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+            <button v-on:click.prevent="login" type="submit" class="btn btn-primary">Login</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import LoginCard from '../components/LoginCard'
 export default {
   name: 'Login',
-  components: {
-    LoginCard
-  },
   data () {
     return {
       email: '',
@@ -25,7 +34,6 @@ export default {
         email: this.email,
         password: this.password
       }
-      console.log(user)
       this.$store.dispatch('login', user)
     }
   }

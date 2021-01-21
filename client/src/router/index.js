@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import ProductDetail from '../views/ProductDetail.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import AddProduct from '../views/AddProduct'
+import EditProduct from '../components/EditProduct'
 
 Vue.use(VueRouter)
 
@@ -24,7 +26,13 @@ const routes = [
   {
     path: '/productdetail/:id',
     name: 'ProductDetail',
-    component: ProductDetail
+    component: ProductDetail,
+    children: [
+      {
+        path: 'editproduct',
+        component: EditProduct
+      }
+    ]
   },
   {
     path: '/login',
@@ -33,8 +41,13 @@ const routes = [
   },
   {
     path: '/register',
-    name: 'Resgister',
+    name: 'Register',
     component: Register
+  },
+  {
+    path: '/addproduct',
+    name: 'AddProduct',
+    component: AddProduct
   }
 ]
 

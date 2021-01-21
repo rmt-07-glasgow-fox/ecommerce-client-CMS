@@ -1,7 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
     <div class="container">
       <div class="row">
         <ProductCard
@@ -16,15 +14,25 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import ProductCard from '../components/ProductCard'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
     ProductCard
   },
-  props: ['products']
+  methods: {
+    getProducts () {
+      this.$store.dispatch('fetchProduct')
+    }
+  },
+  created () {
+    this.getProducts()
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  }
 }
 </script>

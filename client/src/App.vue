@@ -4,9 +4,7 @@
       <div v-if="access_token">
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link> |
-        <router-link to="/about">Product</router-link> |
-        <router-link to="/about">Add Product</router-link> |
-        <router-link to="/about">Edit Product</router-link> |
+        <router-link to="/addproduct">Add Product</router-link> |
         <button v-on:click="logout" class="btn btn-outline-danger" to="/about">Logout</button>
       </div>
       <div v-else >
@@ -19,7 +17,6 @@
 </template>
 
 <script>
-import axios from './api/axios'
 
 export default {
   data () {
@@ -27,27 +24,6 @@ export default {
       products: [],
       access_token: localStorage.getItem('access_token')
     }
-  },
-  methods: {
-    fetchProducts () {
-      axios({
-        method: 'GET',
-        url: '/products',
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then(({ data }) => {
-          this.products = data
-        })
-        .catch(err => console.log(err))
-    },
-    logout () {
-      this.$store.dispatch('logout')
-    }
-  },
-  created () {
-    this.fetchProducts()
   }
 }
 </script>

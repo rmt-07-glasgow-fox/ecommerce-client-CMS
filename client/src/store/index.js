@@ -7,10 +7,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userEmail: '',
-    userPassword: ''
+    products: []
   },
   mutations: {
+    getProducts (state, payload) {
+      state.products = payload
+    }
   },
   actions: {
     login (context, payload) {
@@ -28,9 +30,68 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
+    addproduct (context, payload) {
+      return axios({
+        method: 'POST',
+        url: '/products',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: payload.price,
+          stock: payload.stock
+        }
+      })
+    },
+    delete (context, payload) {
+      axios({
+        method: 'DELETE',
+        url: `/products/${payload}`,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          router.push('/')
+        })
+        .catch(err => console.log(err))
+    },
+    edit (context, payload) {
+      axios({
+        method: 'PUT',
+        url: `/products/${payload.id}`,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: payload.price
+        }
+      })
+        .then(({ data }) => {
+          router.push(`/productdetail/${payload.id}`)
+        })
+        .catch(err => console.log(err))
+    },
     logout (context) {
       localStorage.clear()
       router.push('/login')
+    },
+    fetchProduct (context) {
+      axios({
+        method: 'GET',
+        url: '/products',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('getProducts', data)
+        })
+        .catch(err => console.log(err))
     }
   }
 })
