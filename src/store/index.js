@@ -10,7 +10,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    product: ''
+    product: '',
+    CategoryId: ''
   },
   mutations: {
     setProducts (state, payload) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     setProductById (state, payload) {
       state.product = payload
+    },
+    changeCategory (state, payload) {
+      state.CategoryId = payload
     }
   },
   actions: {
@@ -219,6 +223,18 @@ export default new Vuex.Store({
             icon: 'error'
           })
         })
+    }
+  },
+  getters: {
+    filterCategory: state => {
+      if (state.CategoryId === '' || state.CategoryId === 'allData') {
+        return state.products
+      } else {
+        console.log('ALLLO', state.products)
+        return state.products.filter(product => {
+          return product.CategoryId === state.CategoryId
+        })
+      }
     }
   },
   modules: {
