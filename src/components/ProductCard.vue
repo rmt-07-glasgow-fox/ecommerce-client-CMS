@@ -16,6 +16,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+img {
+  height: 350px;
+}
+h4 {
+  height: 100px;
+}
 </style>

@@ -4,7 +4,7 @@
             <p class="h2 text-center text-primary">MyLogin</p>
         </div>
         <div class="loginResult">
-            <p class="text-center text-danger" v-text="loginFail"></p>
+            <p class="text-center text-danger"></p>
         </div>
         <div class="form-group">
             <input type="email" class="form-control" v-model="user.email" placeholder="Email">
@@ -12,10 +12,10 @@
         <div class="form-group">
             <input type="password" class="form-control" v-model="user.password" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-primary btn-block" v-on:click.prevent="$emit('login', user)">Login</button><br>
-        <button type="button" class="btn btn-link" id="regbtn" v-on:click.prevent="$emit('changePage', 'register')">
+        <button type="submit" class="btn btn-primary btn-block" @click.prevent="login">Login</button><br>
+        <!-- <button type="button" class="btn btn-link" id="regbtn" v-on:click.prevent="$emit('changePage', 'register')">
             Don't have an account? Register here
-        </button>
+        </button> -->
     </form>
 </template>
 
@@ -26,11 +26,16 @@ export default {
     return {
       user: {
         email: '',
-        password: ''
+        password: '',
+        role: 'admin'
       }
     }
   },
-  props: []
+  methods: {
+    login () {
+      this.$store.dispatch('tryLogin', this.user)
+    }
+  }
 }
 </script>
 

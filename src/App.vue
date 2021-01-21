@@ -3,9 +3,12 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/product">Product</router-link> |
-      <router-link to="/add-product">Add Product</router-link>
-      <router-link to="/auth" id="login"
+      <router-link to="/add">Add Product</router-link>
+      <router-link to="/auth" class="right btn btn-primary"
        v-if="!isLogin">Login</router-link>
+      <button class="right btn btn-danger"
+       v-else
+       @click.prevent="logout">Log Out</button>
     </div>
     <router-view/>
   </div>
@@ -16,7 +19,22 @@ export default {
   name: 'App',
   data () {
     return {
-      isLogin: false
+    }
+  },
+  methods: {
+    setupIsLogin () {
+      this.$store.commit('getIsLogin')
+    },
+    logout () {
+      this.$store.dispatch('tryLogout')
+    }
+  },
+  created () {
+    this.setupIsLogin()
+  },
+  computed: {
+    isLogin () {
+      return this.$store.state.isLogin
     }
   }
 }
@@ -44,7 +62,8 @@ export default {
   color: #42b983;
 }
 
-#login{
+.right{
   float: right;
+  margin-top: -7px;
 }
 </style>

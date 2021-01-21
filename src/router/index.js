@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -25,6 +26,11 @@ const routes = [
     component: Login
   },
   {
+    path: '/add',
+    name: 'AddProduct',
+    component: () => import('../views/AddProduct.vue')
+  },
+  {
     path: '*',
     name: 'NotFound',
     component: () => import('../views/NotFound.vue')
@@ -36,5 +42,26 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  switch (to.name) {
+    case 'Login':
+      if (lookLogin()) next({ name: 'Home' })
+      else next()
+      break
+    case 'AddProduct':
+      if (lookLogin()) next()
+      else next({ name: 'Login' })
+      break
+    default:
+      next()
+      break
+  }
+})
+
+function lookLogin () {
+  store.commit('getIsLogin')
+  return store.state.isLogin
+}
 
 export default router

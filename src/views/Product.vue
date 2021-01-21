@@ -1,23 +1,19 @@
 <template>
-  <div class="product">
-    <div class="container">
-      <div class="row"></div>
-      <div class="row">
-        <div class="col-3">
-          <div class="card-deck">
-            <product-card
-             v-for="product in products"
-             :key="product.id"
-             :data="product"/>
-          </div>
-        </div>
+  <div class="container" id="product">
+    <div class="row"></div>
+    <div class="row">
+      <div class="card-deck" id="allProduct"
+        v-if="products.length > 0">
+        <product-card
+          v-for="product in products"
+          :key="product.id"
+          :data="product"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from '../api/axios.js'
 import ProductCard from '../components/ProductCard'
 
 export default {
@@ -27,21 +23,20 @@ export default {
   },
   data () {
     return {
-      products: []
     }
   },
   methods: {
-    fetchProduct () {
-      axios
-        .get('/products')
-        .then(({ data }) => {
-          this.products = data
-        })
-        .catch(err => console.log(err))
+    setupProducts () {
+      this.$store.dispatch('fetchProduct')
     }
   },
   created () {
-    this.fetchProduct()
+    this.setupProducts()
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
   }
 }
 </script>
