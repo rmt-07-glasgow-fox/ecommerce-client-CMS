@@ -1,27 +1,38 @@
 <template>
   <tr>
     <td scope="row">{{ index + 1 }}</td>
-    <td v-if="!showEditActive">{{ category.name }}</td>
+    <td v-if="!showEditActive">{{ banner.title }}</td>
+    <td v-if="!showEditActive">{{ banner.status }}</td>
+    <td v-if="!showEditActive"><img :src="banner.image_url" width="100px" alt="" /></td>
     <td v-if="!showEditActive">
       <button class="btn btn-warning mr-2" @click="showEditForm">
         <i class="fa fa-edit" aria-hidden="true"></i></button
-      ><button class="btn btn-danger" @click="deleteCategory(category.id)">
+      ><button class="btn btn-danger" @click="deleteBanner(banner.id)">
         <i class="fa fa-trash" aria-hidden="true"></i>
       </button>
     </td>
-    <td colspan="2" v-if="showEditActive">
+    <td colspan="4" v-if="showEditActive">
       <form>
-        <label :for="category.id">Name: </label>
-        <input :id="category.id" class="form-control w-25 mb-3" v-model="name" />
-        <button
-          type="submit"
-          class="btn btn-warning mx-2"
-          @click.prevent="updateCategory(category.id)"
-        >
-          Edit</button
-        ><button class="btn btn-danger" @click="hideEditForm">
-          Cancel
-        </button>
+        <input type="hidden" v-model="image_url" />
+        <div class="form-group">
+          <label :for="banner.id">Title: </label>
+          <input :id="banner.id" class="form-control w-25 mb-3" v-model="title" />
+        </div>
+        <div class="form-check">
+          <input type="checkbox" v-model="status" class="form-check-input" id="exampleCheck1" />
+          <label class="form-check-label" for="exampleCheck1">Status</label>
+        </div>
+        <div class="form-group mt-3">
+          <button
+            type="submit"
+            class="btn btn-warning mr-2"
+            @click.prevent="updateBanner(banner.id)"
+          >
+            Edit</button
+          ><button class="btn btn-danger" @click="hideEditForm">
+            Cancel
+          </button>
+        </div>
       </form>
     </td>
   </tr>
@@ -29,11 +40,13 @@
 
 <script>
 export default {
-  name: 'CategoryItem',
-  props: ['index', 'category'],
+  name: 'BannerItem',
+  props: ['index', 'banner'],
   data() {
     return {
-      name: this.category.name,
+      title: this.banner.title,
+      image_url: this.banner.image_url,
+      status: this.banner.status,
       showEditActive: false,
     };
   },
@@ -44,18 +57,20 @@ export default {
     hideEditForm() {
       this.showEditActive = false;
     },
-    async updateCategory(id) {
+    async updateBanner(id) {
       try {
         const payload = {
           id,
-          name: this.name,
+          title: this.title,
+          status: this.status,
+          image_url: this.image_url,
         };
-        await this.$store.dispatch('updateCategory', payload);
+        await this.$store.dispatch('updateBanner', payload);
         this.hideEditForm();
         this.$swal.fire({
           icon: 'success',
           title: 'Success',
-          text: 'Category has been updated',
+          text: 'Banner has been updated',
         });
       } catch (err) {
         this.$swal.fire({
@@ -65,7 +80,7 @@ export default {
         });
       }
     },
-    deleteCategory(id) {
+    deleteBanner(id) {
       this.$swal
         .fire({
           title: 'Are you sure?',
@@ -79,11 +94,11 @@ export default {
         .then(async (result) => {
           if (result.isConfirmed) {
             try {
-              await this.$store.dispatch('deleteCategory', id);
+              await this.$store.dispatch('deleteBanner', id);
               this.$swal.fire({
                 icon: 'success',
                 title: 'Success',
-                text: 'Category has been deleted',
+                text: 'Banner has been deleted',
               });
             } catch (err) {
               this.$swal.fire({
