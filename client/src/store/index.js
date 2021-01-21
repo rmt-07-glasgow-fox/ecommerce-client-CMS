@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -29,15 +30,45 @@ export default new Vuex.Store({
         .catch(err => console.log(err))
     },
     gotoDelete (context, payload) {
-      axios({
-        method: 'DELETE',
-        url: '/products/' + payload,
-        headers: {
-          access_token: localStorage.access_token
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios({
+            method: 'DELETE',
+            url: '/products/' + payload,
+            headers: {
+              access_token: localStorage.access_token
+            }
+          })
+            .then(({ data }) => {
+              context.dispatch('fetchProduct')
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            })
+            .catch(err => {
+              let valid = ''
+              err.response.data.errors.forEach(el => {
+                valid += `${el}
+                `
+              })
+              Swal.fire({
+                icon: 'error',
+                title: 'FAIL UPDATE',
+                text: valid
+              })
+            })
         }
       })
-        .then(({ data }) => {})
-        .catch(err => console.log(err))
     },
     addProduct (context, payload) {
       return axios({
@@ -60,8 +91,26 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           router.push('/dashboard')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1000
+          })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          let valid = ''
+          err.response.data.errors.forEach(el => {
+            valid += `${el}
+            `
+          })
+          Swal.fire({
+            icon: 'error',
+            title: 'FAIL UPDATE',
+            text: valid
+          })
+        })
     },
     getData (context, payload) {
       return axios({
@@ -83,9 +132,23 @@ export default new Vuex.Store({
           if (localStorage.access_token) {
             router.push('/dashboard')
           }
+          Swal.fire(
+            'Hallo! Admin',
+            'Have you eat breakfast today?',
+            'success'
+          )
         })
         .catch(err => {
-          console.log(err)
+          let valid = ''
+          err.response.data.errors.forEach(el => {
+            valid += `${el}
+            `
+          })
+          Swal.fire({
+            icon: 'error',
+            title: 'FAIL LOGIN',
+            text: valid
+          })
         })
     }
   }

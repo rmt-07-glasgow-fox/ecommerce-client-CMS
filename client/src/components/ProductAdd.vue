@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
+
 export default {
   name: 'ProductAdd',
   data () {
@@ -42,8 +44,26 @@ export default {
       this.$store.dispatch('addProduct', payload)
         .then(({ data }) => {
           this.$router.push('/dashboard')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1000
+          })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          let valid = ''
+          err.response.data.errors.forEach(el => {
+            valid += `${el}
+            `
+          })
+          Swal.fire({
+            icon: 'error',
+            title: 'FAIL ADD',
+            text: valid
+          })
+        })
     }
   }
 }
