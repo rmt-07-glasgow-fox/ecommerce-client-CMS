@@ -81,7 +81,16 @@ export default new Vuex.Store({
     },
     async editProduct(context, product) {
       try {
-        console.log('>>> axios product', product)
+        // console.log('>>> axios product', product)
+        let { id, name, image_url, price, stock, BrandId, } = product
+
+        let updatedProduct = await axios.put(`/products/${id}`,
+          { name, image_url, price, stock, BrandId },
+          { headers: { access_token: localStorage.access_token } })
+
+        console.log('>>> updated : ', updatedProduct.data)
+        this.dispatch('getAllProducts')
+        this.dispatch('getAllBrands')
       } catch (err) {
         console.log(err)
       }
