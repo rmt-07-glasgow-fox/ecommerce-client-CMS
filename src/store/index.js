@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     products: [],
     brands: [],
+    productsDetail: {},
     baseURL: 'http://localhost:3000'
   },
   mutations: {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     insertStateBrands(state, payload) {
       state.brands = payload
+    },
+    insertStateProductsDetail(state, payload) {
+      state.productsDetail = payload
     }
   },
   actions: {
@@ -59,10 +63,25 @@ export default new Vuex.Store({
     },
     async addProduct(context, newProduct) {
       try {
-        console.log('>>> newProduct in store', newProduct)
+        // console.log('>>> newProduct in store', newProduct)
         await axios.post('/products', newProduct, { headers: { access_token: localStorage.access_token } })
         this.dispatch('getAllProducts')
         this.dispatch('getAllBrands')
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async getProductById(context, idProduct) {
+      try {
+        let response = await axios.get(`/products/${idProduct}`, { headers: { access_token: localStorage.access_token } })
+        context.commit('insertStateProductsDetail', response.data)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async editProduct(context, product) {
+      try {
+        console.log('>>> axios product', product)
       } catch (err) {
         console.log(err)
       }
