@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import NotFound from '../views/NotFound.vue'
 import ProductDetail from '../views/ProductDetail.vue'
+import AddProduct from '../views/AddProduct.vue'
+import EditProduct from '../views/EditProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -22,7 +24,18 @@ const routes = [
   {
     path: '/products/:id',
     name: 'ProductDetail',
-    component: ProductDetail
+    component: ProductDetail,
+    children: [
+      {
+        path: 'edit',
+        component: EditProduct
+      }
+    ]
+  },
+  {
+    path: '/addproduct',
+    name: 'AddProduct',
+    component: AddProduct
   },
   {
     path: '/dashboard',
