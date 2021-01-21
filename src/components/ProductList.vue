@@ -5,7 +5,7 @@
     <td> {{ product.name }}</td>
     <td> {{ maskPrice }}</td>
     <td> {{ maskStock }} </td>
-    <td> {{ getCategories }} </td>
+    <td> {{ product.Category.name }} </td>
     <td>
         <button class="btn btn-warning mr-3" @click="editData(product.id)">Edit</button>
         <button type="button" class="btn btn-danger" @click="deleteData(product.id)">Delete</button>
@@ -23,14 +23,6 @@ export default {
     },
     maskStock () {
       return Number(this.product.stock).toLocaleString('id-ID')
-    },
-    getCategories () {
-      if (this.product.Categories.length > 0) {
-        const mapped = this.product.Categories.map(el => { return el.name })
-        return mapped.join(', ')
-      } else {
-        return 'No Category'
-      }
     }
   },
   methods: {

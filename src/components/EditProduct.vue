@@ -22,9 +22,21 @@
           </div>
         </div>
         <div class="form-group mt-1 row">
-          <label for="input-stock" class="col-sm-2 col-2 col-form-label">Stock</label>
+          <label for="input-stock" class="col-sm-2 col-2 col-form-label">Stock </label>
           <div class="col-sm-10 col-10">
             <input type="number" v-model="productById.stock" class="form-control" id="input-stock" placeholder="Product's stock">
+          </div>
+        </div>
+        <div class="form-group mt-1 row">
+          <label for="input-category" class="col-sm-2 col-2 col-form-label">Category</label>
+          <div class="col-sm-10 col-10">
+            <b-form-select
+              v-model="productById.Category.id"
+              :options="categories"
+              class="mb-3 form-control"
+              value-field="id"
+              text-field="name"
+              id="input-category"/>
           </div>
         </div>
         <div class="create-btn">
@@ -49,19 +61,28 @@ export default {
         name: this.productById.name,
         image_url: this.productById.image_url,
         price: this.productById.price,
-        stock: this.productById.stock
+        stock: this.productById.stock,
+        CategoryId: this.productById.Category.id
       })
     },
     getDataById () {
       this.$store.dispatch('getDataById', this.$route.params.id)
+    },
+    getCategories () {
+      console.log('this.productById', this.productById.Category)
+      this.$store.dispatch('fetchCategories')
     }
   },
   created () {
     this.getDataById()
+    this.getCategories()
   },
   computed: {
     productById () {
       return this.$store.state.product
+    },
+    categories () {
+      return this.$store.state.category.categories
     }
   }
 }
