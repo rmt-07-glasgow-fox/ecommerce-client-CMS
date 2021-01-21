@@ -3,8 +3,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Products from '../views/Products.vue'
-import Add from '../views/Add.vue'
-import Edit from '../views/Edit.vue'
 
 Vue.use(VueRouter)
 
@@ -23,16 +21,6 @@ const routes = [
     path: '/products',
     name: 'Products',
     component: Products
-  },
-  {
-    path: '/products/add',
-    name: 'Add',
-    component: Add
-  },
-  {
-    path: '/products/:id',
-    name: 'Edit',
-    component: Edit
   }
 ]
 
@@ -43,12 +31,13 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (localStorage.access_token && to.name === 'Login') {
-    next({ name: 'Dashboard' })
-  } else if (localStorage.access_token || to.name === 'Login') {
-    next()
-  } else {
+  const isAuthenticated = localStorage.access_token
+  if (!isAuthenticated && to.name === 'Products') {
     next({ name: 'Home' })
+  } else if (isAuthenticated && to.name === 'Login') {
+    next({ name: 'Products' })
+  } else {
+    next()
   }
 })
 

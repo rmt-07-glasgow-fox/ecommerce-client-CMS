@@ -2,11 +2,8 @@
   <div>
     <!-- navbar -->
     <Navbar/>
-    <div> <!-- content -->
-      <div>
-        <h1>Tes</h1>
-      </div>
-      <div class="container">
+    <div class="container mx-auto px-4 mt-20 mb-20"> <!-- content -->
+      <div class="container flex flex-row flex-wrap justify-center items-center ">
         <Card
         v-for="product in products"
         :key="product.id"
