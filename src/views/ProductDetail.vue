@@ -14,7 +14,13 @@
             <p class="card-text">Stock: {{ product.stock }}</p>
             <p class="card-text">Price: {{ product.price }}</p>
           </div>
+          <div class='card-footer'>
+            <i class="fas fa-edit" @click='editProduct(product.id)'></i>
+          </div>
         </div>
+      </div>
+      <div class='col-sm-6'>
+        <router-view></router-view>
       </div>
     </div>
   </div>
@@ -28,8 +34,12 @@ export default {
       const { id } = this.$route.params
       this.$store.dispatch('fetchProductDetail', id)
     },
+    editProduct (id) {
+      this.$router.push('/products/' + id + '/edit')
+      this.$store.dispatch('editProduct', id)
+    },
     closeCard () {
-      this.$router.go(-1)
+      this.$router.push('/dashboard')
     }
   },
   computed: {
