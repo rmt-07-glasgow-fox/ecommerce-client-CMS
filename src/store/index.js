@@ -47,6 +47,32 @@ export default new Vuex.Store({
         })
         .catch(console.log)
     },
+    deleteProduct (context, payload) {
+      axios
+        .delete('/products/' + payload, {
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        .then(({ data }) => {
+          this.dispatch('fetchProducts')
+        })
+        .catch(console.log)
+    },
+    addProduct (context, payload) {
+      axios
+        .post('/products', payload, {
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        .then(({ data }) => {
+          router.push('/dashboard')
+        })
+        .catch(console.log)
+    },
+    editProduct (context, payload) {
+    },
     login (context, payload) {
       axios
         .post('/login', payload)
