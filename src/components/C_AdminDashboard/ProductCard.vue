@@ -24,7 +24,7 @@
             class="list-group-item"
             style="font-size: 12px; margin-left: 0; padding-left: 0"
           >
-            Category: {{ Product.Category.name.toUpperCase() }}
+            Category: {{ Product.Category.name }}
           </li>
           <li
             class="list-group-item"
@@ -42,7 +42,9 @@
         <div class="container-fluid mt-2">
           <div class="row justify-content-center">
             <div class="col-6">
-              <a href="#" class="btn btn-outline-primary">Edit</a>
+              <router-link :to="`product/edit/${Product.id}`">
+                <button href="" class="btn btn-outline-primary">Edit</button>
+              </router-link>
             </div>
             <div class="col-6">
               <button

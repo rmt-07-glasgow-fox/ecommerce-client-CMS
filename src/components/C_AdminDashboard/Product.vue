@@ -5,11 +5,15 @@
     >
       <h1 class="h2">Products</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
-        <button type="button" class="btn btn-sm btn-outline-secondary">
-          Add Product
-        </button>
+        <router-link to="product/add" style="text-decoration: none">
+          <button type="button" class="btn btn-sm btn-outline-secondary">
+            Add Product
+          </button>
+        </router-link>
       </div>
     </div>
+
+    <router-view> </router-view>
 
     <div class="container-fluid">
       <div class="row">
@@ -25,7 +29,6 @@
 
 <script>
 import ProductCard from './ProductCard.vue'
-
 export default {
   name: 'Product',
   methods: {
