@@ -42,7 +42,24 @@ export default {
       })
     },
     deleteProduct (id) {
-      this.$store.dispatch('deleteProduct', id)
+      this.$swal.fire({
+        title: 'Delete product?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        denyButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$swal.fire('Delete!', '', 'success')
+          return this.$store.dispatch('deleteProduct', id)
+        } else if (result.isDenied) {
+          this.$swal.fire('No delete performed', '', 'info')
+        }
+      })
+        .then(({ data }) => {
+          this.$store.dispatch('fetchProducts')
+        })
+        .catch(console.log)
     },
     toAddProductPage () {
       this.$router.push('/addproduct')
