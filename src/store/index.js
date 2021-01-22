@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     product: {},
-    username: ''
+    username: '',
+    errors: []
   },
   mutations: {
     insertProduct (state, payload) {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     getUserName (state, payload) {
       state.username = payload.email.split('@')[0]
+    },
+    catchError (state, payload) {
+      state.errors = payload
     }
   },
   actions: {
@@ -98,7 +102,9 @@ export default new Vuex.Store({
           context.commit('getUserName', payload)
           router.push('/dashboard')
         })
-        .catch(console.log)
+        .catch((err) => {
+          context.commit('catchError', err.response.data.errors)
+        })
     }
   },
   modules: {
