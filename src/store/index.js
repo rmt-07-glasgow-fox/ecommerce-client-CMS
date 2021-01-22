@@ -60,16 +60,12 @@ export default new Vuex.Store({
         })
     },
     addProduct (context, payload) {
-      axios
+      return axios
         .post('/products', payload, {
           headers: {
             access_token: localStorage.getItem('access_token')
           }
         })
-        .then(({ data }) => {
-          router.push('/dashboard')
-        })
-        .catch(console.log)
     },
     editProduct (context, payload) {
       const { name, price, stock, imageUrl } = payload

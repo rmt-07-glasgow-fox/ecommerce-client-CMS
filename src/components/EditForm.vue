@@ -39,7 +39,24 @@ export default {
         stock: this.stock,
         imageUrl: this.image_url
       }
-      this.$store.dispatch('editProduct', payload)
+      this.$swal.fire({
+        title: 'Update product?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        denyButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$swal.fire('Product updated!', '', 'success')
+          return this.$store.dispatch('editProduct', payload)
+        } else if (result.isDenied) {
+          this.$swal.fire('No update performed', '', 'info')
+        }
+      })
+        .then(({ data }) => {
+          this.$router.push('/dashboard')
+        })
+        .catch(console.log)
     }
   }
 }

@@ -50,7 +50,7 @@ export default {
         denyButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$swal.fire('Delete!', '', 'success')
+          this.$swal.fire('Product deleted!', '', 'success')
           return this.$store.dispatch('deleteProduct', id)
         } else if (result.isDenied) {
           this.$swal.fire('No delete performed', '', 'info')
