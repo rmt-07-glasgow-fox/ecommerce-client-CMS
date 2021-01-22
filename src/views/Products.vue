@@ -9,7 +9,7 @@
         :key="product.id"
         :product="product"/>
       </div>
-    </div> <!-- content -->
+    </div>
   </div>
 </template>
 

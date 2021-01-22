@@ -1,32 +1,50 @@
 <template>
   <div>
     <div>
-      <form>
-      <div class="mb-5 mt-3 p-2 flex justify-center">
-        <label class="w-1/4" for="product-name">Name</label>
-        <input class="bg-gray-200 rounded p-1" type="text" v-model="product.name" id="product-name">
-      </div>
-      <div class="w-full mb-5 flex justify-center">
-        <label class="w-1/4" for="product-image">Image URL</label>
-        <input class="bg-gray-200 rounded p-1" type="text" v-model="product.image_url" id="product-image">
-      </div>
-      <div class="w-full mb-5 flex justify-center">
-        <label class="w-1/4" for="product-price">Price</label>
-        <input class="bg-gray-200 rounded p-1" type="number" v-model="product.price" id="product-price">
-      </div>
-      <div class="w-full mb-5 flex justify-center">
-        <label class="w-1/4" for="product-stock">Stock</label>
-        <input class="bg-gray-200 rounded p-1" type="number" v-model="product.stock" id="product-stock">
-      </div>
-      <div class="flex items-center p-2 border-t border-solid border-gray-300 rounded-b">
-            <button class="text-yellow-600 bg-transparent hover:bg-yellow-500 hover:text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" @click.prevent="toggleModal">
-              Cancel
-            </button>
-            <button class="text-purple-600 bg-transparent hover:bg-purple-500 hover:text-white active:bg-purple-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" @click.prevent="addProduct">
-              Add New Product
+       <!--content-->
+        <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none" style="width: 500px;">
+          <!--header-->
+          <div class="flex items-center justify-center p-5 border-b border-solid border-gray-300 rounded-t text-center">
+            <h3 class="text-3xl font-semibold text-center">
+              Add new product
+            </h3>
+            <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" v-on:click="toggleModal">
+              <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                ×
+              </span>
             </button>
           </div>
-      </form>
+          <form>
+          <div class="mb-5 mt-3 p-2 flex justify-center">
+            <label class="w-1/4" for="product-name">Name</label>
+            <input class="bg-gray-200 rounded p-1" type="text" v-model="product.name" id="product-name">
+          </div>
+          <div class="w-full mb-5 flex justify-center">
+            <label class="w-1/4" for="product-image">Image URL</label>
+            <input class="bg-gray-200 rounded p-1" type="text" v-model="product.image_url" id="product-image">
+          </div>
+          <div class="w-full mb-5 flex justify-center">
+            <label class="w-1/4" for="product-price">Price</label>
+            <input class="bg-gray-200 rounded p-1" type="number" v-model="product.price" id="product-price">
+          </div>
+          <div class="w-full mb-5 flex justify-center">
+            <label class="w-1/4" for="product-stock">Stock</label>
+            <input class="bg-gray-200 rounded p-1" type="number" v-model="product.stock" id="product-stock">
+          </div>
+          <div class="mb-5 mt-3 p-2 flex justify-center">
+            <label class="w-1/4" for="product-category">Category</label>
+            <input class="bg-gray-200 rounded p-1" type="text" v-model="product.category" id="product-category">
+          </div>
+          <div class="flex justify-center p-2 border-t border-solid border-gray-300 rounded-b">
+                <button class="text-yellow-600 bg-transparent hover:bg-yellow-500 hover:text-white active:bg-yellow-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" @click.prevent="toggleModal">
+                  Cancel
+                </button>
+                <button class="text-purple-600 bg-transparent hover:bg-purple-500 hover:text-white active:bg-purple-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" @click.prevent="addProduct">
+                  Add New Product
+                </button>
+              </div>
+          </form>
+      </div>
     </div>
   </div>
 </template>
@@ -42,7 +60,8 @@ export default {
         name: '',
         image_url: '',
         price: '',
-        stock: ''
+        stock: '',
+        category: ''
       }
     }
   },

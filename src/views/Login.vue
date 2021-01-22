@@ -56,3 +56,10 @@ export default {
   }
 }
 </script>
+
+<style>
+form input {
+  padding: 0 5px;
+  margin-left: 10px;
+}
+</style>
