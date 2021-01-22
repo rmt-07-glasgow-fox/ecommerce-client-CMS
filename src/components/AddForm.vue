@@ -5,11 +5,11 @@
       <input type="text" class="form-control" placeholder="Product name..." required='' v-model='name'>
     </div>
     <div class="form-group">
-      <input type='text' class="form-control" placeholder="Product price..." required='' v-model='price'>
+      <input type='number' class="form-control" placeholder="Product price..." required='' v-model='price'>
     </div>
     <div class="form-group">
       <label for='stock'>Number of stock: </label>
-      <input type='text' id='stock' class="form-control" required='' v-model='stock'>
+      <input type='number' id='stock' class="form-control" required='' v-model='stock'>
     </div>
     <div class="form-group">
       <input type='text' id='image_url' class="form-control" placeholder="Copy image url here..." required='' v-model='image_url'>
