@@ -15,7 +15,7 @@
             <p class="card-text">Price: {{ product.price }}</p>
           </div>
           <div class='card-footer'>
-            <i class="fas fa-edit" @click='editProduct(product.id)'></i>
+            <i class="fas fa-edit" @click='editProductForm(product.id)'></i>
           </div>
         </div>
       </div>
@@ -34,9 +34,12 @@ export default {
       const { id } = this.$route.params
       this.$store.dispatch('fetchProductDetail', id)
     },
-    editProduct (id) {
-      this.$router.push('/products/' + id + '/edit')
-      this.$store.dispatch('editProduct', id)
+    editProductForm (id) {
+      if (this.$route.path !== '/products/' + id + '/edit') {
+        this.$router.push('/products/' + id + '/edit')
+      } else {
+        this.$router.push('/products/' + id)
+      }
     },
     closeCard () {
       this.$router.push('/dashboard')
