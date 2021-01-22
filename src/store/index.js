@@ -72,6 +72,23 @@ export default new Vuex.Store({
         .catch(console.log)
     },
     editProduct (context, payload) {
+      const { name, price, stock, imageUrl } = payload
+      const id = payload.id
+      axios
+        .put('/products/' + id, {
+          name,
+          price,
+          stock,
+          imageUrl
+        }, {
+          headers: {
+            access_token: localStorage.getItem('access_token')
+          }
+        })
+        .then(({ data }) => {
+          router.push('/dashboard')
+        })
+        .catch(console.log)
     },
     login (context, payload) {
       axios
