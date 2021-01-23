@@ -39,10 +39,14 @@ function isAuthenticated () {
 }
 
 router.beforeEach((to, from, next) => {
-  console.log(to.name, isAuthenticated())
-  if (to.name !== 'Login' && !isAuthenticated()) next({ name: 'Login' })
-  else if (to.name === 'Login' && isAuthenticated()) next({ name: 'Dashboard' })
-  else next()
+  // console.log(to.name, isAuthenticated())
+  if (to.name !== 'Login' && !isAuthenticated()) {
+    next({ name: 'Login' })
+  } else if (to.name === 'Login' && isAuthenticated()) {
+    next({ name: 'Dashboard' })
+  } else {
+    next()
+  }
 })
 
 export default router

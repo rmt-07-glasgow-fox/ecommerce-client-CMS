@@ -7,7 +7,7 @@
             <div class="col-4 offset-4">
               <h1>E-Commerce CMS</h1>
             </div>
-            <div class="col-4" style="display: flex; justify-content: flex-end">
+            <div v-if="this.$route.path !== '/login'" class="col-4" style="display: flex; justify-content: flex-end">
               <button @click.prevent="logout" class="btn btn-dark" style="padding-top: 8px">Logout</button>
             </div>
           </div>
@@ -44,7 +44,7 @@ export default {
 
 .card {
   width: 98%;
-  height: 95%;
+  height: 400px;
   margin: 5px
 }
 
