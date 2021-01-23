@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -41,10 +42,26 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Product Created'
+          })
           this.dispatch('getAllProduct')
         })
         .catch(err => {
-          console.log(err.response)
+          console.log(err.response.data)
+          if (err.response.data.message === 'You\'re unauthorized to do this') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Unauthorized',
+              text: err.response.data.message
+            })
+          }
+          Swal.fire({
+            icon: 'error',
+            title: 'Please fill all required field',
+            text: err.response.data.errors[0]
+          })
         })
     },
     getAllProduct (context) {
@@ -53,7 +70,16 @@ export default new Vuex.Store({
         .then(({ data }) => {
           context.commit('insertAllProduct', data)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err.response.data)
+          if (err.response.data.message === 'You\'re unauthorized to do this') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Unauthorized',
+              text: err.response.data.message
+            })
+          }
+        })
     },
     getOneProduct (context, id) {
       axios({
@@ -66,7 +92,16 @@ export default new Vuex.Store({
         .then(data => {
           context.commit('insertOneProduct', data)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err.response.data)
+          if (err.response.data.message === 'You\'re unauthorized to do this') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Unauthorized',
+              text: err.response.data.message
+            })
+          }
+        })
     },
     updateProduct (context, payload) {
       const id = payload.id
@@ -86,17 +121,48 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Product Updated Successfully'
+          })
           this.dispatch('getAllProduct')
         })
-        .catch(err => console.log(err.response))
+        .catch(err => {
+          console.log(err.response.data)
+          if (err.response.data.message === 'You\'re unauthorized to do this') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Unauthorized',
+              text: err.response.data.message
+            })
+          }
+          Swal.fire({
+            icon: 'error',
+            title: 'Please fill all required field',
+            text: err.response.data.errors[0]
+          })
+        })
     },
     deleteProduct (context, id) {
       axios
         .delete(`/products/${id}`, { headers: { access_token: localStorage.access_token } })
         .then(({ data }) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Product Deleted Successfully'
+          })
           this.dispatch('getAllProduct')
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err.response.data)
+          if (err.response.data.message === 'You\'re unauthorized to do this') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Unauthorized',
+              text: err.response.data.message
+            })
+          }
+        })
     },
     login (context, payload) {
       const email = payload.email
@@ -113,11 +179,22 @@ export default new Vuex.Store({
       })
         .then(data => {
           localStorage.setItem('access_token', data.data.access_token)
+          Swal.fire({
+            icon: 'success',
+            title: 'Login Success'
+          })
           this.dispatch('getAllProduct')
           router.push('/')
         })
         .catch(err => {
-          console.log(err.response)
+          console.log(err.response.data)
+          if (err.response.data.message === 'Invalid email/password') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Wrong Login Info',
+              text: err.response.data.message
+            })
+          }
         })
     }
   }
