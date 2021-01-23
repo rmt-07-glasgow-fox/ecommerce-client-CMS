@@ -25,7 +25,9 @@
         </v-expand-transition>
         <v-tooltip bottom>
           <template v-slot:activator="{ on, attrs }">
-            <v-btn absolute="" color="accent" class="white--text" fab left top v-bind="attrs" v-on="on">
+            <v-btn
+              @click="updateStock"
+              absolute="" color="accent" class="white--text" fab left top v-bind="attrs" v-on="on">
               <h2>{{ product.stock }}</h2>
             </v-btn>
           </template>
@@ -37,29 +39,18 @@
 </template>
 
 <script>
-import axios from '@/api/axios'
 
 export default {
-  props: ['product', 'refresh'],
+  props: ['product'],
   components: {
   },
   methods: {
-    deleteProduct (id) {
-      axios({
-        method: 'DELETE',
-        url: '/products/' + id,
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then(({ data }) => {
-          console.log(data)
-          this.refresh()
-          // this.products = data
-        })
-        .catch(err => {
-          console.log(err.response.data)
-        })
+    updateStock () {
+      const { id, stock } = this.product
+      this.$store.dispatch('updateStockModal', {
+        id: id,
+        currentStock: stock
+      }, { root: true })
     }
   }
 }

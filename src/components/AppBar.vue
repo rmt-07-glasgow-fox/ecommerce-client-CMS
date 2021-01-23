@@ -12,6 +12,10 @@
           :to="{ name: 'Add Product' }">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
+        <v-btn v-if="currentRouteName === 'Banners'" color="accent" dark small absolute bottom right fab
+          @click="showAddBanner">
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
       </template>
     </v-app-bar>
   </nav>
@@ -22,6 +26,9 @@ export default {
   methods: {
     changeDrawer () {
       this.$store.commit('changeDrawer')
+    },
+    showAddBanner () {
+      this.$store.dispatch('showFormModal', null, true)
     }
   },
   computed: {

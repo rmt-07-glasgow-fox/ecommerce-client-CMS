@@ -33,6 +33,7 @@
             <h2>{{ product.stock }} items left</h2>
           </v-chip>
           <v-btn
+            @click="updateStock(product.stock)"
             class="mx-2"
             fab
             dark
@@ -56,20 +57,27 @@ export default {
   methods: {
     getOneProduct () {
       const productId = this.$route.params.id
-      this.$store.dispatch('getOneProduct', productId)
+      this.$store.dispatch('getOneProduct', productId, { root: true })
     },
     deleteProduct () {
       const productId = this.$route.params.id
-      this.$store.dispatch('deleteProduct', productId)
+      this.$store.dispatch('deleteProductModal', productId, { root: true })
+    },
+    updateStock (stock) {
+      const id = this.$route.params.id
+      this.$store.dispatch('updateStockModal', {
+        id: id,
+        currentStock: stock
+      }, { root: true })
     }
   },
   created () {
     this.getOneProduct()
   },
   computed: {
-    ...mapState([
-      'product'
-    ])
+    ...mapState({
+      product: state => state.mProducts.product
+    })
   }
 }
 </script>

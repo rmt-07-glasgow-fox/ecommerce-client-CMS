@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="bar" class="d-flex align-center">
-      <v-btn class="ma-2 mr-auto" color="accent" dark :to="{name: 'Products'}">
+      <v-btn class="ma-2 mr-auto" color="accent" dark @click="$router.go(-1)">
         <v-icon dark left>mdi-arrow-left</v-icon>Back
       </v-btn>
     </div>
@@ -93,15 +93,15 @@ export default {
         this.$store.dispatch('updateProduct', {
           id: productId,
           data: this.product
-        })
+        }, { root: true })
       } else {
-        this.$store.dispatch('createProduct', this.product)
+        this.$store.dispatch('createProduct', this.product, { root: true })
       }
     },
     getOneProduct () {
       if (this.isEdit) {
         const productId = this.$route.params.id
-        this.$store.dispatch('getOneProduct', productId)
+        this.$store.dispatch('getOneProduct', productId, { root: true })
       }
     }
   },
@@ -112,12 +112,13 @@ export default {
     currentRouteName () {
       return this.$route.name
     },
-    ...mapState([
-      'product'
-    ])
+    ...mapState({
+      product: state => state.mProducts.product
+    })
   },
   created () {
-    this.getOneProduct()
+    this.currentRouteName === 'Edit Product' &&
+      this.getOneProduct()
   },
   beforeDestroy () {
     this.clear()

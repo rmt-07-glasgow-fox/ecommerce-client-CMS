@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-row v-if="products.length > 0">
-      <ProductItem v-for="product in products" :key="product.id" :product="product"/>
+    <v-row v-if="banners.length > 0">
+      <BannerItem v-for="banner in banners" :key="banner.id" :banner="banner"/>
     </v-row>
     <v-row v-else>
       <v-col cols="12" align="center">
@@ -13,24 +13,24 @@
 </template>
 
 <script>
-import ProductItem from '@/components/products/ProductItem.vue'
 import { mapState } from 'vuex'
+import BannerItem from '@/components/banners/BannerItem.vue'
 
 export default {
   components: {
-    ProductItem
+    BannerItem
   },
   methods: {
-    getAllProducts () {
-      this.$store.dispatch('getAllProducts', null, { root: true })
+    getAllBanners () {
+      this.$store.dispatch('getAllBanners', null, { root: true })
     }
   },
   created () {
-    this.getAllProducts()
+    this.getAllBanners()
   },
   computed: {
     ...mapState({
-      products: state => state.mProducts.products
+      banners: state => state.mBanners.banners
     })
   }
 }

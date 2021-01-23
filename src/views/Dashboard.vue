@@ -1,9 +1,7 @@
 <template>
-  <v-app>
-    <v-container fluid>
-      THIS IS DASHBOARD
-    </v-container>
-  </v-app>
+  <v-container fluid>
+    THIS IS DASHBOARD
+  </v-container>
 </template>
 
 <script>

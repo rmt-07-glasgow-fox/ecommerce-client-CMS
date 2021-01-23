@@ -6,6 +6,7 @@ import Products from '../views/Products.vue'
 import Home from '../views/main/Home.vue'
 import ProductDetail from '../views/ProductDetail.vue'
 import ProductForm from '../views/ProductForm.vue'
+import Banners from '../views/Banners.vue'
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,12 @@ const routes = [
         path: '/products/:id/edit',
         name: 'Edit Product',
         component: ProductForm,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/banners',
+        name: 'Banners',
+        component: Banners,
         meta: { requiresAuth: true }
       }
     ]

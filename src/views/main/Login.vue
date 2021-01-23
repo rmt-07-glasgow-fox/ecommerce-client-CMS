@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     login () {
-      this.$store.dispatch('login', this.user)
+      this.$store.dispatch('login', this.user, { root: true })
         .then(({ data }) => {
           localStorage.access_token = data.access_token
           this.$router.push({ name: 'Dashboard' })
