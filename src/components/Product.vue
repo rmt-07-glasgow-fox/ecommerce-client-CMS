@@ -3,7 +3,21 @@
     <div class="my-3 title">Product</div>
     <div class="btn btn-dark btn-sm mb-5" @click="addProduct"><i class="fas fa-plus"></i> Add Product</div>
       <div>
+        <div class="d-flex justify-content-end mb-2">
+          <div class="select">
+            <select class="form-control" v-model="filter">
+              <option value="">All</option>
+              <option
+                v-for="category in categories"
+                :key="category.id"
+                :value="category.id"
+                v-text="category.name"
+              ></option>
+            </select>
+          </div>
+        </div>
         <product-card v-for="product in products" :key="product.id" :product="product" />
+        <div v-if="products.length < 1">No Product</div>
       </div>
   </div>
 </template>
@@ -16,6 +30,16 @@ import Swal from 'sweetalert2'
 export default {
   components: { ProductCard },
   name: 'Product',
+  data () {
+    return {
+      filter: ''
+    }
+  },
+  watch: {
+    filter (value) {
+      this.$store.commit('changeFilter', value)
+    }
+  },
   methods: {
     showFormAdd () {
       this.$router.push('/add')
@@ -84,9 +108,15 @@ export default {
   },
   computed: {
     ...mapState([
-      'products',
       'categories'
-    ])
+    ]),
+    products () {
+      return this.$store.getters.filterProducts
+    }
+  },
+  created () {
+    this.filter = ''
+    this.$store.commit('changeFilter', '')
   }
 }
 </script>
@@ -95,5 +125,8 @@ export default {
   .title{
     font-size: 2em;
     font-weight: 1000;
+  }
+  .select{
+    width: 30%;
   }
 </style>

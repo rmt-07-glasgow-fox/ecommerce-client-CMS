@@ -1,16 +1,21 @@
 <template>
-  <div class="row mb-3">
-    <div class="col-3 d-flex justify-content-center align-items-center">
-      <div><img :src="product.image_url" width="100px" height="100px"></div>
+  <div class="product-container ml-2 mb-1">
+    <div class="d-flex">
+      <div class="ctg"> {{ product.Category.name }}</div>
     </div>
-    <div class="col-7 text-left d-flex justify-content-between align-items-center">
-      <div class="col-5 product-name">{{product.name}}</div>
-      <div class="col-4"><i class="fas fa-donate"></i> {{price}}</div>
-      <div class="col-3"><i class="fab fa-dropbox"></i> {{product.stock}}</div>
-    </div>
-    <div class="col-2 d-flex justify-content-center align-items-center">
-      <button class="btn btn-dark btn-sm" @click="editProduct"><i class="fas fa-pen"></i> Edit</button >
-      <button class="btn btn-danger btn-sm ml-2" @click="deleteProduct(product.id)"><i class="fas fa-trash"></i> Delete</button>
+    <div class="row mb-1">
+      <div class="col-3 d-flex justify-content-center align-items-center">
+        <div><img :src="product.image_url" width="100px" height="100px"></div>
+      </div>
+      <div class="col-7 text-left d-flex justify-content-between align-items-center">
+        <div class="col-5 product-name">{{product.name}}</div>
+        <div class="col-4"><i class="fas fa-donate"></i> {{price}}</div>
+        <div class="col-3"><i class="fab fa-dropbox"></i> {{product.stock}}</div>
+      </div>
+      <div class="col-2 d-flex justify-content-center align-items-center">
+        <button class="btn btn-dark btn-sm" @click="editProduct"><i class="fas fa-pen"></i> Edit</button >
+        <button class="btn btn-danger btn-sm ml-2" @click="deleteProduct(product.id)"><i class="fas fa-trash"></i> Delete</button>
+      </div>
     </div>
   </div>
 </template>
@@ -117,8 +122,17 @@ export default {
 </script>
 
 <style scoped>
+  .product-container{
+    border: 2px solid black;
+  }
   .product-name{
     font-size: 1.2em;
     font-weight: 800;
+  }
+  .ctg{
+    font-size: 0.8em;
+    font-weight: 800;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
   }
 </style>

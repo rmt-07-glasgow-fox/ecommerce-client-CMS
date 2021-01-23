@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     products: [],
     categories: [],
-    banners: []
+    banners: [],
+    filter: ''
   },
   mutations: {
     insertProduct (state, payload) {
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     },
     insertBanner (state, payload) {
       state.banners = payload
+    },
+    changeFilter (state, payload) {
+      state.filter = payload
     }
   },
   actions: {
@@ -312,6 +316,16 @@ export default new Vuex.Store({
             icon: 'error'
           })
         })
+    }
+  },
+  getters: {
+    filterProducts: state => {
+      if (state.filter === '') return state.products
+      else {
+        return state.products.filter(e => {
+          return e.CategoryId === state.filter
+        })
+      }
     }
   }
 })

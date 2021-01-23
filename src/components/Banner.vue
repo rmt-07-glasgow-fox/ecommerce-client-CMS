@@ -9,6 +9,7 @@
         :key="banner.id"
         :banner="banner"
       />
+      <div v-if="banners.length < 1">No Banner</div>
     </div>
   </div>
 </template>

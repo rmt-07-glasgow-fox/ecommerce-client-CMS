@@ -14,6 +14,7 @@
         :category="category"
         :index="index"
       />
+      <div v-if="categories.length < 1">No Category</div>
     </table>
   </div>
 </template>
