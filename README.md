@@ -2,6 +2,7 @@
 
 ## Link Deploy
 - https://ecom-cms-rafli.web.app/
+- https://ecom-cms-rafli.netlify.app/
 
 ## Project setup
 ```
