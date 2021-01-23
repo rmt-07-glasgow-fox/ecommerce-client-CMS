@@ -1,15 +1,11 @@
 <template>
     <div class="login d-flex justify-content-arround w-75 mx-auto text-light">
-      <div class="text-center">
-        <h3 class="mb-3">This app just for administrator area</h3>
-        <img class="img" src="../../assets/cms.svg" alt="">
-      </div>
-      <div class="rounded mx-auto">
-        <div class="shadow rounded">
-          <div id="login" class="p-5">
-            <div class="mb-3 text-center">
-              <h4>Login</h4>
-            </div>
+      <div class="rounded mx-auto w-50">
+        <div class="text-center">
+          <h3 class="mb-3">This app just for administrator area</h3>
+        </div>
+        <div class="">
+          <div id="login" class="p-3">
             <form @submit.prevent="handleLogin" class="mb-3" id="form-login">
               <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
@@ -19,7 +15,7 @@
                 <label for="password" class="form-label">Password</label>
                 <input v-model="user.password" type="password" class="form-control" id="password">
               </div>
-              <button type="submit" class="btn btn-primary w-100" id="submit-login">Login</button>
+              <button type="submit" class="btn btn-success w-100" id="submit-login">Login</button>
             </form>
           </div>
         </div>

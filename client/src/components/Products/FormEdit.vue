@@ -16,11 +16,11 @@
       </div>
       <div class="col-12">
         <select v-model="productToEdit.CategoryId" class="form-select" aria-label="Default select example">
-          <option :value="productToEdit.CategoryId" selected>{{ productToEdit.Category.name }}</option>
           <option
-            v-for="category in filterCategories"
+            v-for="category in categories"
             :key="category.id"
             :value="category.id"
+            :selected="category.id === productToEdit.CategoryId"
           >{{ category.name }}</option>
         </select>
       </div>
@@ -58,10 +58,7 @@ export default {
     ...mapState([
       'productToEdit',
       'categories'
-    ]),
-    filterCategories () {
-      return this.categories.filter(cat => cat.id !== this.productToEdit.CategoryId)
-    }
+    ])
   }
 
 }

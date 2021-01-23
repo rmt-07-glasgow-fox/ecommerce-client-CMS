@@ -43,12 +43,20 @@ export default new Vuex.Store({
         localStorage.setItem('access_token', res.data.access_token)
         router.push('/products')
       }).catch(err => {
-        console.log(err)
-        Vue.swal({
-          icon: 'error',
-          title: 'Something Error',
-          text: err.response.data.message
-        })
+        if (err.response.status !== 400) {
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            text: err.response.data.message
+          })
+        } else {
+          const message = err.response.data.message.join('<br>')
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            html: message
+          })
+        }
       })
     },
     getProducts (context) {

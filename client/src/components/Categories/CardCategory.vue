@@ -10,7 +10,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </div>
-      <h6 class="">{{ category.name }}</h6>
+      <h6 class="category">{{ category.name }}</h6>
       <small class="text-muted">Total Products: {{ category.Products.length }}</small>
     </div>
   </div>
@@ -46,10 +46,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .category-card {
-  width: 16rem;
+  width: 12rem;
   margin-top: 1rem;
+}
+.category {
+  color: cornflowerblue;
+}
+.category:hover {
+  cursor: pointer;
 }
 .delete-icon {
   right: 1rem;

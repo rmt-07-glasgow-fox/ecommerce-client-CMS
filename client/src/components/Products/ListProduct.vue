@@ -39,7 +39,8 @@ export default {
       this.$store.dispatch('productDetail', product)
     },
     priceFormat (price) {
-      return price.toLocaleString('id-ID') + ' IDR'
+      const val = (price / 1).toFixed(2).replace('.', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' IDR'
     }
   },
   computed: {

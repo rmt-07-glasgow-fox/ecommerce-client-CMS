@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!isEdit && product">
-      <img :src="product.image_url" alt="Product image">
+      <img class="image-object" :src="product.image_url" alt="Product image">
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
         <p class="card-text">{{ product.description }}</p>
@@ -62,8 +62,8 @@ export default {
       'product'
     ]),
     priceFormat () {
-      return this.product.price.toLocaleString('id-ID') + ' IDR'
-      // return this.product.price + 'IDR'
+      const val = (this.product.price / 1).toFixed(2).replace('.', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' IDR'
     }
   }
 }
@@ -77,5 +77,8 @@ img {
 .card-text {
   max-height: 3rem;
   overflow-y: auto;
+}
+.image-object {
+  object-fit: cover;
 }
 </style>

@@ -12,10 +12,12 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 #app {
   height: 100vh;
   overflow: auto;
   background-image: url('./assets/live_bg3.svg');
+  font-family: 'Open Sans', sans-serif;
 }
 
 ::-webkit-scrollbar {
