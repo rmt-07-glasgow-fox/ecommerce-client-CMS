@@ -8,11 +8,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    banners: []
   },
   mutations: {
     fillProduct (state, payload) {
       state.products = payload
+    },
+    fillBanner (state, payload) {
+      state.banners = payload
     }
   },
   actions: {
@@ -150,6 +154,167 @@ export default new Vuex.Store({
             text: valid
           })
         })
+    },
+    fetchingBanner (context) {
+      axios({
+        method: 'GET',
+        url: '/banners',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('fillBanner', data)
+        })
+        .catch(err => console.log(err))
+    },
+    getDataBanner (context, payload) {
+      return axios({
+        method: 'GET',
+        url: '/banners/' + payload,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+    },
+    addBanner (context, payload) {
+      axios({
+        method: 'POST',
+        url: '/banners',
+        data: payload,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          router.push('/banner')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1000
+          })
+        })
+        .catch(err => {
+          let valid = ''
+          err.response.data.errors.forEach(el => {
+            valid += `${el}
+            `
+          })
+          Swal.fire({
+            icon: 'error',
+            title: 'FAIL ADD',
+            text: valid
+          })
+        })
+    },
+    editBanner (context, payload) {
+      axios({
+        method: 'PUT',
+        url: '/banners/' + payload.id,
+        data: payload.data,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          router.push('/banner')
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1000
+          })
+        })
+        .catch(err => {
+          let valid = ''
+          err.response.data.errors.forEach(el => {
+            valid += `${el}
+            `
+          })
+          Swal.fire({
+            icon: 'error',
+            title: 'FAIL UPDATE',
+            text: valid
+          })
+        })
+    },
+    modifyStatus (context, payload) {
+      console.log(payload)
+      axios({
+        method: 'PATCH',
+        url: '/banners/' + payload.id,
+        data: payload.data,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.dispatch('fetchingBanner')
+          // console.log(data)
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Status',
+            showConfirmButton: false,
+            timer: 1000
+          })
+        })
+        .catch(err => {
+          let valid = ''
+          err.response.data.errors.forEach(el => {
+            valid += `${el}
+            `
+          })
+          Swal.fire({
+            icon: 'error',
+            title: 'FAIL UPDATE',
+            text: valid
+          })
+        })
+    },
+    deleteBanner (context, payload) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios({
+            method: 'DELETE',
+            url: '/banners/' + payload,
+            headers: {
+              access_token: localStorage.access_token
+            }
+          })
+            .then(({ data }) => {
+              context.dispatch('fetchProduct')
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+              )
+            })
+            .catch(err => {
+              let valid = ''
+              err.response.data.errors.forEach(el => {
+                valid += `${el}
+                `
+              })
+              Swal.fire({
+                icon: 'error',
+                title: 'FAIL UPDATE',
+                text: valid
+              })
+            })
+        }
+      })
     }
   }
 })

@@ -5,6 +5,9 @@ import Login from '../views/Login.vue'
 import ProductAdd from '../components/ProductAdd.vue'
 import ProductEdit from '../components/ProductEdit.vue'
 import ProductFetch from '../components/ProductFetch.vue'
+import BannerFetch from '../components/BannerFetch.vue'
+import BannerAdd from '../components/BannerAdd.vue'
+import BannerEdit from '../components/BannerEdit.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +30,18 @@ const routes = [
       {
         path: 'edit/:id',
         component: ProductEdit
+      },
+      {
+        path: 'banner',
+        component: BannerFetch
+      },
+      {
+        path: 'banner/add',
+        component: BannerAdd
+      },
+      {
+        path: 'banner/edit/:id',
+        component: BannerEdit
       }
     ]
   },
