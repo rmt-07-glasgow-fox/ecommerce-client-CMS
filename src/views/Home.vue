@@ -2,7 +2,8 @@
   <div class="home">
     <img alt="Vue logo" :src="poster">
     <HelloWorld msg="Welcome to Your new Online Shop!"/>
-    <div class="container">
+    <br><br>
+    <div v-if="page === false" class="container">
       <LoginForm/>
     </div>
   </div>
@@ -23,21 +24,13 @@ export default {
   name: 'Home',
   data () {
     return {
-      poster: 'https://toppng.com/uploads/preview/logo-store-png-clothing-shop-logo-11563048950nluklrhtlb.png'
+      page: false,
+      poster: 'https://i.imgur.com/B8B3iBy.png'
     }
   },
   components: {
     HelloWorld,
     LoginForm
-  },
-  methods: {
-    // login () {
-    //   axios
-    //     .post('/login')
-    //     .then(({ data }) => {
-    //       this.
-    //     })
-    // }
   }
 }
 </script>

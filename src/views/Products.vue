@@ -30,7 +30,7 @@ export default {
   methods: {
     fetchProduct () {
       axios
-        .get('/products')
+        .get('/products', { headers: { access_token: localStorage.access_token } })
         .then(({ data }) => {
           this.productlists = data
         })
