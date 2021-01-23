@@ -1,5 +1,6 @@
 <template>
 <div class="add">
+ <!-- <Navbar></Navbar> -->
 <div class="container">
 <div class="columns">
   <div class="column"></div>
@@ -39,8 +40,12 @@
 </template>
 
 <script>
+// import Navbar from '../components/Navbar'
 export default {
   name: 'AddProduct'
+  // components: {
+  //   Navbar
+  // }
 }
 </script>
 

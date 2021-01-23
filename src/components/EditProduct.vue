@@ -1,5 +1,6 @@
 <template>
 <div class="edit">
+  <!-- <Navbar></Navbar> -->
 <div class="container">
 <div class="columns">
   <div class="column"></div>
@@ -26,6 +27,7 @@
 <div class="field">
   <!-- <label class="label">Stock</label> -->
   <div class="control">
+     <!-- import ListProduct from '../components/ListProduct' -->
     <input class="input" type="text" placeholder="edit: stock">
   </div>
 </div>
@@ -39,8 +41,12 @@
 </template>
 
 <script>
+// import Navbar from '../components/Navbar'
 export default {
   name: 'editProduct'
+  // components: {
+  //   Navbar
+  // }
 }
 </script>
 
