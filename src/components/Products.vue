@@ -1,53 +1,41 @@
 <template>
-<b-container>
-  <b-row>
-    <b-col>
-      <div class="card bg-dark shadow mb-4 vh-100">
-        <div class="card-header py-3">
-          <a class="btn btn-warning"><font-awesome-icon icon="plus-circle" />  Add Product</a>
-        </div>
-        <div class="card-body">
-           <b-pagination
-            v-model="currentPage"
-            :total-rows="rows"
-            :per-page="perPage"
-            aria-controls="my-table"
-          ></b-pagination>
-          <p class="mt-3">Current Page: {{ currentPage }}</p>
-            <!-- <table class="table table-striped table-dark" id="my-table">
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Stock</th>
-                <th scope="col">Image</th>
-              </tr>
-              <tr v-for="product in getAllProducts" :key="product.id">
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.stock }}</td>
-                <td><img class="img-thumbnail" width="100px" :src="product.image"></td>
-              </tr>
-            </table> -->
-            <!-- <b-table id="my-table" dark striped hover :items="getAllProducts"></b-table> -->
-            <b-table
-              text-center
-              dark striped
-              id="my-table"
-              :items="getAllProducts"
-              :per-page="perPage"
-              :current-page="currentPage"
-              :fields="fields"
-            >
-              <template #cell(image)="data">
-                <img width="150px" :src="data.item.image">
-              </template>
-            </b-table>
-          </div>
-        </div>
-    </b-col>
-  </b-row>
+<b-container fluid class="mt-3">
+  <div class="card bg-dark shadow">
+    <div class="card-header py-3">
+      <router-link class="btn btn-warning" to="/products/add"><font-awesome-icon icon="plus-circle" /> Add Product</router-link>
+    </div>
+    <div class="card-body">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="my-table"
+      ></b-pagination>
+      <p class="mt-3 text-white">Current Page: {{ currentPage }}</p>
+      <b-table
+        text-center
+        dark striped
+        id="my-table"
+        :items="getAllProducts"
+        :per-page="perPage"
+        :current-page="currentPage"
+        :fields="fields"
+      >
+        <template #cell(No)="data">
+          {{ data.index + 1 }}
+        </template>
+
+        <template #cell(image)="data">
+          <img width="90px" height="90px" :src="data.item.image">
+        </template>
+
+        <template #cell(actions)="data">
+          <a class="text-white" href="" @click.prevent><font-awesome-icon class="mr-4" icon="edit"/></a>
+          <a class="text-white" href="" @click.prevent="deleteProduct(data.item.id)"><font-awesome-icon icon="trash"/></a>
+        </template>
+      </b-table>
+    </div>
+  </div>
 </b-container>
 </template>
 
@@ -56,14 +44,15 @@ export default {
   data () {
     return {
       items: this.getAllProducts,
-      perPage: 10,
+      perPage: 5,
       currentPage: 1,
       fields: [
-        'id',
+        'No',
         'name',
         'price',
         'stock',
-        'image'
+        'image',
+        'Actions'
       ]
     }
   },
@@ -78,6 +67,26 @@ export default {
   methods: {
     fetchAllProducts () {
       this.$store.dispatch('getAllProducts')
+    },
+    async deleteProduct (productId) {
+      try {
+        await this.$store.dispatch('deleteProduct', productId)
+        this.successDelete()
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    successDelete () {
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        icon: 'success',
+        title: 'Success'
+      }).then(() => {
+        this.fetchAllProducts()
+      })
     }
   },
   created () {
@@ -87,5 +96,8 @@ export default {
 </script>
 
 <style>
-
+a {
+  text-decoration: none;
+  text-decoration-color: white;
+}
 </style>

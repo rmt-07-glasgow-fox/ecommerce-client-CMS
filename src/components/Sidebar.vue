@@ -1,17 +1,20 @@
 <template>
+<div class="col-2 p-0">
   <div class="sidebar">
-    <div class="container bg-light p-3">
-      <h3>Welcome Admin!</h3>
-      <div style="display: flex; justify-content: center;">
-        <img class="mr-3" height="180px" width="180px" :src="randomAvatarUrl">
+    <div class="row bg-secondary">
+      <div class="col-12">
+        <div class="container mt-4 d-flex justify-content-center">
+          <img :src="randomAvatarUrl" width="150px" height="150px">
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="container mt-2 d-flex justify-content-center">
+          <h4 class="text-light">Welcome Admin!</h4>
+        </div>
       </div>
     </div>
-    <ul>
-      <li class="list">
-        <router-link to="products">Products</router-link>
-      </li>
-    </ul>
   </div>
+</div>
 </template>
 
 <script>
@@ -29,21 +32,13 @@ export default {
 </script>
 
 <style>
-  .sidebar {
-    text-decoration: none;
-    background-color: #262833;
-    height: 100vh;
-    width: 100%;
-    box-shadow: rgba(0,0,0,0.04) 0 2px 6px 0;
-  }
-  .list {
-    color: white;
-    margin-top: 3rem;
-    font-size: 2rem;
-    font-weight: bold;
-    list-style-type: none;
-  }
-  .list a:hover {
-    text-decoration: none;
-  }
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  background-color: rgb(41,51,58);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
 </style>

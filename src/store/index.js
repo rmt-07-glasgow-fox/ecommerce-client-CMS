@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: []
+    products: [],
+    access_token: localStorage.access_token
   },
   mutations: {
     setProducts (state, payload) {
@@ -14,7 +15,7 @@ export default new Vuex.Store({
         return {
           id: prd.id,
           name: prd.name,
-          price: prd.price,
+          price: prd.price.toLocaleString(),
           stock: prd.stock,
           image: prd.imageUrl
         }
@@ -23,12 +24,23 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    login (state, payload) {
+    login (context, payload) {
       return axios.post('/login', payload)
     },
-    async getAllProducts (state) {
-      const response = await axios.get('/products')
-      state.commit('setProducts', response.data)
+    async getAllProducts (context) {
+      const { data } = await axios.get('/products')
+      context.commit('setProducts', data)
+    },
+    deleteProduct (context, payload) {
+      const headers = {
+        access_token: localStorage.access_token
+      }
+      return axios.delete('/products/' + payload, { headers })
+    },
+    addNewProduct (context, payload) {
+      return axios.post('/products', payload, {
+        headers: { access_token: localStorage.access_token }
+      })
     }
   }
 })
