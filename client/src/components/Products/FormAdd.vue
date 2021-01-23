@@ -10,8 +10,18 @@
       <div class="col-md-2">
         <input v-model="product.stock" type="number" class="form-control" placeholder="Stock">
       </div>
-      <div class="col-12">
+      <div class="col-8">
         <input v-model="product.image_url" type="text" class="form-control" placeholder="Image Url">
+      </div>
+      <div class="col-4">
+        <select v-model="product.CategoryId" class="form-select" aria-label="Default select example">
+          <option selected disabled>Select Category</option>
+          <option
+            v-for="category in categories"
+            :key="category.id"
+            :value="category.id"
+          >{{ category.name }}</option>
+        </select>
       </div>
       <div class="col-md-12">
         <textarea v-model="product.description" class="form-control" placeholder="Description"></textarea>
@@ -25,11 +35,20 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'FormAdd',
   data () {
     return {
-      product: {}
+      product: {
+        name: '',
+        price: '',
+        stock: '',
+        image_url: '',
+        CategoryId: '',
+        description: ''
+      }
     }
   },
   methods: {
@@ -40,6 +59,11 @@ export default {
       this.closeAdd()
       this.$store.dispatch('addProduct', this.product)
     }
+  },
+  computed: {
+    ...mapState([
+      'categories'
+    ])
   }
 }
 </script>

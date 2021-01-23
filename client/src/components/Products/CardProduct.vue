@@ -5,6 +5,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
         <p class="card-text">{{ product.description }}</p>
+        <p>Category: {{ product.Category.name }}</p>
         <p>Price: {{ priceFormat }}</p>
         <p>Stock: {{ product.stock }}</p>
         <button @click="getProductId(product.id)" class="btn btn-outline-primary">Edit</button>
@@ -23,7 +24,7 @@ import { mapState } from 'vuex'
 import FormEdit from './FormEdit'
 
 export default {
-  name: 'CardProducts',
+  name: 'CardProduct',
   components: {
     FormEdit
   },
@@ -49,7 +50,8 @@ export default {
       'product'
     ]),
     priceFormat () {
-      return this.product.price.toLocaleString('id-ID') + ' IDR'
+      // return this.product.price.toLocaleString('id-ID') + ' IDR'
+      return this.product.price + 'IDR'
     }
   }
 }

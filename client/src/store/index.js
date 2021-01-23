@@ -10,7 +10,8 @@ export default new Vuex.Store({
     products: [],
     product: {},
     productToEdit: {},
-    banners: []
+    banners: [],
+    categories: []
   },
   mutations: {
     setProducts (state, payload) {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     setBanners (state, payload) {
       state.banners = payload
+    },
+    setCategories (state, payload) {
+      state.categories = payload
     }
   },
   actions: {
@@ -40,6 +44,12 @@ export default new Vuex.Store({
         router.push('/products')
       }).catch(err => {
         console.log(err)
+        this.$fire({
+          title: 'Something Error',
+          text: err.response.data.message,
+          type: 'error',
+          timer: 3000
+        })
       })
     },
     getProducts (context) {
@@ -57,6 +67,7 @@ export default new Vuex.Store({
       })
     },
     addProduct (context, payload) {
+      console.log(payload)
       const accessToken = localStorage.getItem('access_token')
       axios({
         method: 'POST',
@@ -80,6 +91,7 @@ export default new Vuex.Store({
           access_token: accessToken
         }
       }).then(res => {
+        console.log(res.data)
         context.commit('setProductToEdit', res.data)
       }).catch(err => {
         console.log(err)
@@ -89,6 +101,7 @@ export default new Vuex.Store({
       context.commit('setProduct', payload)
     },
     editProduct (context, payload) {
+      console.log(payload)
       const accessToken = localStorage.getItem('access_token')
       axios({
         method: 'PUT',
@@ -101,7 +114,8 @@ export default new Vuex.Store({
           iamge_url: payload.iamge_url,
           price: payload.price,
           stock: payload.stock,
-          description: payload.description
+          description: payload.description,
+          CategoryId: payload.CategoryId
         }
       }).then(res => {
         context.dispatch('getProducts')
@@ -181,6 +195,52 @@ export default new Vuex.Store({
         }
       }).then(res => {
         context.dispatch('getBanners')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getCategories (context) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'GET',
+        url: '/categories',
+        headers: {
+          access_token: accessToken
+        }
+      }).then(res => {
+        context.commit('setCategories', res.data)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    addCategory (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'POST',
+        url: '/categories',
+        headers: {
+          access_token: accessToken
+        },
+        data: {
+          name: payload
+        }
+      }).then(res => {
+        console.log(res.data)
+        context.dispatch('getCategories')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    deleteCategories (context, payload) {
+      const accessToken = localStorage.getItem('access_token')
+      axios({
+        method: 'DELETE',
+        url: `/categories/${payload}`,
+        headers: {
+          access_token: accessToken
+        }
+      }).then(() => {
+        context.dispatch('getCategories')
       }).catch(err => {
         console.log(err)
       })

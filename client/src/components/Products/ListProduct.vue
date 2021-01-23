@@ -5,6 +5,7 @@
         <tr>
           <th scope="col">No</th>
           <th scope="col">Name</th>
+          <th scope="col">Category</th>
           <th scope="col">Price</th>
           <th scope="col">Stock</th>
         </tr>
@@ -18,6 +19,7 @@
             @click="productDetail(product)">
             {{ product.name }}
           </td>
+          <td>{{ product.Category.name }}</td>
           <td>{{ priceFormat(product.price) }}</td>
           <td>{{ product.stock }}</td>
         </tr>
@@ -31,7 +33,7 @@ import { mapState } from 'vuex'
 import $ from 'jquery'
 
 export default {
-  name: 'ListProducts',
+  name: 'ListProduct',
   methods: {
     productDetail (product) {
       this.$store.dispatch('productDetail', product)
@@ -47,6 +49,7 @@ export default {
   },
   created () {
     this.$store.dispatch('getProducts')
+    this.$store.dispatch('getCategories')
   },
   updated () {
     const length = this.products.length

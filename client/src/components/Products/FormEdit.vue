@@ -15,6 +15,16 @@
         <input v-model="productToEdit.stock" type="number" class="form-control" placeholder="Stock">
       </div>
       <div class="col-12">
+        <select v-model="productToEdit.CategoryId" class="form-select" aria-label="Default select example">
+          <option :value="productToEdit.CategoryId" selected>{{ productToEdit.Category.name }}</option>
+          <option
+            v-for="category in filterCategories"
+            :key="category.id"
+            :value="category.id"
+          >{{ category.name }}</option>
+        </select>
+      </div>
+      <div class="col-12">
         <label class="form-label">Image Url</label>
         <input v-model="productToEdit.image_url" type="text" class="form-control" placeholder="Image Url">
       </div>
@@ -46,8 +56,12 @@ export default {
   },
   computed: {
     ...mapState([
-      'productToEdit'
-    ])
+      'productToEdit',
+      'categories'
+    ]),
+    filterCategories () {
+      return this.categories.filter(cat => cat.id !== this.productToEdit.CategoryId)
+    }
   }
 
 }

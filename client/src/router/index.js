@@ -2,8 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-import Products from '../components/Products/Products'
-import Banners from '../components/Banners/Banners'
+import Products from '../components/Products/Products.vue'
+import Banners from '../components/Banners/Banners.vue'
+import Categories from '../components/Categories/Categories.vue'
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,11 @@ const routes = [
     name: 'Home',
     component: Home,
     children: [
+      {
+        path: 'categories',
+        name: 'Categories',
+        component: Categories
+      },
       {
         path: 'products',
         name: 'Products',
