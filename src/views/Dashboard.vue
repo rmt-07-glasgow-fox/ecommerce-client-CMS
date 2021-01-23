@@ -1,41 +1,25 @@
 <template>
   <div class="dashboard-product">
-    <Reveal>
-      <a id="dashboard" href="#">
-        <span>Dashboard</span>
-      </a>
-      <a id="add-form-product" href="#">
-        <span>Add Product</span>
-      </a>
-      <br><br><br>
-      <a id="logout" href="#" @click.prevent="logoutHandler">
-        <span>Logout</span>
-      </a>
-    </Reveal>
+    <Navbar />
     <div id="app">
       <Menu/>
       <main id="page-wrap">
-        <h1>Hello From Dashboard</h1>
+        <h1>Dashboard</h1>
         <ProductsTable />
+        <router-view />
       </main>
     </div>
   </div>
 </template>
 
 <script>
-import { Reveal } from 'vue-burger-menu'
+import Navbar from '@/components/Navbar.vue'
 import ProductsTable from '@/components/ProductsTable.vue'
 
 export default {
   components: {
-    Reveal,
-    ProductsTable
-  },
-  methods: {
-    logoutHandler () {
-      localStorage.clear()
-      this.$router.push('/login')
-    }
+    ProductsTable,
+    Navbar
   }
 }
 </script>

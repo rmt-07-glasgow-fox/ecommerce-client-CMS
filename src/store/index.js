@@ -7,10 +7,31 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    products: [],
+    productId: '',
+    productDetail: ''
   },
   mutations: {
+    showAllProducts (state, payload) {
+      state.products = payload
+    }
   },
   actions: {
+    getAllProduct (context) {
+      axios
+        .get(
+          '/products',
+          {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+        )
+        .then(({ data }) => {
+          context.commit('showAllProducts', data)
+        })
+        .catch(err => console.log(err))
+    },
     loginHandle (context, payload) {
       axios({
         method: 'POST',

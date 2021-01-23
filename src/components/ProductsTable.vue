@@ -11,15 +11,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td><img src="https://i.pinimg.com/originals/73/59/e9/7359e96dd9a6508001bf102023ebf0a1.jpg" alt="Hanayo-Figma" height="200px"></td>
-        <td>Hanayo Figma "Dareka Tasukete !!"</td>
-        <td>250000</td>
-        <td>999</td>
+      <tr
+        v-for="product in products"
+        :key="product.id"
+      >
+        <th scope="row">{{ product.id }}</th>
+        <td><img :src="product.image_url" :alt="product.name" height="200px"></td>
+        <td>{{ product.name }}</td>
+        <td>{{ rupiahFormat(product.price) }}</td>
+        <td>{{ product.stock }}</td>
         <td>
           <div class='btn-group' role='group' aria-label='Basic example'>
-            <button type='button' class='btn btn-secondary' data-toggle='modal'
+            <button @click.prevent="editForm" type='button' class='btn btn-secondary' data-toggle='modal'
             data-target='#modal-update-product'>Edit</button>
             <button type='button' class='btn btn-secondary'>Delete</button>
           </div>
@@ -31,7 +34,24 @@
 
 <script>
 export default {
-  name: 'ProductsTable'
+  name: 'ProductsTable',
+  props: ['product'],
+  methods: {
+    editForm () {
+      this.$router.push('/editProducts')
+    },
+    rupiahFormat (value) {
+      return 'Rp. ' + value.toLocaleString()
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  },
+  created () {
+    this.$store.dispatch('getAllProduct')
+  }
 }
 </script>
 
@@ -40,6 +60,7 @@ export default {
   .table{
     background: white;
     padding: 10px;
+    margin: 30px;
   }
 
 </style>
