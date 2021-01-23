@@ -1,9 +1,9 @@
 <template>
 <div class="d-flex flex-column text-light w-20">
-  <div class="logo p-2 d-flex justify-content-center">
-    <img class="icon-size" src="http://newprep.hacktiv8.s3-website-ap-southeast-1.amazonaws.com/static/logo-hacktiv8-f7ee5fc69819b5ef3849344c119f5e18.png" alt="">
+  <div class="logo p-2 d-flex justify-content-center border-bottom border-2 mx-2">
+    <span class="fs-4 fw-bold">Hacktiv CMS</span>
   </div>
-  <div class="mt-2 p-2">
+  <div class="p-2">
     <router-link to="/categories" class="router fs-5">
       <div class="link d-flex justify-content-start align-items-end py-2 px-3 mt-2 rounded">
         <span>
@@ -84,7 +84,6 @@ export default {
   width: 5rem;
   height: 4rem;
 }
-
 .icon-svg {
   width: 2rem;
   height: 2rem;
@@ -98,7 +97,6 @@ export default {
 .link:hover {
   background-color: #ffabe1;
 }
-
 /* a.router-link-exact-active {
   color: black;
 } */
