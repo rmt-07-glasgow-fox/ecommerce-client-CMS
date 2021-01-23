@@ -3,8 +3,15 @@
 
 
 ## URL
-https:_________________________
+https://ecommerce-cms-antzshop.web.app
 
+
+#### Admin credential
+For login into the website, an admin account is required
+```
+Email : admin@mail.com
+Password: admin123
+```
 
 ### Project setup
 ```
