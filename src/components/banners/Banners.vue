@@ -19,7 +19,8 @@
               <input type="checkbox" v-model="status" class="form-check-input" id="exampleCheck1" />
               <label class="form-check-label" for="exampleCheck1">Status</label>
             </div>
-            <div class="input-group my-3">
+            <div class="form-group">
+              <label for="">Image: </label>
               <div class="custom-file">
                 <input
                   type="file"
@@ -75,7 +76,7 @@ export default {
       title: '',
       status: false,
       image: null,
-      imageName: 'Choose file',
+      imageName: 'Choose image file',
     };
   },
   methods: {

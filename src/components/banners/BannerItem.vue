@@ -13,7 +13,6 @@
     </td>
     <td colspan="4" v-if="showEditActive">
       <form>
-        <input type="hidden" v-model="image_url" />
         <div class="form-group">
           <label :for="banner.id">Title: </label>
           <input :id="banner.id" class="form-control w-25 mb-3" v-model="title" />
@@ -46,6 +45,7 @@ export default {
     return {
       title: this.banner.title,
       image_url: this.banner.image_url,
+      image_name: this.banner.image_name,
       status: this.banner.status,
       showEditActive: false,
     };
@@ -64,6 +64,7 @@ export default {
           title: this.title,
           status: this.status,
           image_url: this.image_url,
+          image_name: this.image_name,
         };
         await this.$store.dispatch('updateBanner', payload);
         this.hideEditForm();
