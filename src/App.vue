@@ -12,20 +12,28 @@
 
 <script>
 export default {
-  data () {
-    return {
-      accesstoken: ''
-    }
-  },
   methods: {
     logout () {
-      this.$store.dispatch('logout')
+      localStorage.clear()
+      this.$store.commit('logout')
+      this.$router.push('/login')
     }
   },
   computed: {
     getAccesstoken () {
+      if (this.$store.state.accesstoken) {
+        localStorage.setItem('accesstoken', this.$store.state.accesstoken)
+      }
       return this.$store.state.accesstoken
     }
+  },
+  watch: {
+    getAccesstoken: function () {
+      this.accesstoken = localStorage.getItem('accesstoken')
+    }
+  },
+  created: function () {
+    this.$store.commit('accesstoken', localStorage.getItem('accesstoken'))
   }
 }
 </script>
@@ -54,5 +62,9 @@ body {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+button{
+  width: 150px;
 }
 </style>

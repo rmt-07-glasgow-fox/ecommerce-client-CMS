@@ -11,13 +11,13 @@
           </div>
           <div class="card-body">
             <form @submit.prevent="login()">
-              <div class="input-group form-group">
+              <div class="input-group form-group pl-5 pr-5">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
                 <input v-model="user.email" type="text" class="form-control" placeholder="username">
               </div>
-              <div class="input-group form-group p-4">
+              <div class="input-group form-group pl-5 pr-5">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
@@ -51,8 +51,15 @@ export default {
     }
   },
   methods: {
-    login () {
-      this.$store.dispatch('loginUser', this.user)
+    async login () {
+      await this.$store.dispatch('loginUser', this.user)
+      this.user.email = ''
+      this.user.password = ''
+    }
+  },
+  computed: {
+    getAccesstoken () {
+      return this.$store.state.accesstoken
     }
   }
 }
