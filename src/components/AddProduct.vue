@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import axios from '../api/axios'
-
 export default {
   name: 'AddProduct',
   data () {
@@ -33,31 +31,14 @@ export default {
   },
   methods: {
     addProduct () {
-      axios({
-        method: 'post',
-        url: 'products',
-        headers: {
-          access_token: localStorage.access_token
-        },
-        data: {
-          name: this.name,
-          image_url: this.image_url,
-          price: this.price,
-          stock: this.stock
-        }
+      this.$store.dispatch('addProduct', {
+        name: this.name,
+        image_url: this.image_url,
+        price: this.price,
+        stock: this.stock
       })
-        .then(() => {
-          this.name = ''
-          this.image_url = ''
-          this.stock = ''
-          this.price = ''
-
-          this.$router.push('/home')
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     },
+
     backToHome () {
       this.$router.push('/home')
     }

@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import axios from '../api/axios'
 export default {
   name: 'Product',
   props: ['product', 'index'],
@@ -22,20 +21,7 @@ export default {
       this.$router.push('/products/' + id + '/edit')
     },
     onDelete (id) {
-      axios({
-        method: 'delete',
-        url: 'products/' + id,
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then(() => {
-          // this.$router.push('/home')
-          this.$emit('fetchProducts')
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      this.$store.dispatch('onDelete', { id })
     }
   },
   created () {
