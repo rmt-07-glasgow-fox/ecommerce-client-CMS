@@ -16,6 +16,7 @@
               <th scope="col">Image</th>
               <th scope="col">Price</th>
               <th scope="col">Stock</th>
+              <th scope="col">Category</th>
               <th scope="col">Options</th>
             </tr>
           </thead>
@@ -26,6 +27,7 @@
               <td class="align-middle"><img :src="product.image_url" alt="" style="width: 50px" class="p-0"></td>
               <td class="align-middle text-right">{{product.price}}</td>
               <td class="align-middle text-right">{{product.stock}}</td>
+              <td class="align-middle text-right">{{product.Category.name}}</td>
               <td class="align-middle">
                 <button class="btn btn-primary mx-1"
                   @click="editProduct(product.id)">
@@ -67,11 +69,12 @@ export default {
   },
   computed: {
     ...mapState([
-      'productList'
+      'productList', 'categories'
     ])
   },
   created () {
     this.getProducts()
+    this.$store.dispatch('getCategories')
   }
 
 }

@@ -35,6 +35,14 @@
                   </div>
                   <input type="text" class="form-control" v-model=product.stock aria-label="Stock" aria-describedby="basic-addon1">
                 </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Category</span>
+                  </div>
+                  <select class="form-select" v-model=product.Category.id aria-label="Default select example">
+                    <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+                  </select>
+                </div>
                 <button class="btn btn-primary mx-1"
                   @click.prevent="saveChanges()">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18px" height="18px"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
@@ -63,8 +71,12 @@ export default {
       product: {
         name: '',
         image_url: '',
-        price: 0,
-        stock: 0
+        price: null,
+        stock: null,
+        Category: {
+          id: null,
+          name: ''
+        }
       }
     }
   },
@@ -75,7 +87,8 @@ export default {
         name: this.product.name,
         image_url: this.product.image_url,
         price: this.product.price,
-        stock: this.product.stock
+        stock: this.product.stock,
+        CategoryId: this.product.Category.id
       }
       this.$store.dispatch('updateProduct', payload)
     },
@@ -84,6 +97,7 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('getCategories')
     const productId = this.$route.params.id
     this.$store.dispatch('getSpecificProduct', productId)
       .then(({ data }) => {
@@ -104,6 +118,11 @@ export default {
         }
         // this.$router.push({ path: '/products' })
       })
+  },
+  computed: {
+    categories () {
+      return this.$store.state.categories
+    }
   }
 
 }

@@ -9,7 +9,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoggedIn: '',
-    productList: []
+    productList: [],
+    categories: []
   },
   mutations: {
     updateLoginStatus (state, payload) {
@@ -17,7 +18,25 @@ export default new Vuex.Store({
     },
     updateProductList (state, payload) {
       state.productList = payload
+    },
+    updateCategories (state, payload) {
+      state.categories = payload
     }
+  },
+  getters: {
+    // processedCategories (state) {
+    //   const processed = []
+    //   state.productList.forEach(e => {
+    //     if (!e.Category) {
+    //       e.Category = {
+    //         id: 0,
+    //         name: '-'
+    //       }
+    //     }
+    //     processed.push(e)
+    //   })
+    //   return processed
+    // }
   },
   actions: {
     login (context, payload) {
@@ -95,6 +114,7 @@ export default new Vuex.Store({
       })
     },
     addProduct (context, payload) {
+      // console.log(payload, 'ini yang mau dimasukin')
       axios({
         url: '/products',
         method: 'POST',
@@ -105,7 +125,8 @@ export default new Vuex.Store({
           name: payload.name,
           image_url: payload.image_url,
           price: payload.price,
-          stock: payload.stock
+          stock: payload.stock,
+          CategoryId: payload.CategoryId
         }
       })
         .then(({ data }) => {
@@ -116,6 +137,7 @@ export default new Vuex.Store({
         .catch(error => {
           if (error.response) {
             // Request made and server responded
+            // console.log(error.response.data)
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -139,7 +161,7 @@ export default new Vuex.Store({
         })
     },
     updateProduct (context, payload) {
-      // console.log(payload, 'ini yang mau diupdate')
+      console.log(payload, 'ini yang mau diupdate')
       axios({
         url: '/products/' + payload.id,
         method: 'PUT',
@@ -150,7 +172,8 @@ export default new Vuex.Store({
           name: payload.name,
           image_url: payload.image_url,
           price: payload.price,
-          stock: payload.stock
+          stock: payload.stock,
+          CategoryId: payload.CategoryId
         }
       })
         .then(({ data }) => {
@@ -212,6 +235,32 @@ export default new Vuex.Store({
             'success'
           )
           this.dispatch('getProducts')
+        })
+        .catch(error => {
+          if (error.response) {
+            // Request made and server responded
+            console.log(error.response.data)
+            console.log(error.response.status)
+            console.log(error.response.headers)
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.log(error.request)
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message)
+          }
+        })
+    },
+    getCategories (context) {
+      axios({
+        url: '/categories',
+        method: 'GET',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('updateCategories', data)
         })
         .catch(error => {
           if (error.response) {
