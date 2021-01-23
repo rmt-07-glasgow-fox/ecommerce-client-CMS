@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/home'
   },
   {
     path: '/home',
@@ -28,9 +28,13 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'LoginPage' && !localStorage.getItem('access_token')) return next({ name: 'Login' })
-  if (to.name === 'LoginPage' && localStorage.getItem('access_token')) return next({ path: 'Home' })
-  if (!localStorage.getItem('access_token')) return next({ path: 'Login' })
-  return next()
+  const checkAuth = localStorage.access_token
+  if (!checkAuth && to.name === 'Home') {
+    next({ name: 'LoginPage' })
+  } else if (checkAuth && to.name === 'LoginPage') {
+    next({ name: 'Home' })
+  } else {
+    next()
+  }
 })
 export default router

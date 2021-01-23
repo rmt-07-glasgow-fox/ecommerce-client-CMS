@@ -8,10 +8,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    practise: 'semoga',
     categories: [],
     products: [],
-    banner: []
+    banner: [],
+    category: ''
   },
   mutations: {
     passingProducts (state, payload) {
@@ -19,6 +19,9 @@ export default new Vuex.Store({
     },
     passingCategories (state, payload) {
       state.categories = payload
+    },
+    changeCategory (state, payload) {
+      state.category = payload
     }
   },
   actions: {
@@ -117,7 +120,7 @@ export default new Vuex.Store({
           Swal.fire({
             title: 'Aircraft Added!',
             html: `
-              Your answers:
+              Your Input:
               <pre><code>${answers}</code></pre>
             `,
             confirmButtonText: 'Nice!'
@@ -256,5 +259,16 @@ export default new Vuex.Store({
     }
   },
   modules: {
+  },
+  getters: {
+    filterCategory: state => {
+      if (state.category === 'All' || state.category === '') {
+        return state.products
+      } else {
+        return state.products.filter((value) => {
+          return value.categoryId === state.category
+        })
+      }
+    }
   }
 })

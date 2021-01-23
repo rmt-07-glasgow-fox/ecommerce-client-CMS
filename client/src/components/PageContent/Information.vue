@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'Designer'
+  name: 'Information'
 }
 </script>
 

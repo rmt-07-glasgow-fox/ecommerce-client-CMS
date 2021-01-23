@@ -8,13 +8,20 @@
           class="img-fluid img-thumbnail"
           :alt="product.name"
           id="image-table"
-          @click="showImage"
+          @click="uploadImage"
         />
       </td>
       <td id="middle">{{ product.name }}</td>
       <td id="middle">{{ product.description }}</td>
       <td id="middle">{{ getCategoryName() }}</td>
-      <td id="middle">${{ product.price }}</td>
+      <td id="middle">
+        {{
+          product.price.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+          })
+        }}
+      </td>
       <td id="middle">{{ product.stock }}</td>
       <td id="middle">
         <button
@@ -41,10 +48,10 @@
         />
       </td>
       <td id="middle">
-        <textarea v-model="productName" rows="5" cols="11"></textarea>
+        <textarea v-model="productName" rows="5" cols="11" style="border: groove"></textarea>
       </td>
       <td id="middle">
-        <textarea v-model="description" rows="5" cols="55"></textarea>
+        <textarea v-model="description" rows="5" cols="55" style="border: groove"></textarea>
       </td>
       <td id="middle">
         <select
@@ -72,11 +79,11 @@
           Patch
         </button>
       </td>
-      <td id="middle"><input v-model="price" style="width: 5em" />
+      <td id="middle"><input v-model="price" style="width: 5em; border: groove" />
       <hr />
       in USD
       </td>
-      <td id="middle"><input v-model="stock" style="width: 2em" />
+      <td id="middle"><input v-model="stock" style="width: 2em; border: groove" />
       <hr />
       @
       </td>
