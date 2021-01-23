@@ -22,9 +22,9 @@
         <td>{{ product.stock }}</td>
         <td>
           <div class='btn-group' role='group' aria-label='Basic example'>
-            <button @click.prevent="editForm" type='button' class='btn btn-secondary' data-toggle='modal'
+            <button @click.prevent="getById(product)" type='button' class='btn btn-secondary' data-toggle='modal'
             data-target='#modal-update-product'>Edit</button>
-            <button type='button' class='btn btn-secondary'>Delete</button>
+            <button @click.prevent="deleteProduct(product.id)" type='button' class='btn btn-secondary'>Delete</button>
           </div>
         </td>
       </tr>
@@ -37,8 +37,17 @@ export default {
   name: 'ProductsTable',
   props: ['product'],
   methods: {
-    editForm () {
-      this.$router.push('/editProducts')
+    getId (productId) {
+      this.$store.commit('putProductId', productId)
+    },
+    getById (productDetail) {
+      const id = productDetail.id
+      this.$store.commit('putProductId', id)
+      this.$store.commit('putProductDetail', productDetail)
+      this.$router.push('/editProduct/' + id)
+    },
+    deleteProduct (id) {
+      this.$store.dispatch('deleteProduct', id)
     },
     rupiahFormat (value) {
       return 'Rp. ' + value.toLocaleString()

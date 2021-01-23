@@ -12,7 +12,7 @@
           <input v-model="imageUrl" type="text" class="form-control" id="floatingInput2" placeholder="Image Url">
         </div>
         <!-- <div class="form-floating mb-3">
-          <label for="floatingInput4">Genre</label>
+          <label for="floatingInput4">Category</label>
           <input v-model="category" type="text" class="form-control" id="floatingInput4" placeholder="name@example.com">
         </div> -->
         <div class="form-floating mb-3">

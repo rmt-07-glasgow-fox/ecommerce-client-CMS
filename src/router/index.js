@@ -24,7 +24,7 @@ const routes = [
     component: AddLink
   },
   {
-    path: '/editProducts',
+    path: '/editProduct/:id',
     name: 'EditLink',
     component: EditLink
   }
