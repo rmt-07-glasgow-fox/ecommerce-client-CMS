@@ -23,7 +23,19 @@ export default {
   name: 'CardCategory',
   methods: {
     deleteCategory (id) {
-      this.$store.dispatch('deleteCategories', id)
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'All products in this category will be deleted',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(result => {
+        if (result.isConfirmed) {
+          this.$store.dispatch('deleteCategories', id)
+        }
+      })
     }
   },
   computed: {

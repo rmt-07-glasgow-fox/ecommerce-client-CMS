@@ -27,7 +27,11 @@ export default {
   name: 'FormAddBanner',
   data () {
     return {
-      banner: {}
+      banner: {
+        title: '',
+        status: '',
+        image_url: ''
+      }
     }
   },
   methods: {

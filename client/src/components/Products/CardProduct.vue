@@ -42,7 +42,19 @@ export default {
       this.$store.dispatch('getProductId', id)
     },
     deleteProduct (id) {
-      this.$store.dispatch('deleteProduct', id)
+      this.$swal({
+        title: 'Are you sure?',
+        text: 'You wont be able to revert this product!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(result => {
+        if (result.isConfirmed) {
+          this.$store.dispatch('deleteProduct', id)
+        }
+      })
     }
   },
   computed: {
@@ -50,8 +62,8 @@ export default {
       'product'
     ]),
     priceFormat () {
-      // return this.product.price.toLocaleString('id-ID') + ' IDR'
-      return this.product.price + 'IDR'
+      return this.product.price.toLocaleString('id-ID') + ' IDR'
+      // return this.product.price + 'IDR'
     }
   }
 }

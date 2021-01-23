@@ -44,11 +44,10 @@ export default new Vuex.Store({
         router.push('/products')
       }).catch(err => {
         console.log(err)
-        this.$fire({
+        Vue.swal({
+          icon: 'error',
           title: 'Something Error',
-          text: err.response.data.message,
-          type: 'error',
-          timer: 3000
+          text: err.response.data.message
         })
       })
     },
@@ -63,7 +62,7 @@ export default new Vuex.Store({
       }).then(res => {
         context.commit('setProducts', res.data)
       }).catch(err => {
-        console.log(err)
+        console.log(err.response)
       })
     },
     addProduct (context, payload) {
@@ -79,7 +78,20 @@ export default new Vuex.Store({
       }).then(res => {
         context.dispatch('getProducts')
       }).catch(err => {
-        console.log(err)
+        if (err.response.status !== 400) {
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            text: err.response.data.message
+          })
+        } else {
+          const message = err.response.data.message.join('<br>')
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            html: message
+          })
+        }
       })
     },
     getProductId (context, payload) {
@@ -94,7 +106,11 @@ export default new Vuex.Store({
         console.log(res.data)
         context.commit('setProductToEdit', res.data)
       }).catch(err => {
-        console.log(err)
+        Vue.swal({
+          icon: 'error',
+          title: 'Something Error',
+          text: err.response.data.message
+        })
       })
     },
     productDetail (context, payload) {
@@ -120,7 +136,20 @@ export default new Vuex.Store({
       }).then(res => {
         context.dispatch('getProducts')
       }).catch(err => {
-        console.log(err)
+        if (err.response.status !== 400) {
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            text: err.response.data.message
+          })
+        } else {
+          const message = err.response.data.message.join('<br>')
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            html: message
+          })
+        }
       })
     },
     deleteProduct (context, payload) {
@@ -134,7 +163,11 @@ export default new Vuex.Store({
       }).then(res => {
         context.dispatch('getProducts')
       }).catch(err => {
-        console.log(err)
+        Vue.swal({
+          icon: 'error',
+          title: 'Something Error',
+          text: err.response.data.message
+        })
       })
     },
 
@@ -165,7 +198,20 @@ export default new Vuex.Store({
       }).then(res => {
         context.dispatch('getBanners')
       }).catch(err => {
-        console.log(err)
+        if (err.response.status !== 400) {
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            text: err.response.data.message
+          })
+        } else {
+          const message = err.response.data.message.join('<br>')
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            html: message
+          })
+        }
       })
     },
     editStatusBanner (context, payload) {
@@ -182,7 +228,21 @@ export default new Vuex.Store({
       }).then(res => {
         context.dispatch('getBanners')
       }).catch(err => {
-        console.log(err)
+        context.dispatch('getBanners')
+        if (err.response.status !== 400) {
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            text: err.response.data.message
+          })
+        } else {
+          const message = err.response.data.message.join('<br>')
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            html: message
+          })
+        }
       })
     },
     deleteBanner (context, payload) {
@@ -196,7 +256,11 @@ export default new Vuex.Store({
       }).then(res => {
         context.dispatch('getBanners')
       }).catch(err => {
-        console.log(err)
+        Vue.swal({
+          icon: 'error',
+          title: 'Something Error',
+          text: err.response.data.message
+        })
       })
     },
     getCategories (context) {
@@ -228,7 +292,20 @@ export default new Vuex.Store({
         console.log(res.data)
         context.dispatch('getCategories')
       }).catch(err => {
-        console.log(err)
+        if (err.response.status !== 400) {
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            text: err.response.data.message
+          })
+        } else {
+          const message = err.response.data.message.join('<br>')
+          Vue.swal({
+            icon: 'error',
+            title: 'Something Error',
+            html: message
+          })
+        }
       })
     },
     deleteCategories (context, payload) {
@@ -242,7 +319,11 @@ export default new Vuex.Store({
       }).then(() => {
         context.dispatch('getCategories')
       }).catch(err => {
-        console.log(err)
+        Vue.swal({
+          icon: 'error',
+          title: 'Something Error',
+          text: err.response.data.message
+        })
       })
     }
   },

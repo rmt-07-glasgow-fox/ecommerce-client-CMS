@@ -3,12 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import jQuery from 'jquery'
-import VueSimpleAlert from 'vue-simple-alert'
+import VueSweetalert2 from 'vue-sweetalert2'
 
 Vue.config.productionTip = false
 
 global.$ = jQuery
-Vue.use(VueSimpleAlert)
+Vue.use(VueSweetalert2)
 new Vue({
   router,
   store,

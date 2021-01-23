@@ -32,7 +32,10 @@ export default {
   name: 'FormLogin',
   data () {
     return {
-      user: {}
+      user: {
+        email: '',
+        password: ''
+      }
     }
   },
   methods: {
