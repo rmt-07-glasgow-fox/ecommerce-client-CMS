@@ -12,10 +12,10 @@
     </thead>
     <tbody>
       <tr
-        v-for="product in products"
+        v-for="(product, i) in products"
         :key="product.id"
       >
-        <th scope="row">{{ product.id }}</th>
+        <th scope="row">{{ i+1 }}</th>
         <td><img :src="product.image_url" :alt="product.name" height="200px"></td>
         <td>{{ product.name }}</td>
         <td>{{ rupiahFormat(product.price) }}</td>

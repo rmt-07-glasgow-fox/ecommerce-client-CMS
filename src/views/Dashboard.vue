@@ -6,7 +6,6 @@
       <main id="page-wrap">
         <h1>Dashboard</h1>
         <ProductsTable />
-        <router-view />
       </main>
     </div>
   </div>
@@ -17,9 +16,18 @@ import Navbar from '@/components/Navbar.vue'
 import ProductsTable from '@/components/ProductsTable.vue'
 
 export default {
+  name: 'Dashboard',
   components: {
     ProductsTable,
     Navbar
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  },
+  created () {
+    this.$store.dispatch('getAllProduct')
   }
 }
 </script>

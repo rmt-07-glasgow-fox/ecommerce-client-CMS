@@ -5,7 +5,7 @@
 <script>
 import AddForm from '../components/AddForm'
 export default {
-  name: 'Products',
+  name: 'AddLink',
   components: {
     AddForm
   }

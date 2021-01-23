@@ -32,6 +32,31 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
+    createProduct (context, payload) {
+      const name = payload.name
+      const imageUrl = payload.imageUrl
+      const stock = +payload.stock
+      const price = +payload.price
+      axios({
+        method: 'POST',
+        url: '/products',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          name,
+          image_url: imageUrl,
+          stock,
+          price
+        }
+      })
+        .then(data => {
+          this.dispatch('getAllProduct')
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
+    },
     loginHandle (context, payload) {
       axios({
         method: 'POST',
