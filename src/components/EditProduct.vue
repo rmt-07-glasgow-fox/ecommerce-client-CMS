@@ -33,7 +33,6 @@ export default {
   methods: {
     editProduct () {
       this.$store.dispatch('editProduct', this.product)
-      this.$router.push(`/products/${this.product.id}`)
     }
   },
   computed: {
