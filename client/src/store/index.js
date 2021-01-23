@@ -90,7 +90,7 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          router.push('/dashboard')
+          router.push('/')
           Swal.fire({
             position: 'center',
             icon: 'success',
@@ -130,7 +130,7 @@ export default new Vuex.Store({
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
           if (localStorage.access_token) {
-            router.push('/dashboard')
+            router.push('/')
           }
           Swal.fire(
             'Hallo! Admin',

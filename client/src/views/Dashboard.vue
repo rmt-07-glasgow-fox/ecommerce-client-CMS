@@ -4,8 +4,8 @@
       <div class="col-2 sidebar">
         <header>CMS</header>
         <ul>
-          <li><router-link to="/dashboard"><i class="fas fa-home"></i> Dashboard</router-link></li>
-          <li><router-link to="/dashboard/add"><i class="fas fa-cart-plus"></i> Add Product</router-link></li>
+          <li><router-link to="/"><i class="fas fa-home"></i> Dashboard</router-link></li>
+          <li><router-link to="/add"><i class="fas fa-cart-plus"></i> Add Product</router-link></li>
           <li><a @click.prevent="logout" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
       </div>

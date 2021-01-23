@@ -43,7 +43,7 @@ export default {
       const payload = this.newProduct
       this.$store.dispatch('addProduct', payload)
         .then(({ data }) => {
-          this.$router.push('/dashboard')
+          this.$router.push('/')
           Swal.fire({
             position: 'center',
             icon: 'success',

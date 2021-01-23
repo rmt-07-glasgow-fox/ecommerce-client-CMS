@@ -27,7 +27,7 @@ export default {
   props: ['product'],
   methods: {
     gotoEdit () {
-      this.$router.push('/dashboard/edit/' + this.product.id)
+      this.$router.push('/edit/' + this.product.id)
     },
     gotoDelete () {
       const id = this.product.id
