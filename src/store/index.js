@@ -9,7 +9,7 @@ export default new Vuex.Store({
   state: {
     currentPage: 'productList',
     products: [],
-    ProductDetail: {}
+    productDetail: {}
   },
   mutations: {
     insertProducts (state, payload) {
@@ -17,9 +17,9 @@ export default new Vuex.Store({
       // console.log(state.products)
     },
     insertProductDetail (state, payload) {
-      state.ProductDetail = payload
+      state.productDetail = payload
       console.log('ini dari insert')
-      console.log(state.ProductDetail.name)
+      console.log(state.productDetail)
       state.currentPage = 'editForm'
     },
     insertCurrentPage (state, payload) {

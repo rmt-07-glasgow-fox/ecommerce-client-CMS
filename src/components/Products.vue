@@ -7,13 +7,15 @@
         <p class="card-text">Price: <span style="float: right">Rp {{ product.price }}</span></p>
         <p class="card-text">Stock: <span style="float: right">{{ product.stock }}</span></p>
         <button @click="toEditForm(product.id)" class="btn btn-dark">Edit</button>
-        <button href="#" class="btn btn-dark" style="float: right">Delete</button>
+        <button @click="destroyProduct(product.id)" class="btn btn-dark" style="float: right">Delete</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from '../api/axios'
+
 export default {
   name: 'Product',
   props: ['product', 'changePage'],
@@ -21,6 +23,22 @@ export default {
     toEditForm (id) {
       console.log('masuk edit form di comp')
       this.$store.dispatch('getProductDetail', id)
+    },
+    destroyProduct (id) {
+      axios({
+        method: 'DELETE',
+        url: `/products/${id}`,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
+          return this.$store.dispatch('fetchProducts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }
