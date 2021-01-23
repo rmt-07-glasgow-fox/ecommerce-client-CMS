@@ -10,6 +10,8 @@ import ListCategory from '../views/ListCategory.vue'
 import AddCategory from '../views/AddCategory.vue'
 import DetailCategory from '../views/DetailCategory'
 import ListBanner from '../views/ListBanner.vue'
+import AddBanner from '../views/AddBanner.vue'
+import DetailBanner from '../views/DetailBanner.vue'
 import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
@@ -19,10 +21,6 @@ const routes = [
     path: '/login',
     name: 'LoginPage',
     component: LoginPage
-  },
-  {
-    path: '*',
-    component: NotFound
   },
   {
     path: '/',
@@ -68,6 +66,20 @@ const routes = [
         path: 'banners',
         name: 'ListBanner',
         component: ListBanner
+      },
+      {
+        path: 'banners/add',
+        name: 'AddBanner',
+        component: AddBanner
+      },
+      {
+        path: 'banners/:id',
+        name: 'DetailBanner',
+        component: DetailBanner
+      },
+      {
+        path: '*',
+        component: NotFound
       }
     ]
   }

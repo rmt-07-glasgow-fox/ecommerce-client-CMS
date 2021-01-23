@@ -2,7 +2,7 @@
   <div class="container mt-3">
     <div class="row text-center">
       <div class="col-lg-12">
-        <h1>Edit Category</h1>
+        <h1 class="text-dark">Edit Category</h1>
       </div>
       <div class="col-lg-6">
         <div class="card shadow mb-5">
@@ -19,7 +19,7 @@
                 <hr>
                 <p>Icon preview: <i :class="faClass"></i></p>
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Confirm</button>
               <a class="btn btn-danger ml-3" @click="deleteCategory">Delete</a>
               <a class="btn btn-warning ml-3 text-white" @click="back">Cancel</a>
             </form>
@@ -28,7 +28,7 @@
       </div>
       <div class="col-lg-6">
         <div class="card shadow mb-5 product">
-          <h3 class="mt-3">List of Product in This Category</h3>
+          <h3 class="mt-3">List Product that use this category</h3>
           <div class="card-body overflow-auto">
             <table class="table table-hover">
               <thead>
@@ -47,7 +47,7 @@
                   <td class="align-middle">{{ product.id }}</td>
                   <td class="align-middle">{{ product.name }}</td>
                   <td class="align-middle">{{ product.stock }}</td>
-                  <button class="btn btn-danger ml-3" @click="deleteProduct(product.id)">Delete</button>
+                  <td class="align-middle"><button class="btn btn-danger ml-3" @click="deleteProduct(product.id)">Delete</button></td>
                 </tr>
               </tbody>
             </table>
@@ -91,6 +91,11 @@ export default {
   },
   created () {
     this.detailCategoryById()
+  },
+  mounted () {
+    if (this.$store.state.error) {
+      this.$swal('Hello Vue world!!!')
+    }
   }
 }
 </script>

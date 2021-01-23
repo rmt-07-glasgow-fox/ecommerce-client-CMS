@@ -3,7 +3,7 @@
     <div class="row text-center">
       <div class="col-sm-3"></div>
       <div class="col-sm-6">
-        <h1>Add a New Product</h1>
+        <h1 class="text-dark">Add a New Product</h1>
         <div class="card shadow mb-5">
           <div class="card-body">
             <form @submit.prevent="addProduct">

@@ -56,7 +56,11 @@ export default {
         this.email = ''
         this.password = ''
       }).catch(err => {
-        console.log(err.response.data.message)
+        this.$swal({
+          icon: 'error',
+          title: 'Oops... Error',
+          text: err.response.data.message
+        })
         this.email = ''
         this.password = ''
       })

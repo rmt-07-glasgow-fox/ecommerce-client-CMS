@@ -3,7 +3,7 @@
     <div class="row text-center">
       <div class="col-sm-3"></div>
       <div class="col-sm-6">
-        <h1>Edit Product</h1>
+        <h1 class="text-dark">Edit Product</h1>
         <div class="card shadow mb-5">
           <div class="card-body">
             <form @submit.prevent="editProduct">
@@ -37,7 +37,7 @@
                 <label>Product Image</label>
                 <input type="text" placeholder="Product Image" class="form-control" v-model="productById.image_url">
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Confirm</button>
               <a class="btn btn-danger ml-3" @click="deleteProduct">Delete</a>
               <a class="btn btn-warning ml-3 text-white" @click="back">Cancel</a>
             </form>

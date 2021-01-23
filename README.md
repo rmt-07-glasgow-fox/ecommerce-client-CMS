@@ -1,6 +1,12 @@
 # ecommerce-client-cms
+"AnTz Shop" e-commerce CMS app, created using Vue.js (client) & node.js, express, sequelize, postgreSQL ([server](https://github.com/AnthonyGunardi/ecommerce-server))
 
-## Project setup
+
+## URL
+https:_________________________
+
+
+### Project setup
 ```
 npm install
 ```

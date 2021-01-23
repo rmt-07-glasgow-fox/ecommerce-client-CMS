@@ -10,7 +10,9 @@ export default new Vuex.Store({
     products: [],
     productById: '',
     categories: [],
-    categoryById: ''
+    categoryById: '',
+    banners: [],
+    bannerById: ''
   },
   mutations: {
     fetchAllProduct (state, payload) {
@@ -24,9 +26,16 @@ export default new Vuex.Store({
     },
     fetchCategoryById (state, payload) {
       state.categoryById = payload
+    },
+    fetchAllBanner (state, payload) {
+      state.banners = payload
+    },
+    fetchBannerById (state, payload) {
+      state.bannerById = payload
     }
   },
   actions: {
+    // ! Product
     fetchAllProduct (context) {
       axios({
         method: 'get',
@@ -37,7 +46,15 @@ export default new Vuex.Store({
       }).then(({ data }) => {
         context.commit('fetchAllProduct', data.products)
       }).catch(err => {
-        console.log(err.response.data.message)
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
       })
     },
     fetchProductById (context, id) {
@@ -50,7 +67,15 @@ export default new Vuex.Store({
       }).then(({ data }) => {
         context.commit('fetchProductById', data.product)
       }).catch(err => {
-        console.log(err.response.data.message)
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
       })
     },
     addProduct (context, payload) {
@@ -65,7 +90,15 @@ export default new Vuex.Store({
         context.dispatch('fetchAllProduct')
         router.push('/products')
       }).catch(err => {
-        console.log(err.response.data.message)
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
       })
     },
     editProduct (context, payload) {
@@ -88,46 +121,87 @@ export default new Vuex.Store({
         context.dispatch('fetchAllProduct')
         router.push('/products').catch(() => {})
       }).catch(err => {
-        console.log(err.response.data.message)
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
       })
     },
     deleteProduct (context, id) {
-      axios({
-        method: 'delete',
-        url: '/products/' + id,
-        headers: {
-          access_token: localStorage.getItem('access_token')
+      Vue.swal({
+        title: 'Do you really want to delete this?',
+        showCancelButton: true,
+        confirmButtonText: 'Save'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios({
+            method: 'delete',
+            url: '/products/' + id,
+            headers: {
+              access_token: localStorage.getItem('access_token')
+            }
+          }).then(({ data }) => {
+            context.dispatch('fetchAllProduct')
+            router.push('/products').catch(() => {})
+          }).catch(err => {
+            if (err.response.data.message === 'Error Not Found') {
+              router.push('/notfound')
+            } else {
+              Vue.swal({
+                icon: 'error',
+                title: 'Oops... Error',
+                text: err.response.data.message
+              })
+            }
+          })
         }
-      }).then(({ data }) => {
-        context.dispatch('fetchAllProduct')
-        router.push('/products').catch(() => {})
-      }).catch(err => {
-        console.log(err.response.data.message)
       })
     },
     deleteProductInCategory (context, payload) {
       const { idProduct, idCategory } = payload
-      axios({
-        method: 'delete',
-        url: '/products/' + idProduct,
-        headers: {
-          access_token: localStorage.getItem('access_token')
+      Vue.swal({
+        title: 'Do you really want to delete this?',
+        showCancelButton: true,
+        confirmButtonText: 'Save'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios({
+            method: 'delete',
+            url: '/products/' + idProduct,
+            headers: {
+              access_token: localStorage.getItem('access_token')
+            }
+          }).then(({ data }) => {
+            context.dispatch('fetchAllProduct')
+            return axios({
+              method: 'get',
+              url: '/categories/' + idCategory,
+              headers: {
+                access_token: localStorage.getItem('access_token')
+              }
+            })
+          }).then(({ data }) => {
+            context.commit('fetchCategoryById', data.category)
+          }).catch(err => {
+            if (err.response.data.message === 'Error Not Found') {
+              router.push('/notfound')
+            } else {
+              Vue.swal({
+                icon: 'error',
+                title: 'Oops... Error',
+                text: err.response.data.message
+              })
+            }
+          })
         }
-      }).then(({ data }) => {
-        context.dispatch('fetchAllProduct')
-        return axios({
-          method: 'get',
-          url: '/categories/' + idCategory,
-          headers: {
-            access_token: localStorage.getItem('access_token')
-          }
-        })
-      }).then(({ data }) => {
-        context.commit('fetchCategoryById', data.category)
-      }).catch(err => {
-        console.log(err.response.data.message)
       })
     },
+    // Category
     fetchAllCategory (context) {
       axios({
         method: 'get',
@@ -138,7 +212,15 @@ export default new Vuex.Store({
       }).then(({ data }) => {
         context.commit('fetchAllCategory', data.categories)
       }).catch(err => {
-        console.log(err.response.data.message)
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
       })
     },
     fetchCategoryById (context, id) {
@@ -151,7 +233,15 @@ export default new Vuex.Store({
       }).then(({ data }) => {
         context.commit('fetchCategoryById', data.category)
       }).catch(err => {
-        console.log(err.response.data.message)
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
       })
     },
     addCategory (context, payload) {
@@ -166,7 +256,15 @@ export default new Vuex.Store({
         context.dispatch('fetchAllCategory')
         router.push('/categories').catch(() => {})
       }).catch(err => {
-        console.log(err.response.data.message)
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
       })
     },
     editCategory (context, payload) {
@@ -186,24 +284,220 @@ export default new Vuex.Store({
         context.dispatch('fetchAllCategory')
         router.push('/categories').catch(() => {})
       }).catch(err => {
-        console.log(err.response.data.message)
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
       })
     },
     deleteCategory (context, payload) {
+      Vue.swal({
+        title: 'Do you really want to delete this?',
+        showCancelButton: true,
+        confirmButtonText: 'Save'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios({
+            method: 'delete',
+            url: '/categories/' + payload,
+            headers: {
+              access_token: localStorage.getItem('access_token')
+            }
+          }).then(({ data }) => {
+            context.dispatch('fetchAllCategory')
+            router.push('/categories').catch(() => {})
+          }).catch(err => {
+            if (err.response.data.message === 'Error Not Found') {
+              router.push('/notfound')
+            } else {
+              Vue.swal({
+                icon: 'error',
+                title: 'Oops... Error',
+                text: err.response.data.message
+              })
+            }
+          })
+        }
+      })
+    },
+    // Banner
+    fetchAllBanner (context) {
       axios({
-        method: 'delete',
-        url: '/categories/' + payload,
+        method: 'get',
+        url: '/banners',
         headers: {
           access_token: localStorage.getItem('access_token')
         }
       }).then(({ data }) => {
-        context.dispatch('fetchAllCategory')
-        router.push('/categories').catch(() => {})
+        context.commit('fetchAllBanner', data.banners)
       }).catch(err => {
-        console.log(err.response.data.message)
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
+      })
+    },
+    fetchBannerById (context, id) {
+      axios({
+        method: 'get',
+        url: '/banners/' + id,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      }).then(({ data }) => {
+        context.commit('fetchBannerById', data.banner)
+      }).catch(err => {
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
+      })
+    },
+    addBanner (context, payload) {
+      axios({
+        method: 'post',
+        url: '/banners',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: payload
+      }).then(({ data }) => {
+        context.dispatch('fetchAllBanner')
+        router.push('/banners').catch(() => {})
+      }).catch(err => {
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
+      })
+    },
+    editBanner (context, payload) {
+      const { id, title, status, imageurl } = payload
+
+      axios({
+        method: 'put',
+        url: '/banners/' + id,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          title,
+          status,
+          image_url: imageurl
+        }
+      }).then(({ data }) => {
+        context.dispatch('fetchAllBanner')
+        router.push('/banners').catch(() => {})
+      }).catch(err => {
+        if (err.response.data.message === 'Error Not Found') {
+          router.push('/notfound')
+        } else {
+          Vue.swal({
+            icon: 'error',
+            title: 'Oops... Error',
+            text: err.response.data.message
+          })
+        }
+      })
+    },
+    deleteBanner (context, payload) {
+      Vue.swal({
+        title: 'Do you really want to delete this?',
+        showCancelButton: true,
+        confirmButtonText: 'Save'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios({
+            method: 'delete',
+            url: '/banners/' + payload,
+            headers: {
+              access_token: localStorage.getItem('access_token')
+            }
+          }).then(({ data }) => {
+            context.dispatch('fetchAllBanner')
+            router.push('/banners').catch(() => {})
+          }).catch(err => {
+            if (err.response.data.message === 'Error Not Found') {
+              router.push('/notfound')
+            } else {
+              Vue.swal({
+                icon: 'error',
+                title: 'Oops... Error',
+                text: err.response.data.message
+              })
+            }
+          })
+        }
       })
     }
   },
   modules: {
+  },
+  getters: {
+    getPrice: (state) => (id) => {
+      for (let i = 0; i < state.products.length; i++) {
+        const element = state.products[i]
+        if (element.id === id) {
+          return Number(element.price).toLocaleString()
+        }
+      }
+    },
+    getStock: (state) => (id) => {
+      for (let i = 0; i < state.products.length; i++) {
+        const element = state.products[i]
+        if (element.id === id) {
+          return Number(element.stock).toLocaleString()
+        }
+      }
+    },
+    totalProduct: (state) => {
+      return state.products.length
+    },
+    totalCategory: (state) => {
+      return state.categories.length
+    },
+    totalBanner: (state) => {
+      return state.banners.length
+    },
+    totalBannerActive: (state) => {
+      let output = 0
+      for (let i = 0; i < state.banners.length; i++) {
+        const element = state.banners[i]
+        if (element.status === true) {
+          output++
+        }
+      }
+      return output
+    },
+    totalStockZero: (state) => {
+      let output = 0
+      for (let i = 0; i < state.products.length; i++) {
+        const element = state.products[i]
+        if (element.stock === 0) {
+          output++
+        }
+      }
+      return output
+    }
   }
 })

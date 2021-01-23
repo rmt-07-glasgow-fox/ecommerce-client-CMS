@@ -3,8 +3,8 @@
     <td class="align-middle">{{ product.id }}</td>
     <td class="align-middle"><img :src="product.image_url" class="thumbnail" alt=""></td>
     <td class="align-middle">{{ product.name }}</td>
-    <td class="align-middle">{{ product.price }}</td>
-    <td class="align-middle">{{ product.stock }}</td>
+    <td class="align-middle">Rp. {{ getPrice }},-</td>
+    <td class="align-middle">{{ getStock }}</td>
     <td class="align-middle">{{ product.Category.name }}</td>
     <td class="align-middle">
       <button class="btn btn-warning" @click="editProduct">Edit</button>
@@ -27,6 +27,16 @@ export default {
     deleteProduct () {
       const id = this.product.id
       this.$store.dispatch('deleteProduct', id)
+    }
+  },
+  computed: {
+    getPrice () {
+      const id = this.product.id
+      return this.$store.getters.getPrice(id)
+    },
+    getStock () {
+      const id = this.product.id
+      return this.$store.getters.getStock(id)
     }
   }
 }
