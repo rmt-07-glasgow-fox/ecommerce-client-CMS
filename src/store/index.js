@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axiosInstance'
 import router from '../router/'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -70,7 +71,7 @@ export default new Vuex.Store({
     editProduct (context, payload) {
       const { name, price, stock, imageUrl } = payload
       const id = payload.id
-      axios
+      return axios
         .put('/products/' + id, {
           name,
           price,
@@ -81,10 +82,6 @@ export default new Vuex.Store({
             access_token: localStorage.getItem('access_token')
           }
         })
-        .then(({ data }) => {
-          router.push('/dashboard')
-        })
-        .catch(console.log)
     },
     login (context, payload) {
       axios
@@ -100,5 +97,6 @@ export default new Vuex.Store({
     }
   },
   modules: {
-  }
+  },
+  plugins: [createPersistedState()]
 })
