@@ -6,15 +6,15 @@
     id="mySidebar"
   >
     <br />
-    <div class="w3-container">
+    <div class="w3-container" id="title">
       <h3 class="w3-padding-64">
         <b>Used<br />Aircraft</b>
       </h3>
     </div>
     <div class="w3-bar-block">
       <a
-        href="#"
-        onclick=""
+        href="#showcase"
+        @click="toHome"
         class="w3-bar-item w3-button w3-hover-white"
         >Home</a
       >
@@ -26,15 +26,21 @@
       >
       <a
         href="#Stocks"
-        onclick=""
+        @click="toHome"
         class="w3-bar-item w3-button w3-hover-white"
         >Stocks</a
       >
       <a
         href="#Information"
-        onclick=""
+        @click="toHome"
         class="w3-bar-item w3-button w3-hover-white"
         >Information</a
+      >
+      <a
+        href=""
+        @click="toBanner"
+        class="w3-bar-item w3-button w3-hover-white"
+        >Banner</a
       >
       <a
         href="#contact"
@@ -52,6 +58,12 @@ export default {
   methods: {
     logout () {
       this.$store.dispatch('logout')
+    },
+    toBanner () {
+      this.$store.dispatch('route', 'banner')
+    },
+    toHome () {
+      this.$store.dispatch('route', 'home')
     }
   }
 }
