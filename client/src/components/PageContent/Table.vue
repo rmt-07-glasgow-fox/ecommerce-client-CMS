@@ -210,6 +210,19 @@ export default {
           this.editMode = false
         }
       })
+    },
+    uploadImage () {
+      Swal.fire({
+        title: 'Select a file',
+        showCancelButton: true,
+        confirmButtonText: 'Upload',
+        input: 'file'
+      }).then((file) => {
+        if (file.value) {
+          console.log(file.value)
+          this.$store.dispatch('uploadImage', file.value)
+        }
+      })
     }
   },
   computed: {

@@ -3,8 +3,8 @@
     <Header/>
     <Banner/>
     <Stocks/>
-    <Designer/>
-    <W3Container/>
+    <Information/>
+    <Footer/>
   </div>
 </template>
 
@@ -12,8 +12,8 @@
 import Header from '@/components/PageContent/Header.vue'
 import Banner from '@/components/PageContent/Banner.vue'
 import Stocks from '@/components/PageContent/Stocks.vue'
-import Designer from '@/components/PageContent/Designer.vue'
-import W3Container from '@/components/PageContent/W3Container.vue'
+import Information from '@/components/PageContent/Information.vue'
+import Footer from '@/components/PageContent/Footer.vue'
 
 export default {
   name: 'PageContent',
@@ -21,8 +21,8 @@ export default {
     Header,
     Banner,
     Stocks,
-    Designer,
-    W3Container
+    Information,
+    Footer
   }
 }
 </script>

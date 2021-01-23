@@ -31,10 +31,10 @@
         >Stocks</a
       >
       <a
-        href="#designers"
+        href="#Information"
         onclick=""
         class="w3-bar-item w3-button w3-hover-white"
-        >Designers</a
+        >Information</a
       >
       <a
         href="#contact"

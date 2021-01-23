@@ -19,11 +19,6 @@ const routes = [
     path: '/login',
     name: 'LoginPage',
     component: LoginPage
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
   }
 ]
 
@@ -35,7 +30,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.name !== 'LoginPage' && !localStorage.getItem('access_token')) return next({ name: 'Login' })
   if (to.name === 'LoginPage' && localStorage.getItem('access_token')) return next({ path: 'Home' })
-
+  if (!localStorage.getItem('access_token')) return next({ path: 'Login' })
   return next()
 })
 export default router

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
+import axios2 from 'axios'
 import router from '../router/index.js'
 import Swal from 'sweetalert2'
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -238,6 +238,21 @@ export default new Vuex.Store({
     logout (context) {
       localStorage.clear()
       router.push({ path: 'Login' })
+    },
+    uploadImage (context, payload) {
+      console.log(payload)
+      const body = new FormData()
+      body.set('key', '2c1104ad2dd7dc1fbcc634eb5692ea0e')
+      body.append('image', payload)
+      axios2({
+        method: 'post',
+        url: 'https://api.imgbb.com/1/upload',
+        data: body
+      }).this((data) => {
+        console.log(data.data)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   },
   modules: {

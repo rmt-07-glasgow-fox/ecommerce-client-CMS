@@ -83,16 +83,18 @@ export default {
         })
     }
   },
+  computed: {
+    listProducts () {
+      return this.$store.state.products
+    }
+  },
   created () {
     this.fetchAll()
     this.fetchCategory()
   },
   updated () {
   },
-  computed: {
-    listProducts () {
-      return this.$store.state.products
-    }
+  mounted () {
   }
 }
 </script>
