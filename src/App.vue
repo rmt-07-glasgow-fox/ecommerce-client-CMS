@@ -1,16 +1,41 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/">Home</router-link> |
-      <router-link to="/products">Products</router-link>
+      <router-link v-if="!user" to="/login" :cek="cek">Login </router-link>
+      <div v-else-if="user" >
+      <router-link to="/products">Products</router-link> |
+      <button class="btn" @click="logout" to="/login"> Logout</button>
+      </div>
     </div>
     <router-view />
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      user: localStorage.getItem('access_token')
+    }
+  },
+  methods: {
+    logout () {
+      this.$router.push('/login')
+      localStorage.clear()
+      this.cek()
+    },
+    cek () {
+      if (this.user) {
+        this.$router.push('/products')
+      } else {
+        this.$router.push('/login')
+      }
+    }
+  },
+  created () {
+    this.cek()
+  }
+}
 </script>
 
 <style>

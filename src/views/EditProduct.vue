@@ -74,7 +74,14 @@ export default {
       this.$router.push('/products')
     },
     edit () {
-      this.$store.dispatch('editProduct', this.payload)
+      this.$store.dispatch('edit', {
+        id: this.one.id,
+        name: this.one.name,
+        image_url: this.one.image_url,
+        price: this.one.price,
+        stock: this.one.stock
+      })
+      this.$router.push('/products')
     }
   },
   computed: {

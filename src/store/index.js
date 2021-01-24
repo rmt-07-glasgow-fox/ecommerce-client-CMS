@@ -22,7 +22,10 @@ export default new Vuex.Store({
     getProducts (context) {
       axios({
         method: 'GET',
-        url: 'http://localhost:3000/products'
+        url: 'https://ecommerce-mine-7d157.web.app/products',
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
       })
         .then(response => {
           context.commit('insertProducts', response.data)
@@ -34,7 +37,7 @@ export default new Vuex.Store({
     addProduct (context, payload) {
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/products',
+        url: 'https://ecommerce-mine-7d157.web.app/products',
         data: {
           name: payload.name,
           image_url: payload.image_url,
@@ -53,7 +56,7 @@ export default new Vuex.Store({
     getOne (context, payload) {
       axios({
         method: 'GET',
-        url: `http://localhost:3000/products/${payload}`,
+        url: `https://ecommerce-mine-7d157.web.app/products/${payload}`,
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -65,17 +68,63 @@ export default new Vuex.Store({
         .catch((err) => console.log(err))
     },
     edit (context, payload) {
+      console.log(payload)
       axios({
         method: 'PUT',
-        url: `http://localhost:3000/products/${payload}`,
+        url: `https://ecommerce-mine-7d157.web.app/products/${payload.id}`,
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: payload.price,
+          stock: payload.stock
+        },
         headers: {
           access_token: localStorage.getItem('access_token')
         }
       })
         .then(({ data }) => {
-          context.commit('insertOne', data)
-          console.log(this.one)
+          console.log(data.message)
+          router.push('/products')
+        })
+        .catch((err) => console.log(err))
+    },
+    login (context, payload) {
+      axios({
+        method: 'POST',
+        url: 'https://ecommerce-mine-7d157.web.app/users/login',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+        .then(({ data }) => {
+          localStorage.setItem('access_token', data.access_token)
+          router.push('/products')
+        })
+        .catch((err) => console.log(err))
+    },
+    delete (context, payload) {
+      axios({
+        method: 'GET',
+        url: `https://ecommerce-mine-7d157.web.app/products/${payload}`,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(response => {
           // router.push('/products')
+          console.log(response.data)
+          return axios({
+            method: 'DELETE',
+            url: 'https://ecommerce-mine-7d157.web.app/products/' + response.data.id,
+            headers: {
+              access_token: localStorage.getItem('access_token')
+            }
+          })
+        })
+        .then(response => {
+          console.log(response.data)
+          context.dispatch('getProducts')
         })
         .catch((err) => console.log(err))
     }

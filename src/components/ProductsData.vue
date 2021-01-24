@@ -10,7 +10,7 @@
         <h5>Rp {{product.price}}</h5>
         <p>stock: {{product.stock}}</p>
         <div>
-        <button style="margin: 5px 5px;" class="btn btn-success">Buy</button>
+        <!-- <button style="margin: 5px 5px;" class="btn btn-success">Buy</button> -->
         </div>
         <div>
         <button style="margin: 5px 5px;" class="btn btn-primary" @click="goEdit">Edit</button>
@@ -27,12 +27,12 @@ export default {
   props: ['product'],
   methods: {
     goDelete () {
-      this.$router.push('/products/delete/' + this.product.id)
+      this.$store.dispatch('delete', this.product.id)
     },
     goEdit () {
       this.$store.dispatch('getOne', this.product.id)
       // this.$store.dispatch('getOne', this.$store.state.one)
-      this.$router.push('/products/edit/' + this.product.id)
+      this.$router.push('/edit/' + this.product.id)
     }
   }
 }

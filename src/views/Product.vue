@@ -9,8 +9,7 @@
        />
     </div>
     <div id="nav" >
-      <router-link :to="`/products/addProduct`">Add Product</router-link> |
-      <router-link :to="`/products/addProduct`">Test 2</router-link>
+      <router-link :to="`/addProduct`">Add Product</router-link>
     </div>
     <router-view/>
   </div>
@@ -31,7 +30,7 @@ export default {
     }
   },
   created () {
-    this.getProducts()
+    this.$store.dispatch('getProducts')
   },
   computed: {
     ...mapState([

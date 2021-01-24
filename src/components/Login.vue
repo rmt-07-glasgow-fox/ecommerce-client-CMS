@@ -1,7 +1,6 @@
 <template>
   <div>
-      <h1>Its mee!!</h1>
-      <form class="container">
+      <form class="container" @submit.prevent="login">
         <div style="margin: 30px 350px 30px 350px">
           <div>
               <label>Email</label>
@@ -9,6 +8,7 @@
               type="email"
               class="form-control"
               placeholder="Enter your email.."
+              v-model="data.email"
               required
               />
           </div>
@@ -18,6 +18,7 @@
               type="password"
               class="form-control"
               placeholder="Your password.."
+              v-model="data.password"
               required
               />
           </div>
@@ -29,7 +30,21 @@
 
 <script>
 export default {
-  name: 'Login'
+  name: 'Login',
+  data () {
+    return {
+      data: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    login () {
+      console.log(this.data)
+      this.$store.dispatch('login', this.data)
+    }
+  }
 }
 </script>
 
