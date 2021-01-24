@@ -46,9 +46,10 @@
           id="edit-image"
           @click="editImage"
         />
+        <input type="file" id="file" ref="file" v-on:change="onFileChange" />
       </td>
       <td id="middle">
-        <textarea v-model="productName" rows="5" cols="11" style="border: groove"></textarea>
+        <textarea v-model="productName" rows="5" cols="11" style="border: groove;"></textarea>
       </td>
       <td id="middle">
         <textarea v-model="description" rows="5" cols="55" style="border: groove"></textarea>
@@ -123,7 +124,7 @@
 
 <script>
 import Swal from 'sweetalert2'
-
+import axios from 'axios'
 export default {
   name: 'Table',
   props: ['product'],
@@ -133,13 +134,56 @@ export default {
       productName: '',
       image_url: '',
       description: '',
-      categoryId: 0,
+      categoryId: 1,
       price: 0,
       stock: 0,
-      productId: 0
+      productId: 1
     }
   },
   methods: {
+    async onFileChange (val) {
+      const files = val.target.files || val.dataTransfer.files
+      if (!files.length) return
+      const body = new FormData()
+      body.set('key', '194d79d58080fb78f4dbfc6beae0c454')
+      body.append('image', files[0])
+      console.log(body)
+      const response = await axios({
+        method: 'post',
+        url: 'https://api.imgbb.com/1/upload',
+        data: body
+      })
+      console.log(response.data.data.url)
+      this.$store.commit('passingUploaded', response.data.data.image.url)
+      Swal.fire({
+        title: 'Change to this image?',
+        text: 'You wont be able to revert this!',
+        imageUrl: response.data.data.url,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, change it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$store.dispatch('updateProduct', {
+            id: this.product.id,
+            name: this.product.name,
+            image_url: this.uploadedImage,
+            description: this.product.description,
+            categoryId: this.product.categoryId,
+            price: this.product.price,
+            stock: this.product.stock
+          })
+          Swal.fire('Success!', 'Image Updated.', 'success')
+          this.image_url = this.uploadedImage
+          this.updateProduct()
+          this.editMode = false
+        }
+      })
+    },
     getCategoryName () {
       const out = this.categories.find((x) => x.id === this.product.categoryId)
         .name
@@ -217,30 +261,20 @@ export default {
           this.editMode = false
         }
       })
-    },
-    uploadImage () {
-      Swal.fire({
-        title: 'Select a file',
-        showCancelButton: true,
-        confirmButtonText: 'Upload',
-        input: 'file'
-      }).then((file) => {
-        if (file.value) {
-          console.log(file.value)
-          this.$store.dispatch('uploadImage', file.value)
-        }
-      })
     }
   },
   computed: {
     categories () {
       return this.$store.state.categories
+    },
+    uploadedImage () {
+      return this.$store.state.uploadedImage
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 .container {
   padding: 2rem 0rem
 }
@@ -259,5 +293,9 @@ h4 {
 #middle {
   text-align: center;
   vertical-align: middle
+}
+#top {
+  text-align: center;
+  vertical-align: top
 }
 </style>

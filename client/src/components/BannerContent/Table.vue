@@ -196,7 +196,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container {
   padding: 2rem 0rem
 }
@@ -214,6 +214,7 @@ h4 {
 }
 #middle {
   text-align: center;
-  vertical-align: middle
+  vertical-align: top
 }
+
 </style>

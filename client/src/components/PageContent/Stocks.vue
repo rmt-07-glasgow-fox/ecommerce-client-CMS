@@ -45,14 +45,14 @@ export default {
   components: {
     Table
   },
-  data () {
-    return {
-      category: 'Choose an option'
-    }
-  },
   watch: {
     category (newVal) {
       this.$store.commit('changeCategory', newVal)
+    }
+  },
+  data () {
+    return {
+      category: 'Choose an option'
     }
   },
   methods: {
@@ -106,6 +106,9 @@ export default {
     },
     categories () {
       return this.$store.state.categories
+    },
+    uploadedImage () {
+      return this.$store.state.uploadedImage
     }
   },
   created () {

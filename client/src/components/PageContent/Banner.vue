@@ -1,7 +1,6 @@
 <template>
     <div class="position-static">
       <transition name="slide">
-        <p v-if="show">{{message}}</p>
       </transition>
       <transition-group tag="div" class="img-slider" name="slide">
       <div v-for="number in [currentImg]" v-bind:key="number" >

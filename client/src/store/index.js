@@ -13,7 +13,8 @@ export default new Vuex.Store({
     banner: [],
     category: '',
     bannerStatus: 'All',
-    images: []
+    images: [],
+    uploadedImage: ''
   },
   mutations: {
     passingProducts (state, payload) {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     },
     passingImages (state, payload) {
       state.images = payload
+    },
+    passingUploaded (state, payload) {
+      state.uploadedImage = payload
     }
   },
   actions: {
