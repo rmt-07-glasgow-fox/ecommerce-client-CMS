@@ -1,48 +1,50 @@
 <template>
-<div class="container">
-  <h1>Welcome to Dashboard</h1>
-      <div>
-        <button class="btn btn-success btn-lg" @click="addProduct"> Add Product </button>
-      </div><br>
-  <div class="row">
-    <div class="col-md-2 d-flex">
+<div class="row" style="height:100vh">
+  <div class="col-md-2 border-right">
+    <div class="container">
+      <div class="row my-auto border-bottom">
+        <img src="../assets/beautiv.png" alt="" style="width:100%">
+      </div>
+      <div style="margin-top:10%">
+          <button class="btn btn-link btn-lg text-dark" @click="addProduct"> Add Product </button>
+      </div>
+      <div style="margin-top:10%">
+          <button class="btn btn-link btn-lg text-dark" @click="addBanner"> Add Banner </button>
+      </div>
+      <div style="margin-top:20%">
+          <button class="btn btn-danger btn-lg" @click="logout"> Logout </button>
+      </div>
     </div>
-    <div class="row">
-      <ListProducts
-        v-for="product in products"
-        :key="product.id"
-        :product="product"
-      />
-      <!-- <AddProduct
-      /> -->
+  </div>
+  <div class="col-md-10">
+    <div class="container">
+      <div class="text-center"><br>
+        <h1>Dashboard</h1>
+      </div><br>
+      <div id="nav">
+        <router-link to="/dashboard">Products</router-link> |
+        <router-link to="/dashboard/banners">Banners</router-link>
+      </div>
+      <router-view />
     </div>
   </div>
 </div>
 </template>
 
 <script>
-import ListProducts from '../components/listProducts'
-// import AddProduct from '../components/AddProduct'
 export default {
   name: 'Dashboard',
-  components: {
-    ListProducts
-  },
   methods: {
-    fetchProducts () {
-      this.$store.dispatch('fetchProducts')
-    },
     addProduct () {
-      this.$router.push('/add')
+      this.$router.push('/products/add')
+    },
+    addBanner () {
+      this.$router.push('/banners/add')
+    },
+    logout () {
+      localStorage.clear()
+      this.$router.push('/')
     }
-  },
-  computed: {
-    products () {
-      return this.$store.state.products
-    }
-  },
-  created () {
-    this.fetchProducts()
   },
   beforeRouteEnter (to, from, next) {
     if (localStorage.access_token) {
