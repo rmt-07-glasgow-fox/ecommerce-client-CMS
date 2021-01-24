@@ -11,7 +11,9 @@ export default new Vuex.Store({
     products: [],
     product: {},
     username: '',
-    errors: []
+    errors: [],
+    categories: [],
+    category: ''
   },
   mutations: {
     insertProduct (state, payload) {
@@ -23,9 +25,19 @@ export default new Vuex.Store({
     getUserName (state, payload) {
       state.username = payload.email.split('@')[0]
     },
+    insertCategories (state, payload) {
+      const result = []
+      payload.forEach(product => {
+        result.push(product.category)
+      })
+      state.categories = [...new Set(result)]
+    },
     catchError (state, payload) {
       state.errors = []
       state.errors.push(payload)
+    },
+    changeCategory (state, payload) {
+      state.category = payload
     }
   },
   actions: {
@@ -50,6 +62,7 @@ export default new Vuex.Store({
         })
         .then(({ data }) => {
           context.commit('insertProducts', data)
+          context.commit('insertCategories', data)
         })
         .catch(console.log)
     },
@@ -95,6 +108,20 @@ export default new Vuex.Store({
         .catch((err) => {
           context.commit('catchError', err.response.data.errors)
         })
+    }
+  },
+  getters: {
+    productByID: (state) => id => {
+      return state.products.find(product => (product.id === id))
+    },
+    filterByCategory: state => {
+      if (state.category === '' || state.category === 'all') {
+        return state.products
+      } else {
+        return state.products.filter((value) => {
+          return value.category === state.category
+        })
+      }
     }
   },
   modules: {

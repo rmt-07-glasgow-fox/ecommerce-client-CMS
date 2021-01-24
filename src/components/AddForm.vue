@@ -15,6 +15,9 @@
                   <input type="text" class="form-control" placeholder="Product name..." required='' v-model='name'>
                 </div>
                 <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Product category..." required='' v-model='category'>
+                </div>
+                <div class="form-group">
                   <input type='number' class="form-control" placeholder="Product price..." required='' v-model='price'>
                 </div>
                 <div class="form-group">
@@ -42,7 +45,8 @@ export default {
       name: '',
       price: '',
       stock: '',
-      image_url: ''
+      image_url: '',
+      category: ''
     }
   },
   watch: {
@@ -63,7 +67,8 @@ export default {
         name: this.name,
         price: this.price,
         stock: this.stock,
-        image_url: this.image_url
+        image_url: this.image_url,
+        category: this.category
       }
       this.$swal.fire({
         title: 'Add new product?',

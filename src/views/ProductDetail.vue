@@ -4,15 +4,15 @@
       <div class='col-sm-6'>
         <div class='card'>
           <div class="wrapper">
-            <img :src="`${product.image_url}`" class="card-img-top img-fluid" alt="image not found">
+            <img :src="`${product[0].image_url}`" class="card-img-top img-fluid" alt="image not found">
             <button type="button" class="btn-close btn-close-white" aria-label='close' @click='closeCard'></button>
           </div>
           <div class='card-header'>
-            <p class='text-weight-bold'>{{ product.name }}</p>
+            <p class='text-weight-bold'>{{ product[0].name }}</p>
           </div>
           <div class="card-body">
-            <p class="card-text">Stock: {{ product.stock }}</p>
-            <p class="card-text">Price: {{ product.price }}</p>
+            <p class="card-text">Stock: {{ product[0].stock }}</p>
+            <p class="card-text">Price: {{ product[0].price }}</p>
           </div>
           <div class='card-footer'>
             <i class="fas fa-edit" @click='editProductForm(product.id)'></i>

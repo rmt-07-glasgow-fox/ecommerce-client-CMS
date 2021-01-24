@@ -7,6 +7,13 @@
       <button class="btn btn-sm btn-outline-primary mb-3" @click='toAddProductPage'>Add a product</button>
     </div>
     <div class='row'>
+      <select id="inputState" class="form-control mb-4" v-model='category'>
+        <option selected>Choose a category...</option>
+        <option value='all'>All categories</option>
+        <option v-for='(category, idx) in categories' :key='idx' :value='category'>{{ category }}</option>
+      </select>
+    </div>
+    <div class='row'>
       <div class='col-3 pl-0 pr-0 mb-4' v-for='product in products' :key='product.id'>
         <div class='card'>
           <img :src="`${product.image_url}`" class="card-img-top img-fluid" alt="image not found" @click='productDetail(product.id)'>
@@ -29,6 +36,16 @@
 <script>
 export default {
   name: 'ContentCard',
+  data () {
+    return {
+      category: ''
+    }
+  },
+  watch: {
+    category (newVal) {
+      this.$store.commit('changeCategory', newVal)
+    }
+  },
   methods: {
     formatPrice (price) {
       return 'IDR ' + price.toLocaleString('id')
@@ -67,7 +84,10 @@ export default {
   },
   computed: {
     products () {
-      return this.$store.state.products
+      return this.$store.getters.filterByCategory
+    },
+    categories () {
+      return this.$store.state.categories
     }
   },
   created () {
