@@ -1,7 +1,7 @@
 <template>
 <div>
     <b-button v-b-toggle.sidebar-no-header>Toggle Sidebar</b-button>
-    <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" no-header shadow>
+    <b-sidebar id="sidebar-no-header" aria-labelledby="sidebar-no-header-title" no-header>
       <template #default="{ hide }">
         <div class="p-3">
           <h4 id="sidebar-no-header-title">Custom header sidebar</h4>
@@ -25,7 +25,7 @@
 
 <script>
 export default {
-      name: 'SideNavbar'
+  name: 'SideNavbar'
 
 }
 </script>
