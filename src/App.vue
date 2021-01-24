@@ -30,8 +30,11 @@ export default {
     }
   },
   created () {
-    if (localStorage.access_token) this.changePage('dashboard')
-    this.changePage('login')
+    if (localStorage.access_token) {
+      this.$store.commit('changePage', 'dashboard')
+    } else {
+      this.$store.commit('changePage', 'login')
+    }
   }
 }
 </script>

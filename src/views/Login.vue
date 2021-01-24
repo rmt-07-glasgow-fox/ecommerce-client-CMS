@@ -49,7 +49,6 @@ export default {
     login () {
       this.$store.dispatch('login', this.payload)
       this.$store.commit('changePage', 'dashboard')
-      this.$router.push({ name: 'Dashboard' })
     }
   }
 }

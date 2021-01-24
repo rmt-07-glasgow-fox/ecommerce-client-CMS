@@ -41,6 +41,7 @@ export default new Vuex.Store({
       })
         .then((data) => {
           localStorage.setItem('access_token', data.data.access_token)
+          router.push('/dashboard')
         }).catch(err => {
           console.log(err)
         })
