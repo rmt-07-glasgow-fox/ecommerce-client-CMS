@@ -9,7 +9,7 @@
           <input class="form-control" id="search-task" type="search" placeholder="Search Product">
         </div>
     </div>
-    <div class="products d-flex justify-content-between h-100 p-3 bg-light rounded-start">
+    <div class="products d-flex justify-content-between p-3 bg-light rounded-start">
       <div class="w-70 rounded">
         <div v-if="isAdd" class="p-3 mb-2 bg-white rounded shadow-sm">
           <FormAdd
@@ -20,7 +20,7 @@
           <ListProduct></ListProduct>
         </div>
       </div>
-      <div class="w-30 p-3 bg-white rounded shadow-sm">
+      <div class="body-product w-30 p-3 bg-white rounded shadow-sm">
         <CardProduct></CardProduct>
       </div>
     </div>
@@ -72,6 +72,10 @@ export default {
 }
 .products {
   height: 90vh;
+}
+.body-product {
+  overflow-y: auto;
+  height: 87vh;
 }
 .w-70 {
   width: 70%;

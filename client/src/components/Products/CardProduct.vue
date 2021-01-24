@@ -2,12 +2,11 @@
   <div>
     <div v-if="!isEdit && product">
       <img class="image-object" :src="product.image_url" alt="Product image">
-      <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">{{ product.description }}</p>
-        <p>Category: {{ product.Category.name }}</p>
-        <p>Price: {{ priceFormat }}</p>
-        <p>Stock: {{ product.stock }}</p>
+      <div>
+        <h5 class="card-title fw-bold mt-2">{{ product.name }}</h5>
+        <p class="fw-bold text-warning my-0">{{ priceFormat }}</p>
+        <p class="fw-bold my-0">Stock: {{ product.stock }} <small>pcs</small></p>
+        <p class="card-text fs-6 mt-2">{{ product.description }}</p>
         <button @click="getProductId(product.id)" class="btn btn-outline-primary">Edit</button>
         <button @click="deleteProduct(product.id)" class="btn btn-outline-danger mx-2">Delete</button>
       </div>
@@ -75,7 +74,7 @@ img {
   height: 17rem;
 }
 .card-text {
-  max-height: 3rem;
+  max-height: 5rem;
   overflow-y: auto;
 }
 .image-object {
