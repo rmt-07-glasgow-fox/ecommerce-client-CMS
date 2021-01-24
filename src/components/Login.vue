@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gradient-primary">
+    <div >
         <div class="container">
             <!-- Outer Row -->
             <div class="row justify-content-center">
@@ -12,7 +12,8 @@
                                 <div class="col-lg-6">
                                     <div class="p-5">
                                         <div class="text-center">
-                                            <h1 class="h4 text-gray-900 mb-4">Welcome Back! </h1>
+                                            <h3 class="h4 text-gray-900 mb-1">E-commerce Admin</h3>
+                                            <h1 class="h5 text-gray-900 mb-4">Welcome Back! </h1>
                                         </div>
                                         <form class="user">
                                             <div class="form-group">

@@ -2,11 +2,11 @@
   <div>
     <div class="form-group">
         <label for="">Title</label>
-        <input type="text" class="form-control" v-model="banner.title">
+        <input type="text" class="form-control" v-model="banner.title" placeholder="Banner Title">
     </div>
     <div class="form-group">
         <label for="">Image URL</label>
-        <input type="text" class="form-control" v-model="banner.image_url">
+        <input type="text" class="form-control" v-model="banner.image_url" placeholder="Image URL">
     </div>
     <div class="form-group">
       <label for="">Status Active</label>
