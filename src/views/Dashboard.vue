@@ -1,7 +1,8 @@
 <template>
 <div class="dashboard">
  <Navbar/>
- <ListProduct/>
+   <router-view/>
+ <!-- <ListProduct/> -->
  <!-- <EditProduct/> -->
  <!-- <AddProduct/> -->
   <!-- <img :src="poster" alt=""> -->
@@ -11,7 +12,7 @@
 
 <script>
 import Navbar from '@/components/Navbar'
-import ListProduct from '@/components/ListProduct'
+// import ListProduct from '@/components/ListProduct'
 // import AddProduct from '../components/AddProduct'
 // import EditProduct from '../components/EditProduct'
 export default {
@@ -25,8 +26,8 @@ export default {
   //   }
   // },
   components: {
-    Navbar,
-    ListProduct
+    Navbar
+    // ListProduct
     // AddProduct,
     // EditProduct
   }
