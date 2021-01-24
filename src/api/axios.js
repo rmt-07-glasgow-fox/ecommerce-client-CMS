@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '../store.js'
 
 const $axios = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://nikecommers.herokuapp.com',
   headers: {
     'Content-Type': 'application/json'
   }
