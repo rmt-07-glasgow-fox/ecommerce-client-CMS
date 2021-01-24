@@ -73,7 +73,14 @@ const routes = [
       if (to.name === 'Register' && !localStorage.access_token) {
         next()
       } else {
-        next({ name: 'Products' })
+        eCommerceAPI.get('/products', {
+          headers: { access_token: localStorage.access_token }
+        })
+          .then(({ data }) => {
+            store.commit('insertProducts', data)
+            router.push('/products')
+          })
+          .catch(err => console.log(err, 'err store fetchProducts'))
       }
     }
   },
