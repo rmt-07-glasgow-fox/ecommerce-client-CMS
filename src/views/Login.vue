@@ -1,11 +1,9 @@
 <template>
   <div id="login">
     <div
-      class="bg-fixed w-screen h-full"
+      class="bg-fixed w-screen h-screen bg-yellow-400"
       style="
-        background-image: url(https://www.wallpapertip.com/wmimgs/172-1721397_wallpaper-black-green-3d-cubes-purple-medium-purple.jpg);
-      "
-    >
+        background-image: url(https://www.wallpapertip.com/wmimgs/172-1721397_wallpaper-black-green-3d-cubes-purple-medium-purple.jpg);">
       <div
         class="container mx-auto h-full w-auto flex justify-center items-center"
       >
@@ -43,18 +41,12 @@
                 />
               </div>
 
-              <div class="flex justify-center items-center">
-                <button type="submit" class="bg-transparent text-white font-bold py-2 px-4">
+              <div class="flex justify-center items-center p-4">
+                <button type="submit" class="bg-transparent text-white font-bold py-2 px-8 bg-yellow-400 rounded-lg">
                   Login
                 </button>
               </div>
             </form>
-          </div>
-          <div class="text-center">
-            <p class="text-white text-sm">
-              Don't have an account?
-              <a href="#" class="no-underline font-bold">Create an Account</a>.
-            </p>
           </div>
         </div>
       </div>
@@ -63,7 +55,6 @@
 </template>
 
 <script>
-import axios from '../api/axios'
 export default {
   name: 'Login',
   data () {
@@ -73,27 +64,36 @@ export default {
     }
   },
   methods: {
-    async login () {
-      try {
-        const user = await axios({
-          method: 'POST',
-          url: '/login',
-          data: {
-            email: this.loginEmail,
-            password: this.loginPassword
-          }
-        })
-        this.loginEmail = ''
-        this.loginPassword = ''
-        localStorage.setItem('access_token', user.data.access_token)
-      } catch (err) {
+    login () {
+      this.$store.dispatch('login', {
+        email: this.loginEmail,
+        password: this.loginPassword
+      }).catch(err => {
         this.$swal({
           icon: 'warning',
           text: err.response.data.message
         })
-      }
+      })
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    if (!localStorage.access_token) {
+      next()
+    } else if (from.name === 'Products') {
+      next('/products')
+    } else if (from.name === 'Banners') {
+      next('/banners')
+    } else if (from.path === '/add') {
+      next('/add')
+    } else if (from.path === '/add/category') {
+      next('/add/category')
+    } else if (from.path === '/add/banner') {
+      next('/add/banner')
+    } else {
+      next('/products')
     }
   }
+
 }
 </script>
 
