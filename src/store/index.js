@@ -98,5 +98,13 @@ export default new Vuex.Store({
           console.log(err)
         })
     }
+  },
+  getters: {
+    all: state => {
+      return state.products
+    },
+    filtered: (state) => (category) => {
+      return state.products.filter(product => product.category === category)
+    }
   }
 })

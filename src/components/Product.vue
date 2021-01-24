@@ -19,28 +19,30 @@
         </div>
       </div>
     </div>
-    <div class="modal fade modal-dialog-centered p-5" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div style="margin-top: 30px;" class="modal" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-bottom" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <!--  -->
           </div>
-          <div class="modal-body">
-                <label>Name</label>
-                <input class="w-100" v-model="product.name"/>
-                <hr>
-                <label>imageUrl</label>
-                <input class="w-100" v-model="product.imageUrl"/>
-                <hr>
-                <label>Price</label>
-                <input class="w-100" v-model="product.price"/>
-                <hr>
-                <label>Stock</label>
-                <input class="w-100" v-model="product.stock"/>
-                </div>
+            <div class="modal-body">
+              <label>Name</label>
+              <input class="w-100" v-model="product.name"/>
+              <hr>
+              <label>imageUrl</label>
+              <input class="w-100" v-model="product.imageUrl"/>
+              <hr>
+              <label>Price</label>
+              <input class="w-100" v-model="product.price"/>
+              <hr>
+              <label>Stock</label>
+              <input class="w-100" v-model="product.stock"/>
+              <hr>
+              <label>Category</label>
+              <select class="mdb-select md-form w-100" v-model="product.category">
+                <option v-for="(option, i) in options" :key="i" :value="option" :selected="option == 'product.category'" >{{ option }}</option>
+              </select>
+            </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" data-dismiss="modal" @click="update()">Save changes</button>
@@ -52,8 +54,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Product',
+  props: ['category'],
   data () {
     return {
       product: {
@@ -61,8 +66,11 @@ export default {
         name: '',
         imageUrl: '',
         price: '',
-        stock: ''
-      }
+        stock: '',
+        category: ''
+      },
+      options: ['Fasion', 'Sport', 'Hobby', 'Drink', 'Food', 'Snack'],
+      products: []
     }
   },
   methods: {
@@ -98,13 +106,15 @@ export default {
       this.product.imageUrl = ''
       this.product.price = ''
       this.product.stock = ''
+      this.product.category = ''
     }
   },
   computed: {
+    ...mapGetters(['all', 'filtered']),
     getAccesstoken () {
       return this.$store.state.accesstoken
     },
-    products () {
+    getProducts () {
       return this.$store.state.products
     },
     getProduct () {
@@ -115,8 +125,7 @@ export default {
     }
   },
   created: function () {
-    this.findAll()
-
+    // this.findAll()
     if (localStorage.getItem('accesstoken')) {
       this.$store.dispatch('checktoken', localStorage.getItem('accesstoken'))
     }
@@ -124,6 +133,16 @@ export default {
   watch: {
     getProduct: function () {
       this.product = this.getProduct
+    },
+    getProducts: function () {
+      this.products = this.getProducts
+    },
+    category: function () {
+      if (this.category === 'All') {
+        this.products = this.all
+      } else {
+        this.products = this.filtered(this.category)
+      }
     }
   }
 }
