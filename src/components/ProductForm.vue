@@ -105,6 +105,7 @@ export default {
       this.form.name = this.product.name
       this.form.price = this.product.price
       this.form.stock = this.product.stock
+      this.form.imageUrl = this.product.imageUrl
       this.image = this.product.imageUrl
     }
   },
@@ -115,6 +116,7 @@ export default {
     showImgForm () {
       this.showImage = false
       this.imgForm = true
+      this.form.imageUrl = ''
     },
     async onSubmit () {
       try {
