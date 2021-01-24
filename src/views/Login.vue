@@ -33,9 +33,9 @@ export default {
     }
   },
   methods: {
-    login () {
-      console.log('>>> input login', this.inputLogin)
-      this.$store.dispatch('login', this.inputLogin)
+    async login () {
+      // console.log('>>> input login', this.inputLogin)
+      await this.$store.dispatch('login', this.inputLogin)
       this.$router.push('/products')
     }
   }

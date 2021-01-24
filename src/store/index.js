@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     products: [],
     brands: [],
+    banners: [],
     productsDetail: {},
     baseURL: 'http://localhost:3000'
   },
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     insertStateProductsDetail (state, payload) {
       state.productsDetail = payload
+    },
+    insertStateBanners(state, payload) {
+      state.banners = payload
     }
   },
   actions: {
@@ -40,7 +44,7 @@ export default new Vuex.Store({
       }
     },
     logout (context, payload) {
-      console.log('logout')
+      // console.log('logout')
       localStorage.clear()
     },
     async getAllBrands (context, payload) {
@@ -88,12 +92,38 @@ export default new Vuex.Store({
           { name, image_url, price, stock, BrandId },
           { headers: { access_token: localStorage.access_token } })
 
-        console.log('>>> updated : ', updatedProduct.data)
+        // console.log('>>> updated : ', updatedProduct.data)
         this.dispatch('getAllProducts')
         this.dispatch('getAllBrands')
       } catch (err) {
         console.log(err)
       }
+    },
+    async getAllBanners (context, payload) {
+      try {
+        const response = await axios.get('/banners', { headers: { access_token: localStorage.access_token } })
+        context.commit('insertStateBanners', response.data)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async addBanner (context, newBanner) {
+      try {
+        // console.log('>>> newProduct in store', newProduct)
+        await axios.post('/banners', newBanner, { headers: { access_token: localStorage.access_token } })
+        this.dispatch('getAllBanners')
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async deleteBanner (context, idBanner) {
+      try {
+        await axios.delete(`/banners/${idBanner}`, { headers: { access_token: localStorage.access_token } })
+        this.dispatch('getAllBanners')
+      } catch (err) {
+        console.log(err)
+      }
     }
+
   }
 })

@@ -4,7 +4,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">id</th>
+          <th scope="col">No.</th>
           <th scope="col">Name</th>
           <th scope="col">Image</th>
           <th scope="col">Price</th>
@@ -55,9 +55,9 @@ import NavigationBar from '../components/NavigationBar'
 
 export default {
   methods: {
-    deleteProduct (idProduct) {
+    async deleteProduct (idProduct) {
       // console.log(">>> delete product", idProduct);
-      this.$store.dispatch('deleteProduct', idProduct)
+      await this.$store.dispatch('deleteProduct', idProduct)
     },
     editProduct (idProduct) {
       console.log('>>> edit product', idProduct)

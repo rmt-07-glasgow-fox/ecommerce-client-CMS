@@ -65,8 +65,8 @@ import { mapState } from 'vuex'
 
 export default {
   methods: {
-    editProducts () {
-      console.log('>>> edited product', this.productsDetail)
+    async editProducts () {
+      // console.log('>>> edited product', this.productsDetail)
       const { id, name, image_url, price, stock, BrandId } = this.productsDetail
       const editedProduct = {
         id: id,
@@ -77,15 +77,16 @@ export default {
         BrandId: +BrandId
       }
 
-      console.log('>>> formatted edit product', editedProduct)
-      this.$store.dispatch('editProduct', editedProduct)
+      // console.log('>>> formatted edit product', editedProduct)
+      await this.$store.dispatch('editProduct', editedProduct)
+      this.$router.push('/products')
     },
     cancel () {
       this.$router.push('/products')
     }
   },
   created () {
-    console.log('>>> params router', this.$route.params)
+    // console.log('>>> params router', this.$route.params)
     const { id } = this.$route.params
     this.$store.dispatch('getProductById', id)
     this.$store.dispatch('getAllBrands')

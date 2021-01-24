@@ -1,5 +1,6 @@
 <template>
   <div class="vh-100 vw-100 bg-info">
+    <NavigationBar/>
     <div class="container text-center">
       <div class="card">
         <form @submit.prevent="addNewProduct">
@@ -62,6 +63,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import NavigationBar from '../components/NavigationBar'
 
 export default {
   data () {
@@ -75,8 +77,11 @@ export default {
       }
     }
   },
+  components: {
+    NavigationBar
+  },
   methods: {
-    addNewProduct () {
+    async addNewProduct () {
       console.log('>>> new product ', this.inputNewProduct)
       const { name, image_url, price, stock, BrandId } = this.inputNewProduct
       const newProduct = {
@@ -86,11 +91,12 @@ export default {
         stock: +stock,
         BrandId: +BrandId
       }
-      console.log('>>> reformatted newProduct : ', newProduct)
+      // console.log('>>> reformatted newProduct : ', newProduct)
 
-      this.$store.dispatch('addProduct', newProduct)
+      await this.$store.dispatch('addProduct', newProduct)
+      this.$router.push('/products')
     },
-    cancel(){
+    cancel () {
       this.$router.push('/products')
     }
   },
