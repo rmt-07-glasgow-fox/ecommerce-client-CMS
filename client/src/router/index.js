@@ -35,7 +35,7 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
   const checkAuth = localStorage.access_token
-  if (!checkAuth && to.name === 'Home' || to.name == 'BannerPage') {
+  if (!checkAuth && to.name === 'Home' || to.name === 'BannerPage') {
     next({ name: 'LoginPage' })
   } else if (checkAuth && to.name === 'LoginPage') {
     next({ name: 'Home' })
