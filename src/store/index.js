@@ -9,7 +9,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    isLogin: false
+    isLogin: false,
+    notification: '',
+    notificationHeaders: '',
+    notificationDashboard: ''
   },
   mutations: {
     setProducts (state, payload) {
@@ -17,15 +20,24 @@ export default new Vuex.Store({
     },
     setLoginStatus (state, payload) {
       state.isLogin = payload
+    },
+    // notification page
+    setNotification (state, payload) {
+      state.notification = payload
+    },
+    // notification add product
+    setNotificationHeaders (state, payload) {
+      state.notificationHeaders = payload
+    },
+    setNotificationDashboard (state, payload) {
+      state.notificationDashboard = payload
     }
   },
   actions: {
     auth (context) {
-      console.log('auth running')
       if (localStorage.access_token) {
         context.commit('setLoginStatus', true)
       } else {
-        console.log('setLoginStatus false')
         context.commit('setLoginStatus', false)
         router.push('/login')
       }
@@ -34,6 +46,9 @@ export default new Vuex.Store({
       localStorage.clear()
       context.commit('setLoginStatus', false)
       router.push('/login')
+    },
+    setLoginInfo (context, payload) {
+      context.commit('setLoginInfo', payload)
     },
     fetchProducts (context) {
       axios({
@@ -44,7 +59,6 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          console.log('Fetch products success!')
           context.commit('setProducts', response.data)
         })
         .catch((err) => {

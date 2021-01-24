@@ -1,8 +1,13 @@
 <template>
   <!-- ADD PRODUCT -->
-  <div id="addTask" class="container">
+  <div id="" class="container">
+    <h1>Add Product!</h1>
     <div class="row justify-content-center">
       <div class="col-6 m-3">
+        <div v-for="(notification, index) in notificationHeaders"
+          :key="index"
+          class="text-danger">
+          {{notification}}</div>
         <form>
           <input type="text" v-model="name" placeholder="Name" size="50">
           <input type="text" v-model="image_url" placeholder="Image URL" size="50">
@@ -53,11 +58,19 @@ export default {
         .then((response) => {
           console.log(response.data.message)
           this.$store.dispatch('fetchProducts')
+          this.$store.commit('setNotificationHeaders', '')
+          this.$store.commit('setNotificationDashboard', response.data.message)
           this.$router.push('/dashboard')
         })
         .catch((err) => {
           console.log(err.response.data.message)
+          this.$store.commit('setNotificationHeaders', err.response.data.message)
         })
+    }
+  },
+  computed: {
+    notificationHeaders () {
+      return this.$store.state.notificationHeaders
     }
   }
 }

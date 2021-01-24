@@ -2,7 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Dashboard from '../views/Dashboard.vue'
-import AddProduct from '../components/AddProduct.vue'
+import Account from '../views/Account.vue'
+import Notification from '../views/Notification.vue'
+import AddProduct from '../views/AddProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -13,14 +15,6 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
@@ -28,26 +22,46 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Dashboard',
-    component: Dashboard,
-    children: [
-      {
-        path: 'add-product',
-        name: 'AddProduct',
-        component: AddProduct
-      }
-    ]
+    component: Dashboard
+  },
+  {
+    path: '/add-product',
+    name: 'AddProduct',
+    component: AddProduct
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    component: Account
+  },
+  {
+    path: '/notification',
+    name: 'Notification',
+    component: Notification
   }
-  // {
-  //   path: '/add-product',
-  //   name: 'AddProduct',
-  //   component: AddProduct
-  // }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+function isAuthenticated () {
+  if (localStorage.access_token) {
+    console.log('isAuthenticated true')
+    return true
+  } else {
+    console.log('isAuthenticated false')
+    return false
+  }
+}
+
+router.beforeEach((to, from, next) => {
+  console.log(to.name, isAuthenticated())
+  if (to.name !== 'Login' && !isAuthenticated()) next({ name: 'Login' })
+  else if (to.name === 'Login' && isAuthenticated()) next({ name: 'Dashboard' })
+  else next()
 })
 
 export default router

@@ -2,12 +2,10 @@
   <div id="app">
     <div id="nav" v-if="isLogin == true">
       <router-link to="/" class="mx-3">Home</router-link>
-      <router-link to="/about" class="mx-3">About</router-link>
-      <a href="#" class="mx-3"
-        @click.prevent="logout">Logout</a>
       <router-link
         class="mx-3"
         to="/dashboard">Dashboard</router-link>
+      <router-link to="/account"> Account </router-link>
     </div>
     <router-view/>
   </div>
@@ -15,11 +13,6 @@
 
 <script>
 export default {
-  methods: {
-    logout () {
-      this.$store.dispatch('logout')
-    }
-  },
   computed: {
     isLogin () {
       return this.$store.state.isLogin

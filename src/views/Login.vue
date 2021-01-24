@@ -45,13 +45,14 @@ export default {
         }
       })
         .then((response) => {
-          console.log('Login success!')
+          localStorage.setItem('email', response.data.email)
+          localStorage.setItem('role', response.data.role)
           localStorage.setItem('access_token', response.data.access_token)
-          localStorage.setItem('user', this.email)
           this.email = ''
           this.password = ''
           this.$store.commit('setLoginStatus', true)
-          this.$router.push('/')
+          this.$store.commit('setNotification', 'Login success!')
+          this.$router.push('/notification')
         })
         .catch((err) => {
           console.log(err.response.data.message)

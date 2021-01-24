@@ -1,12 +1,16 @@
 <template>
   <div class="dashboard">
-    <h1>This is dashboard</h1>
-    <h3><a href="" @click.prevent="addProduct">Add Product</a></h3>
+    <h1>Welcome to your dashboard</h1>
+    <div id="display-success"></div>
+    <h3>
+      <a href=""
+        @click.prevent="addProduct">Add Product</a>
+      </h3>
     <router-view />
     <div class="row productContainer">
       <ProductCards
-      v-for="(product, index) in products"
-      :key="index"
+      v-for="(product) in products"
+      :key="product.id"
       :product="product"/>
     </div>
   </div>
@@ -22,7 +26,7 @@ export default {
   },
   methods: {
     addProduct () {
-      this.$router.push('/dashboard/add-product')
+      this.$router.push('/add-product')
     }
   },
   computed: {
