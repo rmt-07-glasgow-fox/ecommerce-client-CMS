@@ -54,6 +54,8 @@ export default new Vuex.Store({
           router.push({ path: '/products' })
         })
         .catch((error) => {
+          console.log(error, 'ini error')
+          console.log(error.response, 'ini error response')
           if (error.response) {
             // Request made and server responded
             // console.log(error.response.data.errors[0])
