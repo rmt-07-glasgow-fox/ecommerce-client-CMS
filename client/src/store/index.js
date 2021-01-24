@@ -174,55 +174,45 @@ export default new Vuex.Store({
       ])
     },
     addProduct (context, payload) {
-      Swal.queue([
-        {
-          title: 'Loading the data...',
-          text: 'It will take a several times',
-          showConfirmButton: false,
-          onOpen: async () => {
-            Swal.showLoading()
-            axios({
-              method: 'post',
-              url: '/products',
-              data: {
-                name: payload[0],
-                description: payload[1],
-                price: payload[2],
-                stock: payload[3],
-                image_url: payload[4],
-                categoryId: 1
-              },
-              headers: {
-                access_token: localStorage.access_token
-              }
-            })
-              .then((response) => {
-                Swal.close()
-                this.dispatch('getProducts')
-                const answers = JSON.stringify(payload)
-                Swal.fire({
-                  title: 'Aircraft Added!',
-                  html: `
-              Your Input:
-              <pre><code>${answers}</code></pre>
-            `,
-                  confirmButtonText: 'Nice!'
-                })
-              })
-              .catch((err) => {
-                const errors = err.response.data.errors
-                errors.forEach(element => {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: `${element}`,
-                    footer: '<a >please follow the rules</a>'
-                  })
-                })
-              })
-          }
+      axios({
+        method: 'post',
+        url: '/products',
+        data: {
+          name: payload[0],
+          description: payload[1],
+          price: payload[2],
+          stock: payload[3],
+          image_url: payload[4],
+          categoryId: 1
+        },
+        headers: {
+          access_token: localStorage.access_token
         }
-      ])
+      })
+        .then((response) => {
+          Swal.close()
+          this.dispatch('getProducts')
+          const answers = JSON.stringify(payload)
+          Swal.fire({
+            title: 'Aircraft Added!',
+            html: `
+        Your Input:
+        <pre><code>${answers}</code></pre>
+      `,
+            confirmButtonText: 'Nice!'
+          })
+        })
+        .catch((err) => {
+          const errors = err.response.data.errors
+          errors.forEach(element => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `${element}`,
+              footer: '<a >please follow the rules</a>'
+            })
+          })
+        })
     },
     addBanner (context, payload) {
       console.log(payload)
