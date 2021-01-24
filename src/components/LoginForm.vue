@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'LoginForm',
   data () {
     return {
       payload: {
@@ -41,7 +41,7 @@ export default {
 
 <style scoped>
 .login-form {
-  margin-top: 80px;
+  margin-top: 150px;
   width: 25%;
 }
 </style>

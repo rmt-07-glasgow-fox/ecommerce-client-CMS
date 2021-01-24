@@ -2,25 +2,21 @@
   <div class="container-fluid">
     <navbar></navbar>
 
-    <div class="home container-fluid d-flex flex-wrap justify-content-around align-items-center">
-      <Product
-        v-for="product in products.data"
-        :key="product.id"
-        :product="product"
-      />
+    <div class="addPage container-fluid d-flex flex-wrap">
+      <AddForm/>
     </div>
   </div>
 </template>
 
 <script>
-import Product from '@/components/Product.vue'
 import Navbar from '@/components/Navbar.vue'
+import AddForm from '@/components/AddForm.vue'
 
 export default {
-  name: 'Home',
+  name: 'AddPage',
   components: {
     Navbar,
-    Product
+    AddForm
   },
   methods: {
     allProducts () {
@@ -39,7 +35,7 @@ export default {
 </script>
 
 <style scoped>
-.home{
+.addPage{
   margin-top: 80px;
 }
 </style>

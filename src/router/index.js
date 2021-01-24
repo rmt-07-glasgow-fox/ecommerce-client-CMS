@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Login from '../components/Login.vue'
+import Login from '../views/Login.vue'
 import Product from '../components/Product.vue'
+import AddPage from '../views/AddPage.vue'
+import EditPage from '../views/EditPage.vue'
+import PageNotFound from '../views/PageNotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -23,12 +26,22 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/add',
+    name: 'AddPage',
+    component: AddPage
+  },
+  {
+    path: '/products/:id/edit',
+    name: 'EditPage',
+    component: EditPage
+  },
+  {
+    path: '*',
+    name: 'PageNotFound',
+    component: PageNotFound
   }
-  // {
-  //   path: '/auth',
-  //   name: 'Auth',
-  //   component: Auth
-  // }
 ]
 
 const router = new VueRouter({
@@ -39,13 +52,13 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (localStorage.getItem('access_token')) {
-    if (to.name === 'Login') {
-      next({ name: 'Home' })
+    if (to.path === '/login') {
+      next({ path: '/' })
     }
     next()
   } else {
-    if (to.name === 'Home') {
-      next({ name: 'Login' })
+    if (to.path === '/') {
+      next({ path: '/login' })
     }
     next()
   }
