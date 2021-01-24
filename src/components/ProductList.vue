@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-4">
+  <div class="container mt-4 border py-3">
     <h1>Products List</h1>
     <div class="row">
       <ProductCard
@@ -38,7 +38,8 @@ export default {
 <style scoped>
 
 div {
-    margin: 3em auto;
+  margin: 3em auto;
+  border-radius: 25px;
 }
 
 </style>

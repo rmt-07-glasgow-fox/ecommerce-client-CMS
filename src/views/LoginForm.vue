@@ -1,26 +1,38 @@
 <template>
-  <div class="login">
-    <h1>Login to CMS</h1>
-    <form class="p-4" @submit.prevent="login">
-      <div class="row mb-3">
-        <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
-        <div class="col-sm-7">
-          <input v-model="user.email" type="email" class="form-control" id="inputEmail3">
+  <div>
+    <div class="navbar navbar-light bg-info">
+      <div>
+        <router-link to="/"
+        class="btn btn-outline-secondary ml-3">Home</router-link>
+        <router-link
+        to="/login"
+        class="btn btn-outline-secondary ml-3"
+        >Login</router-link>
+      </div>
+    </div>
+    <div class="login">
+      <h1>Login to CMS</h1>
+      <form class="px-3 py-5" @submit.prevent="login">
+        <div class="row mb-3">
+          <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+          <div class="col-sm-8">
+            <input v-model="user.email" type="email" class="form-control" id="inputEmail3">
+          </div>
         </div>
-      </div>
-      <div class="row mb-3">
-        <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
-        <div class="col-sm-7">
-          <input v-model="user.password" type="password" class="form-control" id="inputPassword3">
+        <div class="row mb-3">
+          <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+          <div class="col-sm-8">
+            <input v-model="user.password" type="password" class="form-control" id="inputPassword3">
+          </div>
         </div>
-      </div>
-      <div class="row mb-3">
-        <a
-        class="col-sm-5"
-        @click.prevent="register">Sign Up here</a>
-      </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
-    </form>
+        <div class="row mb-3">
+          <a
+          class="col-sm-12"
+          @click.prevent="register">Sign Up here</a>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -39,7 +51,6 @@ export default {
   methods: {
     login () {
       this.$store.dispatch('loginUser', this.user)
-      this.$router.push('/').catch(() => {})
     },
     register () {
       this.$router.push('/register')

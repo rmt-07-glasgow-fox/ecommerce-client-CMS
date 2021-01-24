@@ -6,6 +6,8 @@ import AddProduct from '../components/AddProduct.vue'
 import ProductDetail from '../components/ProductDetail.vue'
 import EditProduct from '../components/EditProduct.vue'
 import DeleteProduct from '../components/DeleteProduct.vue'
+import HomeLogged from '../components/HomeLogged.vue'
+import HomeNotLogged from '../components/HomeNotLogged.vue'
 
 Vue.use(VueRouter)
 
@@ -13,7 +15,17 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '',
+        component: HomeNotLogged
+      },
+      {
+        path: 'home',
+        component: HomeLogged
+      }
+    ]
   },
   {
     path: '/products',

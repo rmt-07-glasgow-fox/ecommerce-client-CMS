@@ -27,6 +27,19 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    registerUser (context, payload) {
+      axios({
+        method: 'POST',
+        url: '/users/register',
+        data: {
+          email: payload.email,
+          password: payload.password,
+          role: payload.role
+        }
+      }).then(({ data }) => {
+        router.push('/users/login')
+      }).catch(err => console.log(err))
+    },
     loginUser (context, payload) {
       axios({
         method: 'POST',
@@ -41,7 +54,7 @@ export default new Vuex.Store({
           page: 'home'
         }
         context.commit('successLogin', obj)
-        console.log(obj)
+        router.push('/home')
       }).catch(err => console.log(err))
     },
     showList (context) {
@@ -100,7 +113,6 @@ export default new Vuex.Store({
           access_token: localStorage.access_token
         },
         data: {
-          id,
           name,
           price,
           stock,
@@ -110,6 +122,23 @@ export default new Vuex.Store({
         .then(({ data }) => {
           console.log(data)
           router.push(`/products/${id}`)
+        })
+        .catch(err => console.log(err))
+    },
+    editStock (context, payload) {
+      const { id, stock } = payload
+      axios({
+        method: 'PATCH',
+        url: `/products/${id}`,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          stock
+        }
+      })
+        .then(({ data }) => {
+          console.log(data)
         })
         .catch(err => console.log(err))
     },

@@ -1,35 +1,47 @@
 <template>
-  <div class="register">
-    <h1>Register to CMS</h1>
-    <form class="p-4" @submit.prevent="register">
-      <div class="row mb-3">
-        <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
-        <div class="col-sm-7">
-          <input v-model="user.email" type="email" class="form-control" id="inputEmail3">
-        </div>
+  <div>
+    <div class="navbar navbar-light bg-info">
+      <div>
+        <router-link to="/"
+        class="btn btn-outline-secondary ml-3">Home</router-link>
+        <router-link
+        to="/login"
+        class="btn btn-outline-secondary ml-3"
+        >Login</router-link>
       </div>
-      <div class="row mb-3">
-        <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
-        <div class="col-sm-7">
-          <input v-model="user.password" type="password" class="form-control" id="inputPassword3">
+    </div>
+    <div class="register">
+      <h1>Register to CMS</h1>
+      <form class="p-4" @submit.prevent="register">
+        <div class="row mb-3">
+          <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+          <div class="col-sm-8">
+            <input v-model="user.email" type="email" class="form-control" id="inputEmail3">
+          </div>
         </div>
-      </div>
-      <div class="row mb-3">
-        <label for="inputRole" class="col-sm-3 col-form-label">Role</label>
-        <div class="col-sm-7">
-          <input v-model="user.role" type="text" class="form-control" id="inputRole" aria-describedby="roleHelper">
+        <div class="row mb-3">
+          <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+          <div class="col-sm-8">
+            <input v-model="user.password" type="password" class="form-control" id="inputPassword3">
+          </div>
         </div>
-        <div id="roleHelper" class="col-auto form-text">
-          Leave it empty if you are not admin.
+        <div class="row mb-3">
+          <label for="inputRole" class="col-sm-3 col-form-label">Role</label>
+          <div class="col-sm-8">
+            <input v-model="user.role" type="text" class="form-control" id="inputRole" aria-describedby="roleHelper">
+          </div>
+          <div id="roleHelper" class="col-auto form-text">
+            Type customer if you are not admin.
+          </div>
         </div>
-      </div>
-      <div class="row mb-3">
-        <a
-        class="col-sm-5"
-        @click.prevent="login">Have an account</a>
-      </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
-    </form>
+        <div class="row mb-3">
+          <a
+          class="col-sm-12"
+          @click.prevent="login">Have an account</a>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -50,8 +62,8 @@ export default {
       this.$router.push('/login')
     },
     register () {
-      this.$store.dispatch('loginUser', this.user)
-      this.$router.push('/')
+      this.$store.dispatch('registerUser', this.user)
+      // this.$router.push('/')
     }
   }
 }
