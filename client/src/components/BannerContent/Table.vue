@@ -42,11 +42,12 @@
       </td>
       <td id="middle">
         <select
-          v-model="status"
+          v-model="bannerStatus"
           style="width: auto; border: inset"
+          :value="bannerStatus"
         >
-        <option value="True">True</option>
-        <option value="False">False</option>
+        <option value="true" >True</option>
+        <option  value="false" >False</option>
         </select>
         <hr />
         <button
@@ -104,7 +105,7 @@ export default {
       editMode: false,
       bannerName: '',
       image_url: '',
-      status: true,
+      bannerStatus: 'frue',
       bannerId: 0
     }
   },
@@ -112,7 +113,7 @@ export default {
     edit () {
       this.bannerName = this.banner.title
       this.image_url = this.banner.image_url
-      this.status = this.banner.status
+      this.bannerStatus = this.banner.status.toString()
       this.bannerId = this.banner.id
       this.editMode = true
     },
@@ -128,7 +129,7 @@ export default {
     patchStatus () {
       this.$store.dispatch('patchBanner', {
         id: this.bannerId,
-        status: this.status
+        status: this.bannerStatus
       })
       this.editMode = false
     },

@@ -177,7 +177,7 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          this.dispatch('getProducts')
+          this.dispatch('getBanner')
           const answers = JSON.stringify(payload)
           Swal.fire({
             title: 'Banner Added!',
