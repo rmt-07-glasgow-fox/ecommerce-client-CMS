@@ -2,10 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router'
 import axios from '../api/axios'
-import VueSweetalert2 from 'vue-sweetalert2'
 
 Vue.use(Vuex)
-Vue.use(VueSweetalert2)
 
 export default new Vuex.Store({
   state: {
