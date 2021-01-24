@@ -19,12 +19,12 @@
       <input type="number" class="form-control"  v-model='payload.price' required>
     </div>
     <button type="submit" class="btn btn-primary">Edit Product</button>
+    <button @click.prevent= "cancelButton" type="submit" class="btn btn-danger ml-3">Cancel</button>
   </form>
 </div>
 </template>
 
 <script>
-
 export default {
   name: 'EditProduct',
   data () {
@@ -60,6 +60,9 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    cancelButton () {
+      this.$router.push('/dashboard')
     }
   },
   created () {
@@ -73,6 +76,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.btn-danger{
+  color:#fff;
+  background-color:#c70039;
+  border-color: white;
+}
 
+.btn-primary{
+  color:#fff;
+  background-color:#111d5e;
+  border-color: white;
+}
 </style>

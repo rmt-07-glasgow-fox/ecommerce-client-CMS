@@ -57,6 +57,8 @@ router.beforeEach((to, from, next) => {
     next({ name: 'Dashboard' })
   } else if (localStorage.access_token && to.name === 'Register') {
     next({ name: 'Dashboard' })
+  } else if (localStorage.access_token && to.name === 'Auth') {
+    next({ name: 'Dashboard' })
   } else {
     next()
   }
