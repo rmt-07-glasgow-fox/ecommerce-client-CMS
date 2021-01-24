@@ -11,15 +11,15 @@
                 <br>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Product Name</label>
-                    <input type="text" class="form-control" placeholder="Product Name" v-model="name">
+                    <input type="text" class="form-control" required placeholder="Product Name" v-model="name">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Product Image Url</label>
-                    <input type="text" class="form-control" placeholder="Product Image Url" v-model="image_url">
+                    <input type="text" class="form-control" required placeholder="Product Image Url" v-model="image_url">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Condition</label>
-                    <select class="form-control" id="exampleFormControlSelect1" v-model="condition">
+                    <select class="form-control" id="exampleFormControlSelect1" required v-model="condition">
                     <option disabled value="">Please select one</option>
                     <option id="condition" value="Seccond">Seccond</option>
                     <option id="condition" value="New">New</option>
@@ -27,16 +27,16 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Product Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Product Description" v-model="description"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required placeholder="Product Description" v-model="description"></textarea>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <label for="exampleFormControlInput1">Stock</label>
-                        <input type="number" class="form-control" placeholder="Product Stock" v-model="stock">
+                        <input type="number" class="form-control" placeholder="Product Stock" required v-model="stock">
                     </div>
                     <div class="col-md-6">
                         <label for="exampleFormControlInput1">Price</label>
-                        <input type="number" class="form-control" placeholder="Product Stock" v-model="price">
+                        <input type="number" class="form-control" placeholder="Product Stock" required v-model="price">
                     </div>
                 </div>
                 <br>
@@ -74,7 +74,8 @@ export default {
       this.$store.dispatch('addProduct', payload)
         .then(data => {
           console.log(data)
-          if (payload.name && payload.description && payload.image_url && payload.condition && payload.price && payload.stock) {
+          console.log(payload)
+          if (payload.name > 2 && payload.description > 3 && payload.image_url && payload.condition && payload.price > 0 && payload.stock > 0) {
             this.$router.push('/home')
           }
           this.error++
@@ -90,7 +91,7 @@ export default {
         console.log(payload, 'masuk watcher')
         Swal.fire(
           'Wrong Input?',
-          'Price and Stock should more than 0',
+          'Product Name must be 3 - 30 charcters, Product Description should more than 3 characters, and Price and Stock should more than 0',
           'warning'
         )
         this.error = 0

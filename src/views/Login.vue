@@ -11,11 +11,11 @@
     <form @submit.prevent="login">
     <div class="form-group">
       <br>
-      <input type="email" class="form-control" v-model="email" placeholder="Enter email">
+      <input type="email" class="form-control" required v-model="email" placeholder="Enter email">
       <br>
     </div>
     <div class="form-group">
-      <input type="password" class="form-control" v-model="password" placeholder="Password">
+      <input type="password" class="form-control" required v-model="password" placeholder="Password">
       <br>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>

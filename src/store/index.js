@@ -33,7 +33,6 @@ export default new Vuex.Store({
         })
     },
     addProduct (context, payload) {
-      console.log(payload, 'axios delete')
       return axios({
         method: 'POST',
         url: 'http://localhost:3000/products',
@@ -51,7 +50,6 @@ export default new Vuex.Store({
         })
     },
     editProduct (context, payload) {
-      console.log(payload, 'axios delete')
       return axios({
         method: 'PUT',
         url: `http://localhost:3000/products/${payload.id}`,
@@ -112,6 +110,42 @@ export default new Vuex.Store({
         headers: {
           access_token: localStorage.getItem('access_token')
         }
+      })
+        .then(res => {
+          console.log(res.data)
+          this.dispatch('fetchData')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    patchNew (context, payload) {
+      console.log('masu store')
+      return axios({
+        method: 'PATCH',
+        url: 'http://localhost:3000/products/' + payload,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: { condition: 'New' }
+      })
+        .then(res => {
+          console.log(res.data)
+          this.dispatch('fetchData')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    patchSeccond (context, payload) {
+      console.log('masu store')
+      return axios({
+        method: 'PATCH',
+        url: 'http://localhost:3000/products/' + payload,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: { condition: 'Seccond' }
       })
         .then(res => {
           console.log(res.data)

@@ -2,7 +2,7 @@
   <div>
   <NavBar/>
   <div class="container mt-5">
-  <h1> <b class="h1">List Product</b> </h1>
+  <h1> <b class="display-3">List Products</b> </h1>
   <br><br>
     <table class="table">
       <thead>
@@ -33,7 +33,9 @@
             <button v-on:click="editProduct(product.id)" class="btn btn-primary">Edit</button>
           </td>
           <td class="align-middle">
-            <button v-if="product.condition === Seccond" class="btn btn-primary btn-sm">Make It Seccond</button>
+            <button class="btn btn btn-outline-success btn-sm" v-on:click="patchNew(product.id)" :disabled="product.condition == 'New'">Make It New</button>
+            <br><br>
+            <button class="btn btn-outline-secondary btn-sm" v-on:click="patchSeccond(product.id)" :disabled="product.condition == 'Seccond'">Make It Seccond</button>
           </td>
         </tr>
       </tbody>
@@ -55,7 +57,8 @@ export default {
     return {
       email: '',
       password: '',
-      historyDelete: 0
+      historyDelete: 0,
+      historyPatch: 0
     }
   },
   methods: {
@@ -68,13 +71,21 @@ export default {
     },
     editProduct (id) {
       this.$router.push(`/product/${id}/edit`)
+    },
+    patchNew (id) {
+      this.historyPatch = 1
+      this.$store.dispatch('patchNew', id)
+    },
+    patchSeccond (id) {
+      this.historyPatch = 1
+      this.$store.dispatch('patchSeccond', id)
     }
   },
   created () {
     this.fetchData()
   },
   watch: {
-    historyDelete  (payload) {
+    historyDelete (payload) {
       if (this.historyDelete === 1) {
         console.log(payload, 'masuk watcher')
         Swal.fire({
@@ -85,6 +96,19 @@ export default {
           timer: 1500
         })
         this.historyDelete = 0
+      }
+    },
+    historyPatch (payload) {
+      if (this.historyPatch === 1) {
+        console.log(payload, 'masuk watcher')
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Your Product condition has been changed',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.historyPatch = 0
       }
     }
   },
