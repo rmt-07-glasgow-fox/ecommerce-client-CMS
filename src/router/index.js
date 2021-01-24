@@ -46,6 +46,7 @@ router.beforeEach((to, from, next) => {
       return next({ name: 'Home' })
     }
   } else {
+    if (to.name === 'Home') return next({ path: '/products' })
     next()
   }
 })

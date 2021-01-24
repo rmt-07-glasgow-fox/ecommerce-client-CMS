@@ -20,6 +20,11 @@ export default new Vuex.Store({
     },
     insertAccessToken (state, payload) {
       state.access_token = payload
+    },
+    removeAccessToken (state, payload) {
+      state.access_token = ''
+      localStorage.clear()
+      router.push('/')
     }
   },
   actions: {
@@ -110,7 +115,10 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
+          context.commit('insertAccessToken', data.access_token)
           localStorage.setItem('access_token', data.access_token)
+          this.dispatch('fetchProducts')
+          router.push('/products')
         })
         .catch(err => {
           console.log(err)
