@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Edit Product</h1>
       <form>
         <div class="mb-3">
           <label for="name" class="form-label">Product Name</label>
@@ -26,13 +25,13 @@ export default {
   props: ['product'],
   methods: {
     editproduct () {
-      const user = {
+      const product = {
         id: this.product.id,
         name: this.product.name,
         image_url: this.product.image_url,
         price: this.product.price
       }
-      this.$store.dispatch('edit', user)
+      this.$store.dispatch('edit', product)
     }
   }
 }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router/index'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -15,8 +16,18 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    register (context, payload) {
+      return axios({
+        method: 'POST',
+        url: '/register',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+    },
     login (context, payload) {
-      axios({
+      return axios({
         method: 'POST',
         url: '/login',
         data: {
@@ -24,11 +35,6 @@ export default new Vuex.Store({
           password: payload.password
         }
       })
-        .then(({ data }) => {
-          localStorage.setItem('access_token', data.access_token)
-          router.push('/')
-        })
-        .catch(err => console.log(err))
     },
     addproduct (context, payload) {
       return axios({
@@ -74,7 +80,27 @@ export default new Vuex.Store({
         .then(({ data }) => {
           router.push(`/productdetail/${payload.id}`)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          Swal.fire(err.response.data.errors[0])
+        })
+    },
+    addstock (context, payload) {
+      axios({
+        method: 'PATCH',
+        url: `/products/${payload.id}`,
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          stock: payload.stock
+        }
+      })
+        .then(({ data }) => {
+          router.push(`/productdetail/${payload.id}`)
+        })
+        .catch(err => {
+          Swal.fire(err.response.data.errors[0])
+        })
     },
     logout (context) {
       localStorage.clear()
@@ -91,7 +117,11 @@ export default new Vuex.Store({
         .then(({ data }) => {
           context.commit('getProducts', data)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          Swal.fire(err.response.data.message)
+          localStorage.clear()
+          router.push('/login')
+        })
     }
   }
 })

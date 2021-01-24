@@ -1,11 +1,11 @@
 <template>
-  <div class="col-3">
-    <div class="card">
-      <img :src="product.image_url" class="card-img-top" alt="...">
+  <div class="col-3 mb-3">
+    <div @click="goToDetail" class="card border" style="max-height: 13rem;">
+      <div class="card-image">
+        <img :src="product.image_url" class="card-img-top" alt="product image">
+      </div>
       <div class="card-body">
         <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">Rp. {{ product.price }}</p>
-        <button @click="goToDetail" class="btn btn-primary">Info</button>
       </div>
     </div>
   </div>
@@ -23,8 +23,27 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .card-body {
   text-align: left;
 }
+
+.card {
+  height: 325px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card-image {
+  height: 200px;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
 </style>
