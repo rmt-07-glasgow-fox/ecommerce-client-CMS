@@ -1,80 +1,18 @@
 <template>
-  <div id="app">
-    <div v-if="currentPage === 'login-page'">
-      <router-view
-      :currentPage="currentPage"
-      @signInClicked="login"
-      />
-    </div>
-
-    <div class="container" v-if="currentPage === 'products-page'">
-      <div class="row">
-        <div class="col-2">
-          <div>
-            <router-link to="/home">Home</router-link>
-          </div>
-          <div>
-            <router-link to="/products">Products</router-link>
-          </div>
-          <div>
-            <a href="#" @click.prevent="logout">Logout</a>
-          </div>
-        </div>
-        <div class="col-10">
-          <router-view :products="products"/>
-        </div>
-      </div>
+  <div>
+    <!-- <div class="background-image">
+      <img src="./assets/blue-wallpaper.jpg" alt="" width="100%">
+    </div> -->
+    <div id="app">
+      <router-view/>
     </div>
   </div>
 </template>
 
 <script>
-import eCommerceAPI from '../src/api/e-commerceAPI'
 
 export default {
-  name: 'App',
-  data () {
-    return {
-      currentPage: '',
-      products: []
-    }
-  },
-  methods: {
-    login (payload) {
-      eCommerceAPI.post('/login', payload)
-        .then(({ data }) => {
-          localStorage.setItem('access_token', data.access_token)
-          this.fetchProducts()
-          this.goToPage('/products', 'products-page')
-        })
-        .catch(err => console.log(err, 'error login'))
-    },
-    logout () {
-      localStorage.clear()
-      this.goToPage('/login', 'login-page')
-    },
-    goToPage (pageRoute, pageName) {
-      this.currentPage = pageName
-      this.$router.push(pageRoute)
-    },
-    fetchProducts () {
-      eCommerceAPI.get('/products', {
-        headers: { access_token: localStorage.access_token }
-      })
-        .then(({ data }) => {
-          this.products = data
-        })
-        .catch(err => console.log(err))
-    }
-  },
-  created () {
-    if (localStorage.access_token) {
-      this.fetchProducts()
-      this.goToPage('/products', 'products-page')
-    } else {
-      this.goToPage('/login', 'login-page')
-    }
-  }
+  name: 'App'
 }
 </script>
 
@@ -84,5 +22,38 @@ export default {
   padding: 0;
   box-sizing: border-box;
   word-wrap: break-word;
+}
+
+.router-link {
+  text-decoration: none;
+}
+
+.background-image {
+  background-image: url('./assets/blue-wallpaper.jpg');
+  background-size: cover;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  overflow-x: hidden;
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+.background-image::before {
+  content: "";
+  position: fixed;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.transparent {
+  height: 90%;
+  width: 90%;
+  background: rgba(265, 265, 265, 0.65);
 }
 </style>
