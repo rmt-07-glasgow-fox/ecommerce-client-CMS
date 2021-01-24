@@ -13,6 +13,7 @@
     "bootstrap": "^4.5.3",
     "core-js": "^3.6.5",
     "materialize-css": "^1.0.0",
+    "sweetalert2": "^10.13.0",
     "vue": "^2.6.11",
     "vue-burger-menu": "^2.0.5",
     "vue-navigation-bar": "^4.1.0",

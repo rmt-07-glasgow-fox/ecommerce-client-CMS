@@ -40,6 +40,10 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated = localStorage.getItem('access_token')
   if (to.name !== 'Login' && !isAuthenticated) {
     next({ name: 'Login' })
+  } else if (to.name === 'AddLink' && !isAuthenticated) {
+    next({ name: 'Login' })
+  } else if (to.name === 'EditLink' && !isAuthenticated) {
+    next({ name: 'Login' })
   } else if (to.name === 'Login' && isAuthenticated) {
     next({ name: 'Dashboard' })
   } else next()

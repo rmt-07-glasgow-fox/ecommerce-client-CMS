@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -57,10 +58,28 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
-          this.dispatch('getAllProduct')
+          if (data) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Success Add New Product'
+            })
+            this.dispatch('getAllProduct')
+          }
         })
         .catch(err => {
-          console.log(err.response)
+          console.log(err.response.data)
+          if (err.response.data.message === 'You not Unauthorized') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Unauthorized',
+              text: err.response.data.message
+            })
+          }
+          Swal.fire({
+            icon: 'error',
+            title: 'Please fill all required field',
+            text: err.response.data.errors
+          })
         })
     },
     getById (context, id) {
@@ -96,10 +115,26 @@ export default new Vuex.Store({
         }
       })
         .then(data => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Product has been Updated'
+          })
           this.dispatch('getAllProduct')
         })
         .catch(err => {
           console.log(err.response)
+          if (err.response.data.message === 'You not Unauthorized') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Unauthorized',
+              text: err.response.data.message
+            })
+          }
+          Swal.fire({
+            icon: 'error',
+            title: 'Please fill all required field',
+            text: err.response.data.errors
+          })
         })
     },
     deleteProduct (context, id) {
@@ -113,9 +148,22 @@ export default new Vuex.Store({
           }
         )
         .then(({ data }) => {
-          context.commit('getAllProduct', data)
+          Swal.fire({
+            icon: 'success',
+            title: 'Delete Successfully'
+          })
+          context.dispatch('getAllProduct', data)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err)
+          if (err.response.data.message === 'You not Unauthorized') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Unauthorized',
+              text: err.response.data.message
+            })
+          }
+        })
     },
     loginHandle (context, payload) {
       axios({
@@ -128,10 +176,26 @@ export default new Vuex.Store({
       })
         .then(res => {
           localStorage.setItem('access_token', res.data.access_token)
+          Swal.fire({
+            icon: 'success',
+            title: 'Login Success'
+          })
           router.push('/dashboard')
         })
         .catch(err => {
           console.log(err)
+          if (err.response.data.message === 'Invalid Email / Password') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Wrong Email/Password',
+              text: err.response.data.message
+            })
+          } else if (err.response.data.message === 'You Not a Admin') {
+            Swal.fire({
+              icon: 'error',
+              title: 'You Not a Admin'
+            })
+          }
         })
     }
   },
