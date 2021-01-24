@@ -1,8 +1,11 @@
 <template>
   <div class="products">
     <h1>This is yours</h1>
+    <div class="d-flex justify-content-end">
+      <button @click="goToDetail" class="btn btn-success">Add Product</button>
+    </div> <br>
     <div class="container">
-      <div class="row">
+      <div class="row d-flex justify-content-around">
         <ProductList
           v-for="productlist in productlists"
           :key="productlist.id"
@@ -37,6 +40,9 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    goToDetail () {
+      this.$router.push('/addproduct')
     }
   },
   created () {

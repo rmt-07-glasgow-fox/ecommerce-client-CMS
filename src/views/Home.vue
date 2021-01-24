@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" :src="poster">
+    <h4>{{ titlePage }}</h4>
     <HelloWorld msg="Welcome to Your new Online Shop!"/>
     <br><br>
     <div v-if="page === false" class="container">
@@ -31,6 +32,11 @@ export default {
   components: {
     HelloWorld,
     LoginForm
+  },
+  computed: {
+    titlePage () {
+      return this.$store.state.titlePage
+    }
   }
 }
 </script>

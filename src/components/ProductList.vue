@@ -10,10 +10,9 @@
         <li class="list-group-item"><h6><b>Price</b></h6></li>
         <li class="list-group-item">Rp.{{productlist.price}}</li>
       </ul>
-      <div class="card-body">
-        <a href="#" id="buy-btn" class="card-link">Buy</a>
-        <a href="#" id="edit-btn" class="card-link">Edit</a>
-        <a href="#" id="delete-btn" class="card-link">Delete</a>
+      <div class="card-body d-flex align-items-center justify-content-around">
+        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-primary">Delete</button>
       </div>
     </div>
   </div>
