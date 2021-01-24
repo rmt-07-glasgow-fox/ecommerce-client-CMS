@@ -46,6 +46,8 @@ const moduleCategory = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     getOneCategory (context, id) {
@@ -62,6 +64,8 @@ const moduleCategory = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     createCategory (context, data) {
@@ -79,6 +83,8 @@ const moduleCategory = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     updateCategory (context, payload) {
@@ -96,6 +102,8 @@ const moduleCategory = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     deleteCategory (context, id) {
@@ -112,6 +120,8 @@ const moduleCategory = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     // Modal Swal

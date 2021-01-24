@@ -34,6 +34,8 @@ const moduleProduct = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     getOneProduct (context, id) {
@@ -50,6 +52,8 @@ const moduleProduct = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     createProduct (context, data) {
@@ -70,6 +74,8 @@ const moduleProduct = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     updateProduct (context, payload) {
@@ -87,6 +93,8 @@ const moduleProduct = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     deleteProduct (context, id) {
@@ -102,7 +110,9 @@ const moduleProduct = {
           console.log(data)
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     //
@@ -121,6 +131,8 @@ const moduleProduct = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     // MODAL

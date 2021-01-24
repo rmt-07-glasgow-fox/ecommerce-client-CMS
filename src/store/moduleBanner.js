@@ -30,6 +30,7 @@ const moduleBanner = {
           banner.image_url = data.image_url
           banner.status = data.status
           banner.CategoryId = data.CategoryId
+          banner.Category = data.Category
         }
       })
     },
@@ -56,6 +57,8 @@ const moduleBanner = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     getOneBanner (context, id) {
@@ -72,6 +75,8 @@ const moduleBanner = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     createBanner (context, data) {
@@ -90,6 +95,8 @@ const moduleBanner = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     updateBanner (context, payload) {
@@ -107,6 +114,8 @@ const moduleBanner = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     deleteBanner (context, id) {
@@ -123,6 +132,8 @@ const moduleBanner = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     // update status
@@ -141,6 +152,8 @@ const moduleBanner = {
         })
         .catch(err => {
           console.log(err.response.data)
+          const msg = err.response.data.message
+          context.dispatch('toastMsg', { icon: 'error', title: msg })
         })
     },
     // Modal Swal

@@ -109,7 +109,6 @@ export default {
       } else {
         this.$store.dispatch('createProduct', { product: this.product, selectedCategory: this.product.Category }, { root: true })
       }
-      this.clear()
     },
     getOneProduct () {
       if (this.isEdit) {
