@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    product: {},
     products: [],
     access_token: localStorage.access_token
   },
@@ -21,6 +22,11 @@ export default new Vuex.Store({
         }
       })
       state.products = products
+    },
+    setProduct (state, payload) {
+      const { id, name, price, stock, imageUrl } = payload
+      const product = { id, name, price, stock, imageUrl }
+      state.product = product
     }
   },
   actions: {
@@ -28,8 +34,21 @@ export default new Vuex.Store({
       return axios.post('/login', payload)
     },
     async getAllProducts (context) {
-      const { data } = await axios.get('/products')
-      context.commit('setProducts', data)
+      try {
+        const { data } = await axios.get('/products')
+        context.commit('setProducts', data)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async getProductById (context, payload) {
+      try {
+        const { data } = await axios.get('/products/' + payload)
+        console.log(data)
+        context.commit('setProduct', data)
+      } catch (error) {
+        console.log(error)
+      }
     },
     deleteProduct (context, payload) {
       const headers = {
@@ -39,6 +58,11 @@ export default new Vuex.Store({
     },
     addNewProduct (context, payload) {
       return axios.post('/products', payload, {
+        headers: { access_token: localStorage.access_token }
+      })
+    },
+    editProduct (context, payload) {
+      return axios.put('/products/' + payload.id, payload, {
         headers: { access_token: localStorage.access_token }
       })
     }
