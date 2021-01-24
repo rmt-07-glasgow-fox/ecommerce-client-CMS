@@ -1,15 +1,34 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/" v-if="!access_token">Home | </router-link>
       <router-link to="/products">Products</router-link>
+      <a href="" @click.prevent="userLogout" v-if="access_token"> | Logout</a>
     </div>
     <router-view/>
   </div>
 </template>
 <script>
 export default {
-
+  data () {
+    return {}
+  },
+  methods: {
+    checkLogin () {
+      console.log(this.access_token)
+    },
+    userLogout () {
+      this.$store.commit('removeAccessToken')
+    }
+  },
+  created () {
+    this.checkLogin()
+  },
+  computed: {
+    access_token () {
+      return this.$store.state.access_token
+    }
+  }
 }
 </script>
 
