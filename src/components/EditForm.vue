@@ -2,17 +2,17 @@
   <form class='mt-4' @submit.prevent='editProduct'>
     <h3>Edit Product</h3>
     <div class="form-group">
-      <input type="text" class="form-control" placeholder='Product name...' required='' v-model='product.name'>
+      <input type="text" class="form-control" placeholder='Product name...' required='' v-model='product[0].name'>
     </div>
     <div class="form-group">
-      <input type="number" class="form-control" placeholder="Product price..." required='' v-model='product.price'>
+      <input type="number" class="form-control" placeholder="Product price..." required='' v-model='product[0].price'>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Copy image url here..." required='' v-model='product.image_url'>
+      <input type="text" class="form-control" placeholder="Copy image url here..." required='' v-model='product[0].image_url'>
     </div>
     <div class="form-group">
       <label for='stock'>Number of stock: </label>
-      <input type="number" id='stock' class="form-control" required='' v-model='product.stock'>
+      <input type="number" id='stock' class="form-control" required='' v-model='product[0].stock'>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
@@ -39,10 +39,10 @@ export default {
       const { id } = this.$route.params
       const payload = {
         id,
-        name: this.name,
-        price: this.price,
-        stock: this.stock,
-        imageUrl: this.image_url
+        name: this.product[0].name,
+        price: this.product[0].price,
+        stock: this.product[0].stock,
+        imageUrl: this.product[0].image_url
       }
       this.$swal.fire({
         title: 'Update product?',
