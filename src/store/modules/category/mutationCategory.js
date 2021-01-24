@@ -3,7 +3,6 @@ export default {
     state.categories = payload
   },
   fetchOneCategory (state, payload) {
-    console.log(payload)
     state.category = payload
   }
 }

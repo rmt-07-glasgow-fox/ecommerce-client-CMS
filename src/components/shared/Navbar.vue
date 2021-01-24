@@ -20,10 +20,10 @@
           <archive-icon size="1.5x"></archive-icon>
           <hr class="navbar-hr" />
         </router-link>
-        <div class="col navbar-icons">
+        <router-link to="/admindashboard/banners" class="col navbar-icons">
           <tag-icon size="1.5x"></tag-icon>
           <hr class="navbar-hr" />
-        </div>
+        </router-link>
       </div>
 
       <div
@@ -53,6 +53,7 @@
           style="
             border-radius: 50px;
             width: 38.77px;
+            height: 38.77px;
             padding: 6px 0;
             margin-left: 3px;
             background-color: #d8dadf;

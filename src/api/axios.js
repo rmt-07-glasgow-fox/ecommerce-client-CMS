@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const initAxios = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'http://funorama-server.herokuapp.com/'
 })
 
 export default initAxios

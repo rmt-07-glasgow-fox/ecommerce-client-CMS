@@ -3,7 +3,7 @@
     <h1>Add Category</h1>
     <form @submit.prevent="addCategory">
       <div class="mb-1">
-        <label for="name" class="col-form-label">Game Title</label>
+        <label for="name" class="col-form-label">Category name</label>
         <input
           v-model="payload.name"
           type="text"

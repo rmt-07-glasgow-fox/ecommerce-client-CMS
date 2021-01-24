@@ -13,6 +13,10 @@ import AddCategory from '@/components/categories/CategoryAdd.vue'
 import EditCategory from '@/components/categories/CategoryEdit.vue'
 import Categories from '@/components/categories/Category.vue'
 
+import AddBanner from '@/components/banners/BannerAdd.vue'
+import EditBanner from '@/components/banners/BannerEdit.vue'
+import Banners from '@/components/banners/Banner.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -53,6 +57,15 @@ const routes = [
         children: [
           { path: 'add', name: 'AddCategory', component: AddCategory },
           { path: 'edit/:id', name: 'EditCategory', component: EditCategory }
+        ]
+      },
+      {
+        path: 'banners',
+        name: 'Banners',
+        component: Banners,
+        children: [
+          { path: 'add', name: 'AddBanner', component: AddBanner },
+          { path: 'edit/:id', name: 'EditBanner', component: EditBanner }
         ]
       }
     ]

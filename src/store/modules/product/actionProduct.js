@@ -1,85 +1,178 @@
 import axios from '@/api/axios.js'
 import router from '@/router/index.js'
+import Swal from 'sweetalert2'
 
 export default {
-  async fetchProducts (context) {
-    try {
-      const { data } = await axios({
-        method: 'GET',
-        url: '/product'
-      })
-      context.commit('fetchProducts', data)
-    } catch (err) {
-      console.log(err)
-    }
-  },
-  async fetchOneProduct (context, id) {
-    try {
-      const { data } = await axios({
-        method: 'GET',
-        url: `/product/${id}`,
-        headers: { access_token: localStorage.getItem('access_token') }
-      })
+  fetchProducts (context) {
+    Swal.queue([
+      {
+        title: 'Now loading...',
+        text: 'Keep calm, because we are fetching your data!',
+        showConfirmButton: false,
+        onOpen: async () => {
+          Swal.showLoading()
+          try {
+            const { data } = await axios({
+              method: 'GET',
+              url: '/product'
+            })
 
-      context.commit('fetchOneProduct', data)
-    } catch (err) {
-      console.log(err)
-    }
-  },
-  async addProduct (context, payload) {
-    try {
-      await axios({
-        method: 'POST',
-        url: '/product',
-        headers: { access_token: localStorage.getItem('access_token') },
-        data: {
-          name: payload.name,
-          image_url: payload.image_url,
-          price: Number(payload.price),
-          stock: Number(payload.stock),
-          CategoryId: Number(payload.CategoryId)
+            context.commit('fetchProducts', data)
+            Swal.close()
+          } catch (err) {
+            console.log(err.response.data.errors)
+            const errMsg = err.response.data.errors
+
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops..',
+              text: errMsg
+            })
+          }
         }
-      })
-
-      this.dispatch('fetchProducts')
-      router.replace('/admindashboard/products')
-    } catch (err) {
-      console.log(err)
-    }
+      }
+    ])
   },
-  async updateProduct (context, payload) {
-    try {
-      await axios({
-        method: 'PUT',
-        url: `/product/${payload.id}`,
-        headers: { access_token: localStorage.getItem('access_token') },
-        data: {
-          name: payload.name,
-          image_url: payload.image_url,
-          price: Number(payload.price),
-          stock: Number(payload.stock),
-          CategoryId: Number(payload.CategoryId)
-        }
-      })
+  fetchOneProduct (context, id) {
+    Swal.queue([
+      {
+        title: 'Now loading...',
+        text: 'Keep calm, because we are fetching your data!',
+        showConfirmButton: false,
+        onOpen: async () => {
+          Swal.showLoading()
+          try {
+            const { data } = await axios({
+              method: 'GET',
+              url: `/product/${id}`,
+              headers: { access_token: localStorage.getItem('access_token') }
+            })
 
-      this.dispatch('fetchProducts')
-      router.replace('/admindashboard/products')
-    } catch (err) {
-      console.log(err)
-    }
+            context.commit('fetchOneProduct', data)
+            Swal.close()
+          } catch (err) {
+            console.log(err.response.data.errors)
+            const errMsg = err.response.data.errors
+
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops..',
+              text: errMsg
+            })
+          }
+        }
+      }
+    ])
+  },
+  addProduct (context, payload) {
+    Swal.queue([
+      {
+        title: 'Adding product ...',
+        showConfirmButton: false,
+        onOpen: async () => {
+          Swal.showLoading()
+          try {
+            await axios({
+              method: 'POST',
+              url: '/product',
+              headers: {
+                access_token: localStorage.getItem('access_token')
+              },
+              data: {
+                name: payload.name,
+                image_url: payload.image_url,
+                price: Number(payload.price),
+                stock: Number(payload.stock),
+                CategoryId: Number(payload.CategoryId)
+              }
+            })
+
+            this.dispatch('fetchProducts')
+            router.replace('/admindashboard/products')
+            Swal.close()
+          } catch (err) {
+            console.log(err.response.data.errors)
+            const errMsg = err.response.data.errors[0]
+
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops..',
+              text: errMsg
+            })
+          }
+        }
+      }
+    ])
+  },
+  updateProduct (context, payload) {
+    Swal.queue([
+      {
+        title: 'Editing product ...',
+        showConfirmButton: false,
+        onOpen: async () => {
+          Swal.showLoading()
+          try {
+            await axios({
+              method: 'PUT',
+              url: `/product/${payload.id}`,
+              headers: { access_token: localStorage.getItem('access_token') },
+              data: {
+                name: payload.name,
+                image_url: payload.image_url,
+                price: Number(payload.price),
+                stock: Number(payload.stock),
+                CategoryId: Number(payload.CategoryId)
+              }
+            })
+
+            this.dispatch('fetchProducts')
+            router.replace('/admindashboard/products')
+            Swal.close()
+          } catch (err) {
+            console.log(err.response.data.errors)
+            const errMsg = err.response.data.errors[0]
+
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops..',
+              text: errMsg
+            })
+          }
+        }
+      }
+    ])
   },
   async deleteProduct (context, id) {
     try {
-      const { data } = await axios({
-        method: 'DELETE',
-        url: `/product/${id}`,
-        headers: { access_token: localStorage.getItem('access_token') }
+      const confirmation = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
       })
 
-      this.dispatch('fetchProducts')
-      console.log(data.message)
+      if (confirmation.isConfirmed) {
+        const { data } = await axios({
+          method: 'DELETE',
+          url: `/product/${id}`,
+          headers: { access_token: localStorage.getItem('access_token') }
+        })
+
+        this.dispatch('fetchProducts')
+        console.log(data.message)
+      }
     } catch (err) {
-      console.log(err)
+      console.log(err.response.data.errors)
+      const errMsg = err.response.data.errors
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops..',
+        text: errMsg
+      })
     }
   }
 }
