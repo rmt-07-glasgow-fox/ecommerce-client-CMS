@@ -115,7 +115,7 @@ export default new Vuex.Store({
     login (context, payload) {
       axios({
         method: 'POST',
-        url: 'http://localhost:3000/login',
+        url: 'https://secret-river-34250.herokuapp.com/login',
         data: payload
       }).then(response => {
         localStorage.setItem('access_token', response.data.access_token)
