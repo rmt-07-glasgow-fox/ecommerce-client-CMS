@@ -19,7 +19,7 @@
 
         <div class="total-order border p-2 float-right">
           <h4 class="mt-4">Total Order</h4>
-          <h2 class="mt-2 text-info">20 orders</h2>
+          <h2 class="mt-2 text-info">{{ items.length }} orders</h2>
         </div>
     </div>
     <div class="order-list row mt-5">

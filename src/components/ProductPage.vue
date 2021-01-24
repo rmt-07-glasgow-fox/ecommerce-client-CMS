@@ -110,7 +110,7 @@ export default {
         { key: 'id', label: 'Actions', tdClass: 'table-actions' }
       ],
       mainProps: {
-        width: 150
+        width: 100
       },
       defaultImg: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/No_picture_available.png',
       sortDesc: true,
