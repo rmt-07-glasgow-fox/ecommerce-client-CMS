@@ -23,7 +23,7 @@ const routes = [
         component: AddProduct
       },
       {
-        path: '/edit',
+        path: '/edit/:id',
         component: EditProduct
       }
     ]
