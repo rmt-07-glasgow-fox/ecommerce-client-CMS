@@ -7,6 +7,9 @@ node_modules
 .editorconfig
 babel.config.js
 postcss.config.js
+.firebaserc
+.firebase
+firebase.json
 
 
 # local env files
