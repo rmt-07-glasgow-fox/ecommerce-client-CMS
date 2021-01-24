@@ -7,6 +7,7 @@ import Home from '../views/main/Home.vue'
 import ProductDetail from '../views/ProductDetail.vue'
 import ProductForm from '../views/ProductForm.vue'
 import Banners from '../views/Banners.vue'
+import Categories from '../views/Categories.vue'
 
 Vue.use(VueRouter)
 
@@ -65,6 +66,12 @@ const routes = [
         path: '/banners',
         name: 'Banners',
         component: Banners,
+        meta: { requiresAuth: true }
+      },
+      {
+        path: '/categories',
+        name: 'Categories',
+        component: Categories,
         meta: { requiresAuth: true }
       }
     ]

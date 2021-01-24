@@ -53,13 +53,16 @@ const moduleProduct = {
         })
     },
     createProduct (context, data) {
+      const newProduct = data.product
+      newProduct.CategoryId = data.selectedCategory.id
+
       axios({
         method: 'POST',
         url: '/products',
         headers: {
           access_token: localStorage.access_token
         },
-        data: data
+        data: newProduct
       })
         .then(({ data }) => {
           console.log(data)

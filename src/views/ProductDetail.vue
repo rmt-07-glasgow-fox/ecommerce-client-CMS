@@ -19,9 +19,10 @@
         <v-img
           :src="product.image_url"
           width="400" height="400" class="ma-2"/>
-        <v-chip class="ma-2" color="pink" label text-color="white">
-          <v-icon left>mdi-label</v-icon>Category
+        <v-chip class="ma-2" color="pink" label text-color="white" v-if="product.Category">
+          <v-icon left>mdi-label</v-icon>{{ product.Category.name }}
         </v-chip>
+        <v-chip class="ma-2" label v-else> No Category </v-chip>
       </v-col>
       <v-col cols="12" md="5" class="mr-5">
         <v-card align="center" class="pa-10" outlined>

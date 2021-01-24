@@ -1,7 +1,7 @@
 import axios from '@/api/axios'
 import Swal from 'sweetalert2'
 
-const moduleProduct = {
+const moduleBanner = {
   state: () => ({
     banners: [],
     banner: {}
@@ -29,6 +29,7 @@ const moduleProduct = {
           banner.title = data.title
           banner.image_url = data.image_url
           banner.status = data.status
+          banner.CategoryId = data.CategoryId
         }
       })
     },
@@ -143,25 +144,41 @@ const moduleProduct = {
         })
     },
     // Modal Swal
-    async showFormModal (context, data) {
+    async showFormBanner (context, payload) {
       //
+      const { data, categories } = payload
+      console.log(data && data.CategoryId === 11)
       const { value: formValues } = await Swal.fire({
         title: 'Create New Banner',
         html:
         `<input value="${data ? data.title : ''}" id="title" type="text" placeholder="Your banner title" class="swal2-input">
         <input value="${data ? data.image_url : ''}" id="image_url" type="text" placeholder="Image Url" class="swal2-input">
+        <div class="form-select">
+          Category : 
+          <select class="swal2-select" id="CategoryId">
+            <option value="" selected> Select Category </option>
+            ${categories.map(el =>
+              '<option value="' + el.id + '" ' +
+              'selected' +
+              '>' +
+              el.name + '</option>"'
+            )}
+          </select>
+        </div>
         <div class="form-check">
             <input ${(data && data.status) ? 'checked' : ''} class="form-check-input" type="checkbox" value="" id="status">
             <label class="form-check-label" for="status">
               Active to show
             </label>
-        </div>`,
+        </div>
+        `,
         focusConfirm: false,
         preConfirm: () => {
           return [
             document.getElementById('title').value,
             document.getElementById('image_url').value,
-            document.getElementById('status').checked
+            document.getElementById('status').checked,
+            document.getElementById('CategoryId').value
           ]
         }
       })
@@ -170,14 +187,14 @@ const moduleProduct = {
         const newBanner = {
           title: formValues[0],
           image_url: formValues[1],
-          status: formValues[2]
+          status: formValues[2],
+          CategoryId: formValues[3]
         }
         data ? context.dispatch('updateBanner', { id: data.id, newBanner })
           : context.dispatch('createBanner', newBanner)
-        // Swal.fire(JSON.stringify(formValues))
       }
     },
-    deleteProductModal (context, id) {
+    deleteBannerModal (context, id) {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -202,4 +219,4 @@ const moduleProduct = {
   }
 }
 
-export default moduleProduct
+export default moduleBanner

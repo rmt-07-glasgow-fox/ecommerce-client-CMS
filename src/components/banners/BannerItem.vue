@@ -21,10 +21,14 @@
         ></v-switch>
         <v-spacer></v-spacer>
 
+        <v-chip x-small class="ma-2" color="accent" text-color="white" v-if="banner.Category">
+          {{ banner.Category && banner.Category.name }}
+        </v-chip>
+        <v-chip x-small class="ma-2" v-else> No category</v-chip>
+
         <v-btn icon @click="editBanner">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-
         <v-btn icon @click="deleteBanner">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
@@ -35,27 +39,31 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: ['banner'],
   data () {
     return {
-      card: {
-        src: 'https://static.vecteezy.com/system/resources/thumbnails/000/669/988/original/Shopping_online_Hand_Banner.jpg',
-        title: 'Here is the title',
-        status: false
-      }
     }
   },
   methods: {
     deleteBanner () {
-      this.$store.dispatch('deleteProductModal', this.banner.id, true)
+      this.$store.dispatch('deleteBannerModal', this.banner.id, true)
     },
     editBanner () {
-      this.$store.dispatch('showFormModal', this.banner, true)
+      this.$store.dispatch('showFormBanner', { data: this.banner, categories: this.categories }, true)
     },
     updateStatus () {
       this.$store.dispatch('updateStatus', { id: this.banner.id, status: this.banner.status }, true)
+    },
+    getAllCategory () {
+      this.$store.dispatch('getAllCategories', null, true)
     }
+  },
+  computed: {
+    ...mapState({
+      categories: state => state.mCategories.categories
+    })
   }
 }
 </script>

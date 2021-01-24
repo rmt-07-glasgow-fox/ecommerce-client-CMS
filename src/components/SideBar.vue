@@ -45,7 +45,8 @@ export default {
       items: [
         { title: 'Dashboard', icon: 'mdi-home-city', router: '/' },
         { title: 'Products', icon: 'mdi-shopping', router: '/products' },
-        { title: 'Banners', icon: 'mdi-image-area', router: '/banners' }
+        { title: 'Banners', icon: 'mdi-image-area', router: '/banners' },
+        { title: 'Categories', icon: 'mdi-tag-multiple', router: '/categories' }
       ],
       model: 1
     }

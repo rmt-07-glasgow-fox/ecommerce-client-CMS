@@ -42,6 +42,16 @@
               type="number"
               placeholder="120000"
             ></v-text-field>
+            <v-select
+              v-model="product.Category"
+              :items="categories"
+              item-text="name"
+              item-value="id"
+              label="Category Name"
+              persistent-hint
+              return-object
+              single-line
+            ></v-select>
           </v-card-text>
           <v-card-actions>
             <v-btn text @click="$router.go(-1)">Cancel</v-btn>
@@ -86,23 +96,29 @@ export default {
       this.product.image_url = ''
       this.product.price = ''
       this.product.stock = ''
+      this.product.Category = ''
     },
     submit () {
       if (this.isEdit) {
         const productId = this.$route.params.id
+        this.product.CategoryId = this.product.Category.id
         this.$store.dispatch('updateProduct', {
           id: productId,
           data: this.product
         }, { root: true })
       } else {
-        this.$store.dispatch('createProduct', this.product, { root: true })
+        this.$store.dispatch('createProduct', { product: this.product, selectedCategory: this.product.Category }, { root: true })
       }
+      this.clear()
     },
     getOneProduct () {
       if (this.isEdit) {
         const productId = this.$route.params.id
         this.$store.dispatch('getOneProduct', productId, { root: true })
       }
+    },
+    getAllCategories () {
+      this.$store.dispatch('getAllCategories')
     }
   },
   computed: {
@@ -113,12 +129,16 @@ export default {
       return this.$route.name
     },
     ...mapState({
-      product: state => state.mProducts.product
+      product: state => state.mProducts.product,
+      categories: state => state.mCategories.categories
     })
   },
   created () {
+    this.getAllCategories()
     this.currentRouteName === 'Edit Product' &&
       this.getOneProduct()
+    this.currentRouteName !== 'Edit Product' &&
+      this.clear()
   },
   beforeDestroy () {
     this.clear()

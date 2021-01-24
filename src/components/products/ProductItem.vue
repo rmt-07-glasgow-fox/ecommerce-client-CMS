@@ -4,9 +4,10 @@
       <v-card max-width="270" max-height="270" align="center">
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-chip x-small class="ma-2" color="red" text-color="white">
-            Category
+          <v-chip x-small class="ma-2" color="red" text-color="white" v-if="product.Category">
+            {{ product.Category && product.Category.name }}
           </v-chip>
+          <v-chip x-small class="ma-2" v-else> No category</v-chip>
           <v-btn icon x-small><v-icon>mdi-eye</v-icon></v-btn>
         </v-card-actions>
         <v-img :src="product.image_url" width="150" height="150"></v-img>

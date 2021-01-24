@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from '@/api/axios'
 import moduleProduct from '@/store/moduleProduct.js'
 import moduleBanner from '@/store/moduleBanner.js'
+import moduleCategory from '@/store/moduleCategory.js'
 
 Vue.use(Vuex)
 
@@ -26,6 +27,7 @@ export default new Vuex.Store({
   },
   modules: {
     mProducts: moduleProduct,
-    mBanners: moduleBanner
+    mBanners: moduleBanner,
+    mCategories: moduleCategory
   }
 })
