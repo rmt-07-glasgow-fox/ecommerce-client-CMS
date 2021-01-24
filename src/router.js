@@ -12,6 +12,11 @@ import DataCategory from './components/Category/Category'
 import AddCategory from './components/Category/Add'
 import EditCategory from './components/Category/Edit'
 
+import Banner from './views/banner/Index'
+import DataBanner from './components/Banner/Banner'
+import AddBanner from './components/Banner/Add'
+import EditBanner from './components/Banner/Edit'
+
 import Login from './views/Auth'
 
 import store from './store.js'
@@ -74,6 +79,31 @@ const router = new Router({
         name: 'category.edit',
         component: EditCategory,
         meta: { title: 'Edit Category' }
+      }
+    ]
+  },
+  {
+    path: '/banner',
+    component: Banner,
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: '',
+        name: 'banner.data',
+        component: DataBanner,
+        meta: { title: 'Manage Banner' }
+      },
+      {
+        path: 'add',
+        name: 'banner.add',
+        component: AddBanner,
+        meta: { title: 'Add New Banner' }
+      },
+      {
+        path: 'edit/:id',
+        name: 'banner.edit',
+        component: EditBanner,
+        meta: { title: 'Edit Banner' }
       }
     ]
   },

@@ -25,8 +25,8 @@
 
 <script>
 import Dashboard from '@/components/Dashboard'
-import Header from '@/components/Header'
-import Sidebar from '@/components/Sidebar'
+import Header from '@/components/Layouts/Header'
+import Sidebar from '@/components/Layouts/Sidebar'
 
 export default {
   name: 'Home',

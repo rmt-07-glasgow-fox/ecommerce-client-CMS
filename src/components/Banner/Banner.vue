@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-header">
         <div class="float-left">
-          <router-link :to="{ name: 'product.add' }" class="btn btn-primary btn-flat">Tambah</router-link>
+          <router-link :to="{ name: 'banner.add' }" class="btn btn-primary btn-flat">Tambah</router-link>
         </div>
           <div class="float-right">
               <input type="text" class="form-control"  placeholder="Cari..." v-model="search">
@@ -14,14 +14,18 @@
             <template v-slot:cell(image_url)="row">
               <img
                 :src="row.item.image_url"
-                :width="200"
+                :width="400"
                 :height="150"
                 :alt="row.item.name"
               />
             </template>
+            <template v-slot:cell(status)="row">
+              <span v-if="row.item.status === true" class="badge badge-success">Active</span>
+              <span v-else class="badge badge-warning">Not Active</span>
+            </template>
             <template v-slot:cell(actions)="row">
-                <router-link :to="{ name: 'product.edit', params: {id: row.item.id} }" class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></router-link>
-                <button class="btn btn-danger btn-sm ml-1" @click="deleteProduct(row.item.id)"><i class="fa fa-trash"></i></button>
+                <router-link :to="{ name: 'banner.edit', params: {id: row.item.id} }" class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></router-link>
+                <button class="btn btn-danger btn-sm ml-1" @click="deleteBanner(row.item.id)"><i class="fa fa-trash"></i></button>
             </template>
         </b-table>
 
@@ -51,47 +55,44 @@ import { mapActions, mapState } from 'vuex'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'DataProduct',
   created () {
-    this.getProducts()
+    this.getBanners()
   },
   data () {
     return {
       fields: [
         { key: 'image_url', label: 'Image' },
-        { key: 'name', label: 'Name' },
-        { key: 'price', label: 'Price' },
-        { key: 'stock', label: 'Stock' },
-        { key: 'category.name', label: 'Category' },
+        { key: 'title', label: 'Title' },
+        { key: 'status', label: 'Status' },
         { key: 'actions', label: 'Action' }
       ],
       search: ''
     }
   },
   computed: {
-    ...mapState('product', {
-      datas: state => state.products
+    ...mapState('banner', {
+      datas: state => state.banners
     }),
     page: {
       get () {
-        return this.$store.state.product.page
+        return this.$store.state.banner.page
       },
       set (val) {
-        this.$store.commit('product/SET_PAGE', val)
+        this.$store.commit('banner/SET_PAGE', val)
       }
     }
   },
   watch: {
     page () {
-      this.getProducts()
+      this.getBanners()
     },
     search () {
-      this.getProducts(this.search)
+      this.getBanners(this.search)
     }
   },
   methods: {
-    ...mapActions('product', ['getProducts', 'removeProduct']),
-    deleteProduct (id) {
+    ...mapActions('banner', ['getBanners', 'removeBanners']),
+    deleteBanner (id) {
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -102,7 +103,7 @@ export default {
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.removeProduct(id)
+          this.removeBanners(id)
         }
       })
     }

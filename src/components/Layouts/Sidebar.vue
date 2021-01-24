@@ -28,7 +28,7 @@
       <!-- Nav Item - Product -->
       <router-link class="nav-item"  tag="li" :to="{ name: 'product.data' }" >
         <a class="nav-link" type="button">
-          <i class="fas fa-fw fa-home"></i>
+          <i class="fas fa-fw fa-box"></i>
           <span>Product</span>
         </a>
       </router-link>
@@ -36,8 +36,16 @@
       <!-- Nav Item - Category -->
       <router-link class="nav-item"  tag="li" :to="{ name: 'category.data' }" >
         <a class="nav-link" type="button">
-          <i class="fas fa-fw fa-home"></i>
+          <i class="fas fa-fw fa-book"></i>
           <span>Category</span>
+        </a>
+      </router-link>
+
+      <!-- Nav Item - Banner -->
+      <router-link class="nav-item"  tag="li" :to="{ name: 'banner.data' }" >
+        <a class="nav-link" type="button">
+          <i class="fas fa-fw fa-journal-whills"></i>
+          <span>Banner</span>
         </a>
       </router-link>
 

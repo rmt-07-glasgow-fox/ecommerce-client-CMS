@@ -17,7 +17,7 @@
             <div class="container-fluid">
               <section class="content-header">
                   <h1>
-                      Manage Products
+                      Manage Banners
                   </h1>
               </section>
 
@@ -37,7 +37,7 @@
 import Header from '@/components/Layouts/Header'
 import Sidebar from '@/components/Layouts/Sidebar'
 export default {
-  name: 'ProductIndex',
+  name: 'BannerIndex',
   components: {
     Header,
     Sidebar

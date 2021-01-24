@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import auth from './stores/auth'
 import product from './stores/product'
 import category from './stores/category'
+import banner from './stores/banner'
 
 Vue.use(Vuex)
 
@@ -11,7 +12,8 @@ const store = new Vuex.Store({
   modules: {
     auth,
     product,
-    category
+    category,
+    banner
   },
   state: {
     token: localStorage.getItem('token'),

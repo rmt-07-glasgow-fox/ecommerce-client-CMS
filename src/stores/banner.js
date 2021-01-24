@@ -3,14 +3,14 @@ import router from '../router'
 import Swal from 'sweetalert2'
 
 const state = {
-  categories: [],
+  banners: [],
   page: 1,
   size: 5
 }
 
 const mutations = {
-  SET_CATEGORIES (state, payload) {
-    state.categories = payload
+  SET_BANNERS (state, payload) {
+    state.banners = payload
   },
   SET_PAGE (state, payload) {
     state.page = payload
@@ -18,32 +18,32 @@ const mutations = {
 }
 
 const actions = {
-  getCategories ({ commit, state }, payload) {
+  getBanners ({ commit, state }, payload) {
     let search = typeof payload !== 'undefined' ? payload : ''
     $axios
-      .get(`/categories?page=${state.page}&size=${state.size}&q=${search}`)
+      .get(`/banners?page=${state.page}&size=${state.size}&q=${search}`)
       .then(response => {
-        commit('SET_CATEGORIES', response.data)
+        commit('SET_BANNERS', response.data)
       })
       .catch(err => {
         Swal.fire(
-          'Success!',
+          'Error!',
           `${err.response.data.errors}`,
-          'success'
+          'errors'
         )
       })
   },
-  addCategories ({ dispatch }, payload) {
+  addBanners ({ dispatch }, payload) {
     $axios
-      .post('/categories', payload)
+      .post('/banners', payload)
       .then(response => {
-        dispatch('getCategories').then(() => {
+        dispatch('getBanners').then(() => {
           Swal.fire(
             'Success!',
             `Successfully add new data`,
             'success'
           )
-          router.push({ name: 'category.data' })
+          router.push({ name: 'banner.data' })
         })
       })
       .catch(err => {
@@ -54,20 +54,20 @@ const actions = {
         )
       })
   },
-  editCategories ({ commit }, payload) {
-    return $axios.get(`/categories/${payload}`)
+  editBanners ({ commit }, payload) {
+    return $axios.get(`/banners/${payload}`)
   },
-  updateCategories ({ dispatch }, payload) {
+  updateBanners ({ dispatch }, payload) {
     $axios
-      .put(`/categories/${payload.id}`, payload)
+      .put(`/banners/${payload.id}`, payload)
       .then(response => {
-        dispatch('getCategories').then(() => {
+        dispatch('getBanners').then(() => {
           Swal.fire(
             'Success!',
             'Successfully updated data',
             'success'
           )
-          router.push({ name: 'category.data' })
+          router.push({ name: 'banner.data' })
         })
       }).catch(err => {
         Swal.fire(
@@ -77,11 +77,11 @@ const actions = {
         )
       })
   },
-  removeCategories ({ commit, dispatch }, payload) {
+  removeBanners ({ commit, dispatch }, payload) {
     $axios
-      .delete(`categories/${payload}`)
+      .delete(`banners/${payload}`)
       .then(response => {
-        dispatch('getCategories')
+        dispatch('getBanners')
         commit('SET_PAGE', 1)
         Swal.fire(
           'Deleted!',
