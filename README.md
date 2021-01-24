@@ -1,24 +1,13 @@
-# ecommerce-client
+# Funorama E-commerce by ralfarios. client
+Funorama client is used for Funorama web application. Funorama is e-commerce for you to buy some digital copy of games.
 
-## Project setup
-```
-npm install
-```
+> P.S.: This app is still experimental and for educational purpose, but ofcourse you can use it for your daily driver.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Feature
+ - Alert, loading and stuff
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## API
+You can see the detail in [API Documentation - Funorama Server](https://github.com/Ralfarios/ecommerce-server/blob/main/api_doc.md). 
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Demo
+[Funorama by Ralfarios](https://funorama-ralfarios.web.app/) (deployed at Firebase). 
