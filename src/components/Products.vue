@@ -21,7 +21,6 @@ export default {
   props: ['product', 'changePage'],
   methods: {
     toEditForm (id) {
-      console.log('masuk edit form di comp')
       this.$store.dispatch('getProductDetail', id)
     },
     destroyProduct (id) {

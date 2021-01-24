@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     currentPage: 'productList',
     products: [],
-    productDetail: {}
+    productDetail: {},
+    errors: []
   },
   mutations: {
     insertProducts (state, payload) {
@@ -18,12 +19,15 @@ export default new Vuex.Store({
     },
     insertProductDetail (state, payload) {
       state.productDetail = payload
-      console.log('ini dari insert')
-      console.log(state.productDetail)
+      // console.log('ini dari insert')
+      // console.log(state.productDetail)
       state.currentPage = 'editForm'
     },
     insertCurrentPage (state, payload) {
       state.currentPage = payload
+    },
+    insertErrors (state, payload) {
+      state.errors = payload
     }
   },
   actions: {
@@ -37,7 +41,7 @@ export default new Vuex.Store({
     },
 
     fetchProducts (context, payload) {
-      console.log('masuk fetch products')
+      // console.log('masuk fetch products')
       axios({
         method: 'GET',
         url: '/products',
@@ -74,6 +78,10 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+
+    getErrors (context, payload) {
+      context.commit('insertErrors', payload)
     }
   },
   modules: {

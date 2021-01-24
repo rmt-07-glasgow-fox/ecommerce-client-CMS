@@ -44,7 +44,6 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log(data)
           this.changePage('productList')
           return this.$store.dispatch('fetchProducts')
         })
@@ -55,7 +54,6 @@ export default {
   },
   computed: {
     productDetail () {
-      console.log('masuk computed')
       return this.$store.state.productDetail
     }
   }
