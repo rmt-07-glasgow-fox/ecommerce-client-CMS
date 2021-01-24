@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* nesting lagi di folder css */
+/* cari cara watch tailwind build */
+/* tailwind biasanya ada confignya, kalau mau modif ga ngikutin aturan tailwind, nanti cari */
