@@ -24,7 +24,8 @@ export default new Vuex.Store({
       state.username = payload.email.split('@')[0]
     },
     catchError (state, payload) {
-      state.errors = payload
+      state.errors = []
+      state.errors.push(payload)
     }
   },
   actions: {

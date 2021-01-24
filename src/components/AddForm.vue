@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'AddForm',
   data () {
@@ -42,6 +43,18 @@ export default {
       price: '',
       stock: '',
       image_url: ''
+    }
+  },
+  watch: {
+    errors: function (val, oldVal) {
+      if (val.length > 0) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Please try again',
+          text: this.errors,
+          footer: '<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400" target="_blank">400 Bad request</a>'
+        })
+      }
     }
   },
   methods: {
@@ -60,21 +73,24 @@ export default {
         denyButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$swal.fire('Product added!', '', 'success')
           return this.$store.dispatch('addProduct', payload)
         } else if (result.isDenied) {
           this.$swal.fire('Add product cancelled', '', 'info')
         }
       })
         .then(({ data }) => {
+          this.$swal.fire('Product added!', '', 'success')
           this.$router.push('/dashboard')
         })
-        .catch(console.log)
+        .catch((err) => {
+          this.$store.commit('catchError', err.response.data.errors)
+        })
     },
     closeCard () {
       this.$router.push('/dashboard')
     }
-  }
+  },
+  computed: mapState(['errors'])
 }
 </script>
 
