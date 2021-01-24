@@ -1,0 +1,90 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Kemeja",
+      "image_url": "https://1.bp.blogspot.com/-vhOGCirL6NA/XpFYoC0FRkI/AAAAAAAABO0/hfc8qiNUO5YQ6L0WN5ITR7wn0GYQ041gQCLcBGAsYHQ/s1600/IMG_20200411_120947.jpg",
+      "price": 200000,
+      "stock": 10,
+      "status": false
+    },
+    {
+      "id": 2,
+      "name": "T-Shirt Beken",
+      "image_url": "../assets/tshirt_PNG5448.png",
+      "price": 120000,
+      "stock": 15,
+      "status": false
+    },
+    {
+      "id": 3,
+      "name": "Jeans",
+      "image_url": "../assets/blue-jeans-texture.png",
+      "price": 300000,
+      "stock": 13,
+      "status": true
+    },
+    {
+      "name": "Kemeja",
+      "image_url": "https://1.bp.blogspot.com/-vhOGCirL6NA/XpFYoC0FRkI/AAAAAAAABO0/hfc8qiNUO5YQ6L0WN5ITR7wn0GYQ041gQCLcBGAsYHQ/s1600/IMG_20200411_120947.jpg",
+      "price": "12121",
+      "stock": "121",
+      "status": false,
+      "id": 4
+    },
+    {
+      "name": "Kemeja",
+      "image_url": "https://1.bp.blogspot.com/-vhOGCirL6NA/XpFYoC0FRkI/AAAAAAAABO0/hfc8qiNUO5YQ6L0WN5ITR7wn0GYQ041gQCLcBGAsYHQ/s1600/IMG_20200411_120947.jpg",
+      "price": "121212",
+      "stock": "12",
+      "status": false,
+      "id": 6
+    },
+    {
+      "name": "Kemeja",
+      "image_url": "https://1.bp.blogspot.com/-vhOGCirL6NA/XpFYoC0FRkI/AAAAAAAABO0/hfc8qiNUO5YQ6L0WN5ITR7wn0GYQ041gQCLcBGAsYHQ/s1600/IMG_20200411_120947.jpg",
+      "price": "12121",
+      "stock": "12",
+      "status": true,
+      "id": 7
+    },
+    {
+      "name": "Kemeja",
+      "image_url": "https://1.bp.blogspot.com/-vhOGCirL6NA/XpFYoC0FRkI/AAAAAAAABO0/hfc8qiNUO5YQ6L0WN5ITR7wn0GYQ041gQCLcBGAsYHQ/s1600/IMG_20200411_120947.jpg",
+      "price": "12121",
+      "stock": "12",
+      "status": true,
+      "id": 8
+    },
+    {
+      "name": "Kemeja",
+      "image_url": "https://1.bp.blogspot.com/-vhOGCirL6NA/XpFYoC0FRkI/AAAAAAAABO0/hfc8qiNUO5YQ6L0WN5ITR7wn0GYQ041gQCLcBGAsYHQ/s1600/IMG_20200411_120947.jpg",
+      "price": "121212",
+      "stock": "12",
+      "status": false,
+      "id": 10
+    },
+    {
+      "name": "Kemeja",
+      "image_url": "https://1.bp.blogspot.com/-vhOGCirL6NA/XpFYoC0FRkI/AAAAAAAABO0/hfc8qiNUO5YQ6L0WN5ITR7wn0GYQ041gQCLcBGAsYHQ/s1600/IMG_20200411_120947.jpg",
+      "price": "12121",
+      "stock": "12",
+      "status": false,
+      "id": 11
+    },
+    {
+      "name": "Kemeja",
+      "image_url": "https://1.bp.blogspot.com/-vhOGCirL6NA/XpFYoC0FRkI/AAAAAAAABO0/hfc8qiNUO5YQ6L0WN5ITR7wn0GYQ041gQCLcBGAsYHQ/s1600/IMG_20200411_120947.jpg",
+      "price": "12313",
+      "stock": "12",
+      "status": true,
+      "id": 12
+    }
+  ],
+  "user": [
+    {
+      "id": 1,
+      "name": "agung"
+    }
+  ]
+}
