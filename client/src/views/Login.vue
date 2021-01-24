@@ -13,6 +13,13 @@ export default {
   name: 'Login',
   components: {
     LoginCard
+  },
+  beforeRouteEnter (to, from, next) {
+    if (localStorage.access_token) {
+      next({ name: 'Home' })
+    } else {
+      next()
+    }
   }
 }
 </script>

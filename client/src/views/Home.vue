@@ -1,14 +1,25 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <NavBar/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import NavBar from '../components/navbar.vue'
 
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    NavBar
+  },
+  beforeRouteEnter (to, from, next) {
+    if (localStorage.access_token) {
+      next()
+    } else {
+      next({ name: 'Login' })
+    }
+  }
 }
 </script>

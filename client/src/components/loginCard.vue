@@ -12,19 +12,40 @@
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <button class="btn btn-light" id="google-btn" v-on:click="loginWithGoogle">
+    <!--<button class="btn btn-light" id="google-btn" v-on:click="loginWithGoogle">-->
     <!--<img id="google-logo" src="https://1000logos.net/wp-content/uploads/2016/11/google-logo.jpg">-->
-    </button>
+    <!--</button>-->
   </div>
 </template>
 
 <script>
+import axios from '../api/axios.js'
+
 export default {
   name: 'LoginCard',
   data () {
     return {
       loginEmail: '',
       loginPassword: ''
+    }
+  },
+  methods: {
+    login () {
+      axios({
+        method: 'POST',
+        url: '/users/login',
+        data: {
+          email: this.loginEmail,
+          password: this.loginPassword
+        }
+      })
+        .then(response => {
+          localStorage.setItem('access_token', response.data.access_token)
+          this.$router.push('/')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }
@@ -35,6 +56,6 @@ export default {
   margin-top: 5px;
 }
 button {
-  margin-top: 10px;
+  margin: 10px 0px;
 }
 </style>
