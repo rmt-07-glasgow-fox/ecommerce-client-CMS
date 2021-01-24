@@ -9,7 +9,7 @@ export default new Vuex.Store({
   state: {
     products: [],
     selectProduct: {},
-    access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYxMTE1OTI1M30.lxqxq3b_YALrON2IdlubtFZTI8u5MTBUbqllTvIQhnM'
+    access_token: localStorage.access_token
   },
   mutations: {
     insertProducts (state, payload) {
@@ -17,6 +17,9 @@ export default new Vuex.Store({
     },
     getProduct (state, payload) {
       state.selectProduct = payload
+    },
+    insertAccessToken (state, payload) {
+      state.access_token = payload
     }
   },
   actions: {
@@ -94,6 +97,22 @@ export default new Vuex.Store({
           this.dispatch('fetchProducts')
         })
         .catch((err) => {
+          console.log(err)
+        })
+    },
+    userLogin (context, payload) {
+      axios({
+        method: 'POST',
+        url: '/login',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      })
+        .then(({ data }) => {
+          localStorage.setItem('access_token', data.access_token)
+        })
+        .catch(err => {
           console.log(err)
         })
     }
