@@ -74,11 +74,11 @@ export default new Vuex.Store({
           router.push('/')
         })
         .catch(({ response }) => {
-          // console.log(response.data.messages)
-          const errors = response.data.messages
-          errors.forEach(e => {
-            Vue.toasted.error(e, { icon: 'skull' })
-          })
+          console.log(response.data.messages)
+          // const errors = response.data.messages
+          // errors.forEach(e => {
+          //   Vue.toasted.error(e, { icon: 'skull' })
+          // })
         })
     },
     findByPk (context, payload) {
