@@ -75,7 +75,7 @@ export default {
         .then(data => {
           console.log(data)
           console.log(payload)
-          if (payload.name > 2 && payload.description > 3 && payload.image_url && payload.condition && payload.price > 0 && payload.stock > 0) {
+          if (payload.name && payload.description && payload.image_url && payload.condition && payload.price > 0 && payload.stock > 0) {
             this.$router.push('/home')
           }
           this.error++
