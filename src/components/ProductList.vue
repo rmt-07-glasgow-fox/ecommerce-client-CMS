@@ -1,19 +1,20 @@
 <template>
-  <tr>
-    <td scope="row">{{item.id}}</td>
-    <td><img class="thumbnail" :src="imgUrl"></td>
-    <td>{{item.name}}</td>
-    <td>{{item.category}}</td>
-    <td>{{item.price}}</td>
-    <td>{{item.stock}}</td>
-    <td>
-      <button class="btn btn-primary" @click.prevent="goTo">Edit</button><br><br>
-      <button class="btn btn-secondary" @click="deleteProduct">Delete</button>
+  <tr scope="row">
+    <td class="align-middle">#{{item.id}}</td>
+    <td class="align-middle"><img class="thumbnail" :src="imgUrl"></td>
+    <td class="align-middle">{{item.name}}</td>
+    <td class="align-middle">{{item.category}}</td>
+    <td class="align-middle">IDR {{item.price}}</td>
+    <td class="align-middle">{{item.stock}}</td>
+    <td class="align-middle">
+      <button class="btn btn-primary col-6" @click.prevent="goTo">Edit</button><br><br>
+      <button href="#" class="btn btn-secondary col-6" @click.prevent="deleteProduct">Delete</button>
     </td>
   </tr>
 </template>
 
 <script>
+import swal from 'sweetalert'
 export default {
   name: 'ProductList',
   data () {
@@ -25,20 +26,30 @@ export default {
     'item'
   ],
   methods: {
-    fetchOneProduct () {
-      const ProductId = this.$route.params.ProductId
-      this.$store.dispatch('fetchOneProduct', ProductId)
-    },
     goTo () {
       this.$router.push('admin/products/' + this.item.id)
     },
     deleteProduct () {
-      const ProductId = this.item.id
-      this.$store.dispatch('delete', ProductId)
+      swal({
+        title: 'Are you sure?',
+        text: 'Once deleted, you will not be able to recover this product',
+        icon: 'warning',
+        buttons: true,
+        dangerMode: true
+      })
+        .then((willDelete) => {
+          if (willDelete) {
+            const ProductId = this.item.id
+            this.$store.dispatch('deleteProduct', ProductId)
+            swal('Product has been deleted', {
+              icon: 'success'
+            })
+          }
+        })
     }
   },
   created () {
-    this.fetchOneProduct()
+    this.$store.dispatch('fetchProducts')
   },
   computed: {
     product () {
@@ -50,7 +61,7 @@ export default {
 
 <style>
 .thumbnail {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
 }
 </style>

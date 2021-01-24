@@ -1,52 +1,67 @@
 <template>
-  <div class="home">
-    <Navbar></Navbar>
-    <form class="container" @submit.prevent='login'>
+<div id="login-bg">
+  <div class="container" id="home">
+    <h1 id="login-logo">E-commerce CMS</h1>
+    <form class="" @submit.prevent='login'>
       <div class="form-group">
-        <label>Email address</label>
-        <input v-model="email" type="email" class="form-control" placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><img src="https://img.icons8.com/metro/26/000000/user-male.png"/></span>
+          <input v-model="loginData.email" type="text" class="form-control" placeholder="input email">
+        </div>
       </div>
       <div class="form-group">
-        <label>Password</label>
-        <input v-model="password" type="password" class="form-control" placeholder="Password">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><img src="https://img.icons8.com/metro/26/000000/lock.png"/></span>
+          <input v-model="loginData.password" type="password" class="form-control" placeholder="password" autocomplete="off">
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" id="btn-login" class="btn">Login</button>
     </form>
   </div>
+</div>
 </template>
 
 <script>
-import Navbar from '../components/Navbar'
-import axios from '../config/axios'
-// @ is an alias to /src
+import { mapState } from 'vuex'
 export default {
   name: 'Login',
-  data () {
-    return {
-      email: '',
-      password: ''
-    }
-  },
-  components: {
-    Navbar
-  },
   methods: {
     login () {
-      axios({
-        method: 'POST',
-        url: 'http://localhost:3000/login',
-        data: {
-          email: this.email,
-          password: this.password
-        }
-      }).then(response => {
-        localStorage.setItem('access_token', response.data.access_token)
-        this.$router.push({ name: 'Home' })
-      }).catch(err => {
-        console.log(err)
-      })
+      this.$store.dispatch('login', this.loginData)
     }
+  },
+  computed: {
+    ...mapState([
+      'loginData'
+    ])
   }
 }
 </script>
+
+<style>
+#home {
+  padding-top: 200px;
+  max-width: 480px;
+}
+#basic-addon1 {
+  height: 38px;
+  margin-right: 10px;
+}
+#login-logo {
+  margin-bottom: 75px;
+  color: white;
+}
+#login-bg {
+  background-color: rgb(43, 43, 43);
+  min-height: 100vh;
+}
+#btn-login {
+  color: rgb(25, 25, 25);
+  background-color: rgb(235, 235, 235);
+  width: 100px;
+}
+#btn-login:hover {
+  color: rgb(235, 235, 235);
+  background-color: rgb(66, 66, 66);
+}
+</style>

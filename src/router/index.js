@@ -20,7 +20,7 @@ const routes = [
     component: Main,
     children: [
       {
-        path: '',
+        path: '/admin',
         name: 'Home',
         component: Home
       },
