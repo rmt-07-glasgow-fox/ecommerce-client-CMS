@@ -6,6 +6,7 @@
     <td>{{ product.name }}</td>
     <td>{{ product.price }}</td>
     <td>{{ product.stock }}</td>
+    <td>{{ product.category }}</td>
     <button v-on:click="onEdit(product.id)" class="btn btn-primary">Edit</button>
     <button v-on:click="onDelete(product.id)" class="btn btn-primary">Delete</button>
   </tr>

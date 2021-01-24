@@ -12,6 +12,7 @@
                 <th scope="col">Product Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Stock</th>
+                <th scope="col">Catgory</th>
                 <th scope="col">Actions</th>
               </tr>
 

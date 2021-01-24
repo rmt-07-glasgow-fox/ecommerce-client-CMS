@@ -10,6 +10,8 @@
       <input v-model="price" type="number" class="form-control">
       <label>Stock</label>
       <input v-model="stock" type="number" class="form-control">
+      <label>Category</label>
+      <input v-model="category" type="text" class="form-control">
       <div>
         <button type="submit" class="btn btn-primary">Add Product</button>
         <button @click="backToHome" type="submit" class="btn btn-primary">Back</button>
@@ -26,7 +28,8 @@ export default {
       name: '',
       image_url: '',
       price: '',
-      stock: ''
+      stock: '',
+      category: ''
     }
   },
   methods: {
@@ -35,7 +38,8 @@ export default {
         name: this.name,
         image_url: this.image_url,
         price: this.price,
-        stock: this.stock
+        stock: this.stock,
+        category: this.category
       })
     },
 
