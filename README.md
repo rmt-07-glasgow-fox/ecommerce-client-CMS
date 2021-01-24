@@ -1,1 +1,35 @@
-# ecommerce-client-CMS
+# ecommerce-client-cms
+
+Link Deploy
+```
+https://e-commerce-by-rozakus.web.app/
+```
+Admin login
+
+```
+email       : admin@gmail.com
+password    : admin
+```
+
+## Project setup
+```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
