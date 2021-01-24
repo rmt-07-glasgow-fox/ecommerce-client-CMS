@@ -61,13 +61,8 @@
       </select>
 
       <div class="mt-3 mb-3">
-        <button
-          type="submit"
-          class="btn btn-sm btn-primary"
-        >
-          Add
-        </button>
-        <router-link to="/admin/product" style="text-decoration: none">
+        <button type="submit" class="btn btn-sm btn-primary">Add</button>
+        <router-link to="/admindashboard/products" style="text-decoration: none">
           <button
             type="button"
             style="margin-left: 36px"
@@ -105,7 +100,7 @@ export default {
   },
   computed: {
     Categories () {
-      return this.$store.state.categories
+      return this.$store.state.category.categories
     }
   },
   created () {

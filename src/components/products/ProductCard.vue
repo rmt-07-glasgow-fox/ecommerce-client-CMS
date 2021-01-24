@@ -2,7 +2,13 @@
   <div class="col-4">
     <div
       class="card shadow mt-2 mb-5"
-      style="width: 16rem; height: 512px; border-radius: 8px"
+      style="
+        width: 16rem;
+        height: 512px;
+        border-radius: 8px;
+        margin-left: auto;
+        margin-right: auto;
+      "
     >
       <img
         :src="Product.image_url"
@@ -42,7 +48,9 @@
         <div class="container-fluid mt-2">
           <div class="row justify-content-center">
             <div class="col-6">
-              <router-link :to="`product/edit/${Product.id}`">
+              <router-link
+                :to="`/admindashboard/products/edit/${Product.id}`"
+              >
                 <button href="" class="btn btn-outline-primary">Edit</button>
               </router-link>
             </div>
