@@ -24,4 +24,8 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Link App
+```
 https://e-commerce-cms-app.web.app/
+admin@mail.com
+123123
+```
