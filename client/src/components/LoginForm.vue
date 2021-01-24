@@ -11,7 +11,7 @@
         <input type="password" name="password" v-model="password" />
       </label>
       <button class="submit" type="button" @click="login()">Sign In</button>
-      <p class="forgot-pass">Forgot Password ?</p>
+      <p class="quotes">Love For All, Hatred For None</p>
 
       <div class="social-media">
         <ul>
@@ -189,7 +189,7 @@ button {
   background: -webkit-linear-gradient(left, #b224ef, #7579ff);
 }
 
-.forgot-pass {
+.quotes {
   margin-top: 15px;
   text-align: center;
   font-size: 14px;
@@ -198,7 +198,7 @@ button {
   cursor: pointer;
 }
 
-.forgot-pass:hover {
+.quotes:hover {
   color: red;
 }
 
