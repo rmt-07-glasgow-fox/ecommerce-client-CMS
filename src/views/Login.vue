@@ -2,6 +2,7 @@
     <!-- LOGIN PAGE -->
   <div id="loginPage" class="container-fluid">
     <h1>Please login as an admin</h1>
+    <h3>{{notif}}</h3>
     <div class="row" style="justify-content: center;">
       <div class="loginContainer col-4 rounded" style="background-color: aliceblue;">
         <div>
@@ -31,7 +32,8 @@ export default {
   data () {
     return {
       email: '',
-      password: ''
+      password: '',
+      notif: ''
     }
   },
   methods: {
@@ -50,12 +52,14 @@ export default {
           localStorage.setItem('access_token', response.data.access_token)
           this.email = ''
           this.password = ''
+          this.notif = ''
           this.$store.commit('setLoginStatus', true)
           this.$store.commit('setNotification', 'Login success!')
           this.$router.push('/notification')
         })
         .catch((err) => {
           console.log(err.response.data.message)
+          this.notif = err.response.data.message
         })
     }
   }
