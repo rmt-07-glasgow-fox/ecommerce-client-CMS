@@ -1,0 +1,13 @@
+.nav {
+  background: rgb(48, 48, 48);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
