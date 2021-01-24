@@ -64,7 +64,7 @@ export default new Vuex.Store({
         url: '/products',
         method: 'get',
         headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTYwODczMTM4NX0.eDooyoSQO-WtbW8ws7zDO0Jq_eO6so5iK1Li1E7-ZFQ'
+          access_token: localStorage.access_token
         }
       })
         .then(({ data }) => {
@@ -79,13 +79,14 @@ export default new Vuex.Store({
         url: '/products',
         method: 'post',
         headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTYwODczMTM4NX0.eDooyoSQO-WtbW8ws7zDO0Jq_eO6so5iK1Li1E7-ZFQ'
+          access_token: localStorage.access_token
         },
         data: {
           name: payload.name,
           image_url: payload.imageUrl,
           stock: payload.stock,
-          price: payload.price
+          price: payload.price,
+          Category: payload.Category
         }
       })
         .then(({ data }) => {
@@ -96,7 +97,7 @@ export default new Vuex.Store({
             showConfirmButton: false,
             timer: 1500
           })
-          context.commit('setProduct', data)
+          context.dispatch('fetchProduct')
         })
         .catch(err => {
           Swal.fire({
@@ -111,13 +112,14 @@ export default new Vuex.Store({
         url: '/products/' + payload.id,
         method: 'put',
         headers: {
-          access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbkBtYWlsLmNvbSIsImlhdCI6MTYwODczMTM4NX0.eDooyoSQO-WtbW8ws7zDO0Jq_eO6so5iK1Li1E7-ZFQ'
+          access_token: localStorage.access_token
         },
         data: {
           name: payload.name,
           image_url: payload.image_url,
           stock: payload.stock,
-          price: payload.price
+          price: payload.price,
+          Category: payload.Category
         }
       })
         .then(({ data }) => {
@@ -128,7 +130,7 @@ export default new Vuex.Store({
             showConfirmButton: false,
             timer: 1500
           })
-          context.commit('setProduct', data)
+          context.dispatch('fetchProduct')
         })
         .catch(err => {
           Swal.fire({
@@ -136,7 +138,6 @@ export default new Vuex.Store({
             title: 'Oops...',
             text: `${err.response.data.msg}`
           })
-          console.log(err.response)
         })
     },
     fetchBanner (context) {

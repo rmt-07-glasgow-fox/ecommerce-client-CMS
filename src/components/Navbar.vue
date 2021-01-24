@@ -131,6 +131,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
   name: 'Navbar',
   data: () => ({
@@ -140,6 +141,13 @@ export default {
   }),
   methods: {
     logout () {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Logout Successfull',
+        showConfirmButton: false,
+        timer: 1500
+      })
       localStorage.clear()
       this.$router.push('/login', () => {})
     }

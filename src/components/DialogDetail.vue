@@ -79,6 +79,12 @@
                   <v-list-item-subtitle class="font-weight-bold text-uppercase">rp {{product.price}}</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
+              <v-list-item two-line>
+                <v-list-item-content>
+                  <v-list-item-title>Category: </v-list-item-title>
+                  <v-list-item-subtitle class="font-weight-bold text-uppercase">rp {{product.Category}}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
             </v-col>
           </v-row>
           <v-row justify="center" align="center" class="content" v-else>

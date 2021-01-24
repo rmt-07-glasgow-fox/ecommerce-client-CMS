@@ -74,6 +74,17 @@
                 >
                 </v-text-field>
               </v-col>
+              <v-col
+                cols="12"
+              >
+              <v-text-field
+                label="Category*"
+                type="text"
+                v-model="form.Category"
+                required
+                >
+                </v-text-field>
+              </v-col>
             </v-row>
           </v-container>
           <v-container v-else>
@@ -119,7 +130,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="addProduct"
+            @click.prevent="addProduct"
             v-if="params === 'Home'"
           >
             Save
@@ -127,7 +138,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="addBanner"
+            @click.prevent="addBanner"
             v-else
           >
             Save
@@ -147,7 +158,8 @@ export default {
       name: '',
       imageUrl: '',
       stock: '',
-      price: ''
+      price: '',
+      Category: ''
     },
     formBanner: {
       title: '',
@@ -163,7 +175,8 @@ export default {
       name: '',
       imageUrl: '',
       stock: '',
-      price: ''
+      price: '',
+      Category: ''
     },
     items: ['ACTIVE', 'INACTIVE']
   }),

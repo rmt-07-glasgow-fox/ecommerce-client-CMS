@@ -65,6 +65,17 @@
               >
               </v-text-field>
               </v-col>
+              <v-col
+                cols="12"
+              >
+              <v-text-field
+                label="Category*"
+                type="text"
+                v-model="form.Category"
+                required
+                >
+                </v-text-field>
+              </v-col>
             </v-row>
           </v-container>
           <v-container
@@ -112,7 +123,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="editProduct"
+            @click.prevent="editProduct"
             v-if="params === 'Home'"
           >
             Save
@@ -120,7 +131,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="editBanner"
+            @click.prevent="editBanner"
             v-else
           >
             Save
@@ -141,7 +152,8 @@ export default {
         price: '',
         stock: '',
         image_url: '',
-        id: ''
+        id: '',
+        Category: ''
       },
       formBanner: {
         title: '',
@@ -181,7 +193,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   input[type=number]::-webkit-outer-spin-button,
   input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;

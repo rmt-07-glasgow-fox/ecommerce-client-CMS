@@ -7,7 +7,7 @@
   >
     <v-card-title>{{products.name}}</v-card-title>
   </v-img>
-    <v-card-subtitle class="pb-0 black--text">Name: {{products.name}}</v-card-subtitle>
+    <v-card-subtitle class="pb-0 black--text">Category: {{products.Category}}</v-card-subtitle>
     <v-card-text
       class="black--text"
     >
