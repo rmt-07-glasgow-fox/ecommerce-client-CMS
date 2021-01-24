@@ -1,10 +1,10 @@
 <template>
 <div class="edit">
   <!-- <Navbar></Navbar> -->
-<div class="container">
-<div class="columns">
+<!-- <div class="container"> -->
+<!-- <div class="columns"> -->
   <div class="column"></div>
-  <div class="column is-three-fifths">
+  <!-- <div class="column is-three-fifths"> -->
 <form action="">
 <div class="field">
   <!-- <label class="label">Product Name</label> -->
@@ -33,10 +33,10 @@
 </div>
 <button class="button is-link">Update</button>
 </form>
-</div>
+<!-- </div> -->
 <div class="column"></div>
-</div>
-</div>
+<!-- </div> -->
+<!-- </div> -->
 </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
 <div class="ListProduct">
-<div class="container">
-  <div class="columns">
-    <div class="column is-one-third">
+<!-- <div class="container"> -->
+  <!-- <div class="columns"> -->
+    <!-- <div class="column is-one-third">
       <p>List</p>
       <p>Add</p>
-    </div>
+    </div> -->
   <div class="column">
   <div class="table-container">
   <table class="table">
@@ -38,8 +38,8 @@
   </table>
 </div>
 </div>
-</div>
-</div>
+<!-- </div> -->
+<!-- </div> -->
 </div>
 </template>
 

@@ -1,17 +1,31 @@
 <template>
 <div class="dashboard">
  <Navbar/>
-   <router-view/>
+
  <!-- <ListProduct/> -->
  <!-- <EditProduct/> -->
  <!-- <AddProduct/> -->
   <!-- <img :src="poster" alt=""> -->
   <!-- <img src="../assets/logo.png" alt=""> -->
+
+<div class="container">
+  <div class="columns">
+   <!-- sidebar -->
+   <Sidebar/>
+    <div class="column">
+      <div class="table-container">
+   <router-view/>
+      </div>
+    </div>
+  </div>
+</div>
+
 </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar'
+import Sidebar from '../components/Sidebar'
 // import ListProduct from '@/components/ListProduct'
 // import AddProduct from '../components/AddProduct'
 // import EditProduct from '../components/EditProduct'
@@ -26,7 +40,8 @@ export default {
   //   }
   // },
   components: {
-    Navbar
+    Navbar,
+    Sidebar
     // ListProduct
     // AddProduct,
     // EditProduct
