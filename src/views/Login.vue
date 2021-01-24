@@ -23,20 +23,21 @@
 
 <script>
 export default {
-  name: "Login",
-  data() {
+  name: 'Login',
+  data () {
     return {
       inputLogin: {
-        email: "",
-        password: "",
-      },
-    };
+        email: '',
+        password: ''
+      }
+    }
   },
   methods: {
-    login() {
-      console.log(">>> input login", this.inputLogin);
-      this.$store.dispatch("login", this.inputLogin);
-    },
-  },
-};
+    login () {
+      console.log('>>> input login', this.inputLogin)
+      this.$store.dispatch('login', this.inputLogin)
+      this.$router.push('/products')
+    }
+  }
+}
 </script>

@@ -50,28 +50,29 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import NavigationBar from "../components/NavigationBar";
+import { mapState } from 'vuex'
+import NavigationBar from '../components/NavigationBar'
 
 export default {
   methods: {
-    deleteProduct(idProduct) {
+    deleteProduct (idProduct) {
       // console.log(">>> delete product", idProduct);
-      this.$store.dispatch("deleteProduct", idProduct);
+      this.$store.dispatch('deleteProduct', idProduct)
     },
-    editProduct(idProduct) {
-      console.log(">>> edit product", idProduct);
-    },
+    editProduct (idProduct) {
+      console.log('>>> edit product', idProduct)
+      this.$router.push(`/products/${idProduct}`)
+    }
   },
   components: {
-    NavigationBar,
+    NavigationBar
   },
-  created() {
-    this.$store.dispatch("getAllProducts");
-    this.$store.dispatch("getAllBrands");
+  created () {
+    this.$store.dispatch('getAllProducts')
+    this.$store.dispatch('getAllBrands')
   },
   computed: {
-    ...mapState(["products", "baseURL"]),
-  },
-};
+    ...mapState(['products', 'baseURL'])
+  }
+}
 </script>

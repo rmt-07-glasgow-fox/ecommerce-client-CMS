@@ -4,7 +4,7 @@
       class="container"
       style="display: flex; justify-content: space-between"
     >
-      <button class="btn btn-sm btn-primary">add New Products</button>
+      <button @click="toProductAdd" class="btn btn-sm btn-primary">add New Products</button>
       <button @click="logout" class="btn btn-sm btn-success shadow">
         logout
       </button>
@@ -15,9 +15,13 @@
 <script>
 export default {
   methods: {
-    logout() {
-      this.$store.dispatch("logout");
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/')
     },
-  },
-};
+    toProductAdd(){
+      this.$router.push('/products/add')
+    }
+  }
+}
 </script>

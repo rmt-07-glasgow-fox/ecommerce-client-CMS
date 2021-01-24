@@ -53,7 +53,7 @@
             </select>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
-          <button class="btn btn-danger">Cancel</button>
+          <button @click="cancel" class="btn btn-danger">Cancel</button>
         </form>
       </div>
     </div>
@@ -61,34 +61,37 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
   methods: {
-    editProducts() {
-      console.log(">>> edited product", this.productsDetail);
-      let { id, name, image_url, price, stock, BrandId } = this.productsDetail;
-      let editedProduct = {
+    editProducts () {
+      console.log('>>> edited product', this.productsDetail)
+      const { id, name, image_url, price, stock, BrandId } = this.productsDetail
+      const editedProduct = {
         id: id,
         name: name,
         image_url: image_url,
         price: +price,
         stock: +stock,
-        BrandId: +BrandId,
-      };
+        BrandId: +BrandId
+      }
 
-      console.log(">>> formatted edit product", editedProduct);
-      this.$store.dispatch("editProduct", editedProduct);
+      console.log('>>> formatted edit product', editedProduct)
+      this.$store.dispatch('editProduct', editedProduct)
     },
+    cancel () {
+      this.$router.push('/products')
+    }
   },
-  created() {
-    console.log(">>> params router", this.$route.params);
-    let { id } = this.$route.params;
-    this.$store.dispatch("getProductById", id);
-    this.$store.dispatch("getAllBrands");
+  created () {
+    console.log('>>> params router', this.$route.params)
+    const { id } = this.$route.params
+    this.$store.dispatch('getProductById', id)
+    this.$store.dispatch('getAllBrands')
   },
   computed: {
-    ...mapState(["productsDetail", "brands"]),
-  },
-};
+    ...mapState(['productsDetail', 'brands'])
+  }
+}
 </script>

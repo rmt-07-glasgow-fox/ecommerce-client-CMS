@@ -53,7 +53,7 @@
             </select>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
-          <button class="btn btn-danger">Cancel</button>
+          <button @click="cancel" class="btn btn-danger">Cancel</button>
         </form>
       </div>
     </div>
@@ -61,42 +61,45 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
-  data() {
+  data () {
     return {
       inputNewProduct: {
-        name: "",
-        image_url: "",
-        price: "",
-        stock: "",
-        BrandId: "",
-      },
-    };
+        name: '',
+        image_url: '',
+        price: '',
+        stock: '',
+        BrandId: ''
+      }
+    }
   },
   methods: {
-    addNewProduct() {
-      console.log(">>> new product ", this.inputNewProduct);
-      let { name, image_url, price, stock, BrandId } = this.inputNewProduct;
-      let newProduct = {
+    addNewProduct () {
+      console.log('>>> new product ', this.inputNewProduct)
+      const { name, image_url, price, stock, BrandId } = this.inputNewProduct
+      const newProduct = {
         name: name,
         image_url: image_url,
         price: +price,
         stock: +stock,
-        BrandId: +BrandId,
-      };
-      console.log(">>> reformatted newProduct : ", newProduct);
+        BrandId: +BrandId
+      }
+      console.log('>>> reformatted newProduct : ', newProduct)
 
-      this.$store.dispatch("addProduct", newProduct);
+      this.$store.dispatch('addProduct', newProduct)
     },
+    cancel(){
+      this.$router.push('/products')
+    }
   },
-  created() {
-    this.$store.dispatch("getAllProducts");
-    this.$store.dispatch("getAllBrands");
+  created () {
+    this.$store.dispatch('getAllProducts')
+    this.$store.dispatch('getAllBrands')
   },
   computed: {
-    ...mapState(["brands"]),
-  },
-};
+    ...mapState(['brands'])
+  }
+}
 </script>
