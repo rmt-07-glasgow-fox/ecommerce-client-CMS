@@ -28,10 +28,6 @@
                                             <a @click.prevent="login" class="btn btn-primary btn-user btn-block">
                                                 Login
                                             </a>
-                                            <hr>
-                                            <a href="index.html" class="btn btn-google btn-user btn-block">
-                                                <i class="fab fa-google fa-fw"></i> Login with Google
-                                            </a>
                                         </form>
                                     </div>
                                 </div>
@@ -39,7 +35,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
 </template>
