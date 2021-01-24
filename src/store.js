@@ -3,16 +3,18 @@ import Vuex from 'vuex'
 
 import auth from './stores/auth'
 import product from './stores/product'
+import category from './stores/category'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
     auth,
-    product
+    product,
+    category
   },
   state: {
-    token: localStorage.token,
+    token: localStorage.getItem('token'),
     errors: ''
   },
   getters: {

@@ -34,7 +34,7 @@
       </router-link>
 
       <!-- Nav Item - Category -->
-      <router-link class="nav-item"  tag="li" :to="{ name: 'category' }" >
+      <router-link class="nav-item"  tag="li" :to="{ name: 'category.data' }" >
         <a class="nav-link" type="button">
           <i class="fas fa-fw fa-home"></i>
           <span>Category</span>

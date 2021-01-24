@@ -3,11 +3,15 @@ import Router from 'vue-router'
 import Home from './views/Home'
 
 import Product from './views/product/Index'
-import DataProduct from './views/product/Product'
-import AddProduct from './views/product/Add'
-import EditProduct from './views/product/Edit'
+import DataProduct from './components/Product/Product'
+import AddProduct from './components/Product/Add'
+import EditProduct from './components/Product/Edit'
 
 import Category from './views/category/Index'
+import DataCategory from './components/Category/Category'
+import AddCategory from './components/Category/Add'
+import EditCategory from './components/Category/Edit'
+
 import Login from './views/Auth'
 
 import store from './store.js'
@@ -24,8 +28,7 @@ const router = new Router({
     meta: { requiresAuth: true }
   },
   {
-    path: '/product',
-    name: 'product',
+    path: '/products',
     component: Product,
     meta: { requiresAuth: true },
     children: [
@@ -51,9 +54,28 @@ const router = new Router({
   },
   {
     path: '/category',
-    name: 'category',
     component: Category,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    children: [
+      {
+        path: '',
+        name: 'category.data',
+        component: DataCategory,
+        meta: { title: 'Manage Category' }
+      },
+      {
+        path: 'add',
+        name: 'category.add',
+        component: AddCategory,
+        meta: { title: 'Add New Category' }
+      },
+      {
+        path: 'edit/:id',
+        name: 'category.edit',
+        component: EditCategory,
+        meta: { title: 'Edit Category' }
+      }
+    ]
   },
   {
     path: '/login',
@@ -63,7 +85,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  store.commit('CLEAR_ERRORS')
   if (to.matched.some(record => record.meta.requiresAuth)) {
     let auth = store.getters.isAuth
     if (!auth) {

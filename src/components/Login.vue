@@ -70,14 +70,9 @@ export default {
     ...mapMutations(['CLEAR_ERRORS']),
 
     async login () {
-      this.submit(this.data).then(() => {
-        if (this.isAuth) {
-          this.CLEAR_ERRORS()
-          this.$router.push({ name: 'home' })
-        }
-        this.data.email = ''
-        this.data.password = ''
-      })
+      this.submit(this.data)
+      this.data.email = ''
+      this.data.password = ''
     }
   }
 }

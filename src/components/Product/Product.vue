@@ -10,26 +10,26 @@
           </div>
       </div>
       <div class="card-body">
-          <b-table striped hover bordered :items="products" :fields="fields" show-empty>
+          <b-table striped hover bordered :items="datas.data" :fields="fields" show-empty>
             <template v-slot:cell(actions)="row">
                 <router-link :to="{ name: 'product.edit', params: {id: row.item.id} }" class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></router-link>
-                <button class="btn btn-danger btn-sm" @click="deleteProduct(row.item.id)"><i class="fa fa-trash"></i></button>
+                <button class="btn btn-danger btn-sm ml-1" @click="deleteProduct(row.item.id)"><i class="fa fa-trash"></i></button>
             </template>
         </b-table>
 
         <div class="row">
             <div class="col-md-6">
-                <p v-if="products"><i class="fa fa-bars"></i> {{ products.length }} item dari {{ products.meta.total }} total data</p>
+                <p v-if="datas.data" class="float-left"><i class="fa fa-bars"></i> {{ datas.data.length }} item dari {{ datas.totalItems }} total data</p>
             </div>
             <div class="col-md-6">
-                <div class="pull-right">
+                <div class="float-right">
                     <b-pagination
                         v-model="page"
-                        :total-rows="products.meta.total"
-                        :per-page="products.meta.per_page"
-                        aria-controls="products"
-                        v-if="products && products.length > 0"
-                        ></b-pagination>
+                        :total-rows="datas.totalItems"
+                        :per-page="datas.per_page"
+                        aria-controls="datas.data"
+                        v-if="datas.data && datas.data.length > 0">
+                    </b-pagination>
                 </div>
             </div>
         </div>
@@ -40,9 +40,10 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import Swal from 'sweetalert2'
 
 export default {
-  name: 'DataPengguna',
+  name: 'DataProduct',
   created () {
     this.getProducts()
   },
@@ -60,7 +61,7 @@ export default {
   },
   computed: {
     ...mapState('product', {
-      products: state => state.products
+      datas: state => state.products
     }),
     page: {
       get () {
@@ -80,7 +81,22 @@ export default {
     }
   },
   methods: {
-    ...mapActions('product', ['getProducts'])
+    ...mapActions('product', ['getProducts', 'removeProduct']),
+    deleteProduct (id) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.removeProduct(id)
+        }
+      })
+    }
   }
 }
 </script>

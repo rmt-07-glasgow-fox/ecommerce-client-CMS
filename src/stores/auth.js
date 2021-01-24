@@ -1,4 +1,6 @@
 import $axios from '../api/axios'
+import router from '../router'
+import Swal from 'sweetalert2'
 
 const actions = {
   submit ({ commit }, payload) {
@@ -9,9 +11,19 @@ const actions = {
       .then((response) => {
         localStorage.setItem('token', response.data.access_token)
         commit('SET_TOKEN', response.data.access_token, { root: true })
+        router.push({ name: 'home' })
+        Swal.fire(
+          'success!',
+          `Login successfully`,
+          'success'
+        )
       })
       .catch((error) => {
-        commit('SET_ERRORS', error.response.data.errors, { root: true })
+        Swal.fire(
+          'error!',
+          `${error.response.data.errors}`,
+          'error'
+        )
       })
   }
 }
