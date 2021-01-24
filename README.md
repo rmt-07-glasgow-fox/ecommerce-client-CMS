@@ -1,5 +1,16 @@
 # ecommerce-client-cms
 
+Link Deploy
+```
+https://e-commerce-by-rozakus.web.app/
+```
+Admin login
+
+```
+email       : admin@gmail.com
+password    : admin
+```
+
 ## Project setup
 ```
 npm install
