@@ -1,0 +1,29 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.form-page .container {
+    width: 30%;
+    margin-top: 5%;
+    padding: 30px;
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+}
+
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color:whitesmoke;
+    margin-bottom: 25px;
+}
+
+.card-body {
+    background-color: whitesmoke;
+    color: black;
+}
+
+.card-body h4 {
+    font-weight: bold;
+}
