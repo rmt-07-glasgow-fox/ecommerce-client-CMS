@@ -2,12 +2,38 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <router-link to="/products">Product</router-link>
+      <router-link to="/products">Products</router-link>
     </div>
-    <router-view/>
+    <router-view :products="products"/>
   </div>
 </template>
+
+<script>
+import axios from './api/axios'
+
+export default {
+  data () {
+    return {
+      products: []
+    }
+  },
+  methods: {
+    fetchProducts () {
+      axios
+        .get('/products', { headers: { access_token: localStorage.access_token } })
+        .then(({ data }) => {
+          this.products = data.products
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  },
+  created () {
+    this.fetchProducts()
+  }
+}
+</script>
 
 <style>
 #app {
