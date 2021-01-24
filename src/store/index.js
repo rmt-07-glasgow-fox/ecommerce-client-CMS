@@ -10,7 +10,7 @@ export default new Vuex.Store({
     brands: [],
     banners: [],
     productsDetail: {},
-    baseURL: 'http://localhost:3000'
+    baseURL: 'https://e-commerce-server-by-rozakus.herokuapp.com'
   },
   mutations: {
     insertStateProducts (state, payload) {
