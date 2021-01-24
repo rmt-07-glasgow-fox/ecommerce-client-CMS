@@ -10,7 +10,23 @@
           </div>
       </div>
       <div class="card-body">
-          <b-table striped hover bordered :items="datas.data" :fields="fields" show-empty>
+          <b-table
+            responsive
+            striped
+            hover
+            bordered
+            :busy.sync="isBusy"
+            :items="datas.data"
+            :fields="fields"
+            show-empty
+            outlined
+            :tbody-transition-props="transProps">
+            <template v-slot:table-busy>
+            <div class="text-center text-danger my-2">
+              <b-spinner class="align-middle"></b-spinner>
+              <strong>Loading...</strong>
+            </div>
+          </template>
             <template v-slot:cell(image_url)="row">
               <img
                 :src="row.item.image_url"
@@ -18,6 +34,9 @@
                 :height="150"
                 :alt="row.item.name"
               />
+            </template>
+            <template v-slot:cell(price)="row">
+              <p>{{new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(row.item.price)}}</p>
             </template>
             <template v-slot:cell(actions)="row">
                 <router-link :to="{ name: 'product.edit', params: {id: row.item.id} }" class="btn btn-warning btn-sm"><i class="fa fa-pencil-alt"></i></router-link>
@@ -65,7 +84,11 @@ export default {
         { key: 'category.name', label: 'Category' },
         { key: 'actions', label: 'Action' }
       ],
-      search: ''
+      search: '',
+      transProps: {
+        name: 'flip-list'
+      },
+      isBusy: false
     }
   },
   computed: {

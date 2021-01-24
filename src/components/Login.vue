@@ -3,8 +3,8 @@
         <div class="container">
             <!-- Outer Row -->
             <div class="row justify-content-center">
-                <div class="col-xl-10 col-lg-12 col-md-9">
-                    <div class="card o-hidden border-0 shadow-lg my-5 m-lg-5">
+                <div class="col-xl-10 col-lg-12 col-md-9 mt-5">
+                    <div class="card o-hidden border-0 shadow-lg my-5 m-lg-5 pb-5">
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
                             <div class="row">
@@ -15,7 +15,7 @@
                                             <h3 class="h4 text-gray-900 mb-1">E-commerce Admin</h3>
                                             <h1 class="h5 text-gray-900 mb-4">Welcome Back! </h1>
                                         </div>
-                                        <form @submit.prevent="login" class="user">
+                                        <form class="user">
                                             <div class="form-group">
                                                 <input type="email" v-model="data.email" class="form-control form-control-user"
                                                     id="exampleInputEmail" aria-describedby="emailHelp"
@@ -25,7 +25,7 @@
                                                 <input type="password" v-model="data.password" class="form-control form-control-user"
                                                     id="exampleInputPassword" placeholder="Password">
                                             </div>
-                                            <a type="submit" class="btn btn-primary btn-user btn-block">
+                                            <a @click.prevent="login" class="btn btn-primary btn-user btn-block">
                                                 Login
                                             </a>
                                         </form>
