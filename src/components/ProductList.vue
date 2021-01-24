@@ -11,8 +11,8 @@
         <li class="list-group-item">Rp.{{productlist.price}}</li>
       </ul>
       <div class="card-body d-flex align-items-center justify-content-around">
-        <button class="btn btn-primary">Edit</button>
-        <button class="btn btn-primary">Delete</button>
+        <button @click="editForm(productlist.id)" class="btn btn-primary">Edit</button>
+        <button @click="deleteProduct(productlist.id)" class="btn btn-primary">Delete</button>
       </div>
     </div>
   </div>
@@ -21,7 +21,15 @@
 <script>
 export default {
   name: 'ProductList',
-  props: ['productlist']
+  props: ['productlist'],
+  methods: {
+    deleteProduct (id) {
+      this.$store.dispatch('deleteProduct', id)
+    },
+    editForm (id) {
+      this.$router.replace(`/editProduct/${id}`)
+    }
+  }
 }
 </script>
 

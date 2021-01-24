@@ -13,7 +13,7 @@
           <br>
           <div class="wrapper">
             <span class="group-btn">
-              <button class="btn btn-primary" @click="addProduct" type="submit">Submit</button>
+              <button class="btn btn-primary" type="submit">Submit</button>
             </span>
           </div>
         </div>
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'Addproduct',
   data () {
@@ -38,44 +37,14 @@ export default {
   },
   methods: {
     addProduct () {
-      axios({
-        method: 'POST',
-        url: '/products',
-        data: {
-          name: this.data.name,
-          image_url: this.data.image_url,
-          price: this.data.price,
-          stock: this.data.stock
-        },
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then(data => {
-          console.log(this.data.name)
-        })
-        .catch(err =>
-          console.log(err)
-        )
+      const payload = this.data
+      this.$store.dispatch('createProduct', payload)
+      this.data.name = ''
+      this.data.image_url = ''
+      this.data.price = 0
+      this.data.stock = 0
+      this.$router.replace('Products')
     }
-    // createData () {
-    //   return axios
-    //     .post('/products', this.data, {
-    //       headers: {
-    //         access_token: localStorage.access_token
-    //       }
-    //     })
-    //     .then(({ data }) => {
-    //       console.log(data)
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
-    // }
-  },
-  created () {
-    this.addProduct()
-    // this.createData()
   }
 }
 </script>

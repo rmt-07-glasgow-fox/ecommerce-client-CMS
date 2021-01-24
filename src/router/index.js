@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../components/LoginForm'
 import AddProduct from '../views/AddProduct'
+import EditForm from '../components/EditForm'
 
 Vue.use(VueRouter)
 
@@ -26,9 +27,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "product" */ '../views/Products.vue')
   },
   {
-    path: '/addproduct',
+    path: '/products',
     name: 'AddProduct',
     component: AddProduct
+  },
+  {
+    path: '/editProduct/:id',
+    name: 'EditProduct',
+    component: EditForm
   }
 ]
 

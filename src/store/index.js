@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import axios from '../api/axios'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    products: [],
-    editedProduct: {}
+    products: []
   },
   mutations: {
     insertProduct (state, payload) {
@@ -15,6 +14,20 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    loginUser (context, payload) {
+      axios({
+        method: 'post',
+        url: '/login',
+        data: {
+          email: payload.email,
+          password: payload.password
+        }
+      }).then(({ data }) => {
+        localStorage.setItem('access_token', data.access_token)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     fetchReadroduct (context) {
       axios({
         url: '/products',
@@ -30,7 +43,7 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    fetchCreateroduct (context, payload) {
+    createProduct (context, payload) {
       axios({
         url: '/products',
         method: 'POST',
@@ -45,14 +58,14 @@ export default new Vuex.Store({
         }
       })
         .then(({ data }) => {
-          context.commit('insertProduct', data)
+          context.dispatch('fetchReadroduct')
         })
         .catch(err => {
           console.log(err)
         })
     },
-    fetchDeleteroduct (context, payload) {
-      const id = payload.id
+    deleteProduct (context, payload) {
+      const id = payload
       axios({
         url: '/products/' + id,
         method: 'DELETE',
@@ -67,7 +80,7 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    fetchEditroduct (context, payload) {
+    editProduct (context, payload) {
       const id = payload.id
       axios({
         url: '/products/' + id,

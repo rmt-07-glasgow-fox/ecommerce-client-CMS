@@ -2,7 +2,7 @@
   <div class="products">
     <h1>This is yours</h1>
     <div class="d-flex justify-content-end">
-      <button @click="goToDetail" class="btn btn-success">Add Product</button>
+      <button @click="goToAdd" class="btn btn-success">Add Product</button>
     </div> <br>
     <div class="container">
       <div class="row d-flex justify-content-around">
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import axios from '../api/axios'
+// import axios from '../api/axios'
 import ProductList from '../components/ProductList'
 
 export default {
@@ -25,28 +25,18 @@ export default {
   components: {
     ProductList
   },
-  data () {
-    return {
-      productlists: []
-    }
-  },
   methods: {
-    fetchProduct () {
-      axios
-        .get('/products', { headers: { access_token: localStorage.access_token } })
-        .then(({ data }) => {
-          this.productlists = data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
-    goToDetail () {
-      this.$router.push('/addproduct')
+    goToAdd () {
+      this.$router.push({ name: 'AddProduct' })
     }
   },
   created () {
-    this.fetchProduct()
+    this.$store.dispatch('fetchReadroduct')
+  },
+  computed: {
+    productlists () {
+      return this.$store.state.products
+    }
   }
 }
 </script>
