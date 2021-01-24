@@ -6,18 +6,18 @@
       <div class="container-fluid ">
         <div class="form">
           <h2>Add Product</h2>
-          <form action="" @submit.prevent="login">
+          <form action="" @submit.prevent="addProduct">
             <div class="inputBox">
-              <input type="text" placeholder="Product Name" v-model="name">
+              <input type="text" placeholder="Product Name" v-model="addedProduct.name">
             </div>
             <div class="inputBox">
-              <input type="text" placeholder="Url Product" v-model="url">
+              <input type="text" placeholder="Url Product" v-model="addedProduct.url">
             </div>
             <div class="inputBox">
-              <input type="password" placeholder="Product Price" v-model="price">
+              <input type="text" placeholder="Product Price" v-model="addedProduct.price">
             </div>
             <div class="inputBox">
-              <input type="password" placeholder="Stock" v-model="stock">
+              <input type="text" placeholder="Stock" v-model="addedProduct.stock">
             </div>
             <div class="inputBox">
               <input type="submit" value="add">
@@ -28,6 +28,27 @@
   </section>
 </div>
 </template>
+
+<script>
+export default {
+  name: 'Add',
+  data () {
+    return {
+      addedProduct: {
+        name: '',
+        url: '',
+        price: '',
+        stock: ''
+      }
+    }
+  },
+  methods: {
+    addProduct () {
+      this.$store.dispatch('addProduct', this.addedProduct)
+    }
+  }
+}
+</script>
 
 <style lang="css" scoped>
   @import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');

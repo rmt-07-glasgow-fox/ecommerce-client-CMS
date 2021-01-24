@@ -8,8 +8,8 @@
         <p class="card-text">Sisa: {{ product.stock }}</p>
       </div>
       <div class="card-body">
-        <a href="#" class="card-link">Edit Product</a>
-        <a href="#" class="card-link">Delete Product</a>
+        <button class="btn btn-info btn-sm" @click="update">Update</button>
+        <button class="btn btn-danger btn-rounded btn-sm" @click="deleteProduct">Delete</button>
       </div>
     </div>
   </div>
@@ -18,7 +18,15 @@
 <script>
 export default {
   name: 'ProductCard',
-  props: ['product']
+  props: ['product'],
+  methods: {
+    update () {
+      this.$router.push(`/updateProduct/${this.product.id}`)
+    },
+    deleteProduct () {
+      this.$store.dispatch('deleteProduct', this.product.id)
+    }
+  }
 }
 </script>
 
@@ -30,5 +38,10 @@ export default {
 }
 div .col-3 {
   padding: 10px;
+}
+
+.card-img-top {
+  height: 135px;
+  width: 265px;
 }
 </style>

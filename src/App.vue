@@ -1,46 +1,12 @@
 <template>
   <div id="app">
-    <router-view :products="products"/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import axios from './api/axios'
-
 export default {
-  data () {
-    return {
-      products: []
-    }
-  },
-  methods: {
-    checkAuth () {
-      if (localStorage.getItem('access_token')) {
-        this.$router.push('/products')
-        this.fetchProducts()
-      } else {
-        this.$router.push('/')
-      }
-    },
-    fetchProducts () {
-      axios({
-        method: 'GET',
-        url: '/products',
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        }
-      })
-        .then(({ data }) => {
-          this.products = data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-  },
-  created () {
-    this.checkAuth()
-  }
+
 }
 </script>
 

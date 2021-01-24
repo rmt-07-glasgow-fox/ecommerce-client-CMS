@@ -2,7 +2,7 @@
  <div class="container-fluid">
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand">Dashboard</a>
-    <button class="btn btn-danger btn-sm">Logout</button>
+    <button class="btn btn-danger btn-sm" @click="logout">Logout</button>
   </nav>
   <br>
   <router-link to="/addProduct"><button type="button" class="btn btn-info btn-sm">Add Product</button></router-link>
@@ -32,7 +32,20 @@ export default {
   components: {
     ProductCard
   },
-  props: ['products']
+  methods: {
+    logout () {
+      localStorage.clear()
+      this.$router.push('/login')
+    }
+  },
+  computed: {
+    products () {
+      return this.$store.state.products
+    }
+  },
+  created () {
+    this.$store.dispatch('fetchProducts')
+  }
 }
 </script>
 

@@ -11,14 +11,14 @@
               <input
                 type="text"
                 placeholder="Email"
-                v-model="email"
+                v-model="userLogin.email"
                 >
             </div>
             <div class="inputBox">
               <input
                 type="password"
                 placeholder="Password"
-                v-model="password"
+                v-model="userLogin.password"
                 >
             </div>
             <div class="inputBox">
@@ -32,33 +32,20 @@
 </template>
 
 <script>
-import axios from '../api/axios'
 
 export default {
   name: 'Login',
   data () {
     return {
-      email: '',
-      password: ''
+      userLogin: {
+        email: '',
+        password: ''
+      }
     }
   },
   methods: {
     login () {
-      axios({
-        method: 'POST',
-        url: '/login',
-        data: {
-          email: this.email,
-          password: this.password
-        }
-      })
-        .then(({ data }) => {
-          localStorage.setItem('access_token', data.access_token)
-          this.$router.push('products')
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.$store.dispatch('login', this.userLogin)
     }
   }
 }
