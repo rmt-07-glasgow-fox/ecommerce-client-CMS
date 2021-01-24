@@ -5,14 +5,14 @@
                 <div id="title-form">
                     <h1 style="margin-top: 30px; margin-left: 15%;"><b>Admin Login</b></h1>
                 </div>
-                <form class="d-flex flex-column">
+                <form class="d-flex flex-column" @submit.prevent="login">
                     <div id="form-login">
-                        <label for="email" id="form-label">email</label>
-                        <input type="text" id="form-input" placeholder="email">
+                        <label for="email" id="form-label-email">email</label>
+                        <input v-model="email" type="text" id="form-input-email" placeholder="email">
                     </div>
                     <div id="form-login">
-                        <label for="password" id="form-label">password</label>
-                        <input type="password" id="form-input" placeholder="password">
+                        <label for="password" id="form-label-password">password</label>
+                        <input v-model="password" type="password" id="form-input-password" placeholder="password">
                     </div>
                     <button class="shadow-lg" type="submit" id="btn-login">Login</button>
                 </form>
@@ -22,8 +22,38 @@
 </template>
 
 <script>
-export default {
+import Swal from 'sweetalert2'
 
+export default {
+  data () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    errorMessage (errorMessage) {
+      Swal.fire({
+        title: errorMessage,
+        icon: 'error',
+        confirmButtonText: 'back'
+      })
+    },
+    login () {
+      const payload = {
+        email: this.email,
+        password: this.password
+      }
+      this.$store.dispatch('login', payload)
+        .then(({ data }) => {
+          localStorage.setItem('access_token', data.access_token)
+          this.$router.push({ path: '/' })
+        })
+        .catch(error => {
+          this.errorMessage(error.response.data.message)
+        })
+    }
+  }
 }
 </script>
 
@@ -46,14 +76,14 @@ export default {
     width: 60%;
     margin-left: 17%;
   }
-  #form-label {
+  #form-label-password, #form-label-email {
     position: absolute;
     top: 0;
     display: block;
     transition: 0.2s;
     font-size: 1rem;
   }
-  #form-input {
+  #form-input-email, #form-input-password {
     margin-top: 10px;
     font-family: inherit;
     width: 110%;

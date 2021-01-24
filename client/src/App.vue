@@ -3,105 +3,15 @@
     <vue-page-transition name="fade">
       <router-view/>
     </vue-page-transition>
-    <LoginPage
-      v-if="currentPage == 'LoginPage'"
-    ></LoginPage>
-    <Home
-      v-if="currentPage == 'Home'"
-    ></Home>
-    <EditPage
-      v-if="currentPage == 'EditPage'"
-    ></EditPage>
-    <AddProductPage
-      v-if="currentPage == 'AddProductPage'"
-    ></AddProductPage>
   </div>
 </template>
 
 <script>
-import axios from './api/axios'
-import Home from './views/Home'
-import EditPage from './views/EditPage'
-import LoginPage from './views/LoginPage'
-import AddProductPage from './views/AddProductPage'
 
 export default {
-  data () {
-    return {
-      currentPage: 'EditPage',
-      products: []
-    }
-  },
-  components: {
-    Home,
-    EditPage,
-    LoginPage,
-    AddProductPage
-  },
-  methods: {
-    login (email, password) {
-      axios({
-        method: 'POST',
-        url: '/login',
-        data: {
-          email: email,
-          password: password
-        }
-      })
-        .then(({ data }) => {
-          localStorage.setItem('access_token', data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    fetchProduct () {
-      axios({
-        method: 'GET',
-        url: '/products'
-      })
-        .then(({ data }) => {
-          this.products = data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    editProduct (id, name, price, stock, imageUrl) {
-      axios({
-        method: 'PUT',
-        url: '/products/' + id,
-        data: {
-          name: name,
-          price: price,
-          stock: stock,
-          imageUrl: imageUrl
-        }
-      })
-        .then(({ data }) => {
-          console.log(data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    },
-    addProduct (name, price, stock, imageUrl) {
-      axios({
-        method: 'POST',
-        url: '/products',
-        data: {
-          name: name,
-          price: price,
-          stock: stock,
-          imageUrl: imageUrl
-        }
-      })
-        .then(({ data }) => {
-          console.log(data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
+  created () {
+    if (!localStorage.getItem('access_token')) {
+      this.$router.push({ path: '/login' })
     }
   }
 }

@@ -3,35 +3,107 @@
         <div id="edit">
             <div id="edit-box" class="col-4 mx-auto">
                 <div id="title-form">
-                    <h1 style="margin-top: 30px; margin-left: 15%;"><b>Edit Product</b></h1>
+                    <h1 style="margin-top: 30px; margin-left: 15%;"><b>edit Product</b></h1>
                 </div>
-                <form class="d-flex flex-column">
+                <form @submit.prevent="editProduct" class="d-flex flex-column">
                     <div id="form-edit">
-                        <label for="email" id="form-label">name</label>
-                        <input type="text" id="form-input" placeholder="example:  sepatu">
+                        <label for="name" id="form-label">name</label>
+                        <input v-model="name" type="text" id="form-input" placeholder="example:  sepatu">
                     </div>
                     <div id="form-edit">
-                        <label for="email" id="form-label">price</label>
-                        <input type="text" id="form-input" placeholder="example:  10000">
+                        <label for="price" id="form-label">price</label>
+                        <input v-model="price" type="text" id="form-input" placeholder="example:  10000">
                     </div>
                     <div id="form-edit">
-                        <label for="email" id="form-label">stock</label>
-                        <input type="text" id="form-input" placeholder="example:  50">
+                        <label for="stock" id="form-label">stock</label>
+                        <input v-model="stock" type="text" id="form-input" placeholder="example:  50">
                     </div>
                     <div id="form-edit">
-                        <label for="email" id="form-label">image url</label>
-                        <input type="text" id="form-input" placeholder="example:  http://image.jpg">
+                        <label for="imageUrl" id="form-label">image url</label>
+                        <input v-model="imageUrl" id="form-input" placeholder="example:  http://image.jpg">
+                    </div>
+                    <div id="form-edit">
+                        <label for="category" id="form-label">category</label>
+                        <select v-model="category" id="form-input">
+                          <option selected>choose category</option>
+                          <option value="rumah tangga">rumah tangga</option>
+                          <option value="makanan">makanan</option>
+                          <option value="fashion">fashion</option>
+                          <option value="elektronik">elektronik</option>
+                          <option value="other">other</option>
+                        </select>
                     </div>
                     <button class="shadow-lg" type="submit" id="btn-edit">edit</button>
+                    <p @click="backHome" id="backToHome">Home</p>
                 </form>
             </div>
+            <p></p>
         </div>
     </div>
 </template>
 
 <script>
-export default {
+import Swal from 'sweetalert2'
 
+export default {
+  data () {
+    return {
+      name: '',
+      price: '',
+      stock: '',
+      imageUrl: '',
+      category: ''
+    }
+  },
+  methods: {
+    backHome () {
+      this.$router.push({ path: '/' })
+    },
+    errorMessage (errorMessage) {
+      Swal.fire({
+        title: errorMessage,
+        icon: 'error',
+        confirmButtonText: 'back'
+      })
+    },
+    editProduct () {
+      const payload = {
+        name: this.name,
+        price: this.price,
+        stock: this.stock,
+        imageUrl: this.imageUrl,
+        category: this.category,
+        id: this.$route.params.id
+      }
+      this.$store.dispatch('editProduct', payload)
+        .then(({ data }) => {
+          this.$router.push({ path: '/' })
+          this.$store.dispatch('fetchProduct')
+        })
+        .catch(error => {
+          this.errorMessage(error.response.data.message)
+        })
+    },
+    getProductById () {
+      const productId = this.$route.params.id
+      this.$store.dispatch('getProductById', productId)
+        .then(({ data }) => {
+          this.name = data.name
+          this.stock = data.stock
+          this.price = data.price
+          this.imageUrl = data.imageUrl
+          this.category = data.category
+        })
+        .catch(error => {
+          this.errorMessage(error.response.data.message)
+        })
+    }
+  },
+  computed: {
+  },
+  created () {
+    this.getProductById()
+  }
 }
 </script>
 
@@ -41,12 +113,11 @@ export default {
   }
   #edit-box {
     width: 400px;
-    margin-top: 70px;
-    height: 580px;
+    margin-top: 40px;
+    height: 710px;
     background-color: rgb(243, 242, 242);
     box-shadow: 0 40px 40px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    margin-bottom: 30px;
   }
   #form-edit {
     position: relative;
@@ -92,5 +163,14 @@ export default {
     color: black;
     outline: none;
     transition: 0.5s;
+  }
+  #backToHome {
+    width: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 43.5%;
+  }
+  #backToHome:hover {
+    opacity: 0.6;
   }
 </style>

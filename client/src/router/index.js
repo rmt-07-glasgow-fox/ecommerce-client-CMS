@@ -5,6 +5,7 @@ import EditPage from '../views/EditPage.vue'
 import AddProductPage from '../views/AddProductPage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import VuePageTransition from 'vue-page-transition'
+import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 Vue.use(VuePageTransition)
@@ -22,7 +23,7 @@ const routes = [
     meta: { transition: 'zoom' }
   },
   {
-    path: '/editProduct',
+    path: '/editProduct/:id',
     name: 'EditPage',
     component: EditPage
   },
@@ -30,6 +31,11 @@ const routes = [
     path: '/addProduct',
     name: 'AddProductPage',
     component: AddProductPage
+  },
+  {
+    path: '*',
+    name: '404NotFound',
+    component: NotFound
   }
 ]
 

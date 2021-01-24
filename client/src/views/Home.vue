@@ -1,55 +1,52 @@
 <template>
   <div class="home">
-    <nav class="navbar navbar-light bg-light justify-content-between">
+    <nav class="navbar navbar-light bg-light justify-content-between ">
       <a class="navbar-brand"></a>
       <a class="navbar-brand">Admin</a>
       <form class="form-inline">
-        <button class="btn btn-outline-danger my-2 my-sm-0">Logout</button>
+        <button @click.prevent="logout" class="btn btn-outline-danger my-2 my-sm-0">Logout</button>
       </form>
     </nav>
-    <div id="home-content" class="col-10 row">
+    <div id="home-content" class="col-12 row" style="margin-bottom:20px">
       <div id="tab-category">
         <div id="tab-category-content">
+          <button @click="addProduct()">Add Product</button>
           <div id="title-category">
             <h4>category</h4>
           </div>
-          <p>all (0)</p>
-          <p>fashion (0)</p>
-          <p>elektronik (0)</p>
-          <p>makanan (0)</p>
-          <p>rumah tangga (0)</p>
-          <p>other (0)</p>
+          <p @click="fetchProductByCategory('all')">all ({{ allProducts.length }})</p>
+          <p @click="fetchProductByCategory('fashion')">fashion ({{ filteredCategoryFashion.length }})</p>
+          <p @click="fetchProductByCategory('elektronik')">elektronik ({{ filteredCategoryElektronik.length }})</p>
+          <p @click="fetchProductByCategory('makanan')">makanan ({{ filteredCategoryMakanan.length }})</p>
+          <p @click="fetchProductByCategory('rumah tangga')">rumah tangga ({{ filteredCategoryRumahTangga.length }})</p>
+          <p @click="fetchProductByCategory('other')">other ({{ filteredCategoryOther.length }})</p>
         </div>
       </div>
       <div id="product-list" class="row">
-        <div class="card mt-4 ml-3" style="width: 18rem;">
-          <img class="card-img-top" style="width: 17.9rem; height: 16.1rem;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuKm0t12mrgYpQYZBMCzqcr-VlzgkV9h1Ttw&usqp=CAU" alt="Card image cap">
-          <div class="card-body mx-auto">
-            <h5 class="card-title">nama product</h5>
-            <p class="card-text">harga :</p>
-            <p class="card-text">stock :</p>
-            <div id="card-footer" class="row">
-              <button style="margin-right: 10px;">-</button>
-              <p style="margin-left: 10px; margin-right: 20px;">0</p>
-              <button>+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="card mt-4 ml-3" style="width: 18rem;">
-          <img class="card-img-top" style="width: 17.9rem; height: 16.1rem;" src="https://seragam.woffi.co.id/images/WATERMARK/201904/29/baju-seragam-pramuka-siaga-26030742548.jpg" alt="Card image cap">
-          <div class="card-body mx-auto">
-            <h5 class="card-title">nama product</h5>
-            <p class="card-text">harga :</p>
-            <p class="card-text">stock :</p>
-            <div id="card-footer" class="row">
-              <button style="margin-right: 10px;">-</button>
-              <p style="margin-left: 10px; margin-right: 20px;">0</p>
-              <button>+</button>
-            </div>
-          </div>
-        </div>
-
+        <CardAll
+          v-if="categoryShow == 'all'"
+          :products="allProducts"
+        ></CardAll>
+        <CardRumahTangga
+          v-if="categoryShow == 'rumah tangga'"
+          :products="filteredCategoryRumahTangga"
+        ></CardRumahTangga>
+        <CardElektronik
+          v-if="categoryShow == 'elektronik'"
+          :products="filteredCategoryElektronik"
+        ></CardElektronik>
+        <CardFashion
+          v-if="categoryShow == 'fashion'"
+          :products="filteredCategoryFashion"
+        ></CardFashion>
+        <CardMakanan
+          v-if="categoryShow == 'makanan'"
+          :products="filteredCategoryMakanan"
+        ></CardMakanan>
+        <CardOther
+          v-if="categoryShow == 'other'"
+          :products="filteredCategoryOther"
+        ></CardOther>
       </div>
     </div>
   </div>
@@ -57,9 +54,66 @@
 
 <script>
 // @ is an alias to /src
+import CardElektronik from '../components/CardElektronik'
+import CardFashion from '../components/CardFashion'
+import CardMakanan from '../components/CardMakanan'
+import CardOther from '../components/CardOther'
+import CardRumahTangga from '../components/CardRumahTangga'
+import CardAll from '../components/CardAll'
 
 export default {
-  name: 'Home'
+  name: 'Home',
+  data () {
+    return {
+      categoryShow: 'all'
+    }
+  },
+  components: {
+    CardElektronik,
+    CardFashion,
+    CardMakanan,
+    CardOther,
+    CardRumahTangga,
+    CardAll
+  },
+  methods: {
+    fetchProduct () {
+      this.$store.dispatch('fetchProduct')
+    },
+    fetchProductByCategory (payload) {
+      this.categoryShow = payload
+    },
+    addProduct () {
+      this.$router.push({ path: '/addProduct' })
+    },
+    logout () {
+      localStorage.clear()
+      this.$router.push({ path: '/login' })
+    }
+  },
+  computed: {
+    allProducts () {
+      return this.$store.state.products
+    },
+    filteredCategoryFashion () {
+      return this.allProducts.filter(Product => Product.category === 'fashion')
+    },
+    filteredCategoryElektronik () {
+      return this.allProducts.filter(Product => Product.category === 'elektronik')
+    },
+    filteredCategoryMakanan () {
+      return this.allProducts.filter(Product => Product.category === 'makanan')
+    },
+    filteredCategoryRumahTangga () {
+      return this.allProducts.filter(Product => Product.category === 'rumah tangga')
+    },
+    filteredCategoryOther () {
+      return this.allProducts.filter(Product => Product.category === 'other')
+    }
+  },
+  created () {
+    this.fetchProduct()
+  }
 }
 </script>
 
@@ -78,10 +132,27 @@ export default {
   }
   #tab-category-content {
     margin-left: 10px;
-    margin-top: 70%;
+    margin-top: 40%;
+  }
+  #tab-category-content button {
+    margin-bottom: 40px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    outline: none;
+    border: 0;
+  }
+  #tab-category-content button:hover {
+    opacity: 0.8;
+    outline: none;
+    border: 0;
   }
   #tab-category-content p {
     margin-top: 40px;
+    cursor: pointer;
+  }
+  #tab-category-content p:hover {
+    opacity: 0.6;
   }
   #product-list {
     margin-left: 200px;
