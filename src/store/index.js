@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: '',
     productList: [],
-    categories: []
+    categories: [],
+    chosenCategoryId: 0
   },
   mutations: {
     updateLoginStatus (state, payload) {
@@ -21,22 +22,21 @@ export default new Vuex.Store({
     },
     updateCategories (state, payload) {
       state.categories = payload
+    },
+    updateChosenCategoryId (state, payload) {
+      console.log('mau upadte ke id ', payload)
+      state.chosenCategoryId = payload
     }
   },
   getters: {
-    // processedCategories (state) {
-    //   const processed = []
-    //   state.productList.forEach(e => {
-    //     if (!e.Category) {
-    //       e.Category = {
-    //         id: 0,
-    //         name: '-'
-    //       }
-    //     }
-    //     processed.push(e)
-    //   })
-    //   return processed
-    // }
+    filteredProductList (state) {
+      if (state.chosenCategoryId === 0) return state.productList
+      else {
+        return state.productList.filter(product => {
+          return product.CategoryId === state.chosenCategoryId
+        })
+      }
+    }
   },
   actions: {
     login (context, payload) {
