@@ -8,7 +8,7 @@
           class="img-fluid img-thumbnail"
           :alt="product.name"
           id="image-table"
-          @click="uploadImage"
+          @click="showImage"
         />
       </td>
       <td id="middle">{{ product.name }}</td>

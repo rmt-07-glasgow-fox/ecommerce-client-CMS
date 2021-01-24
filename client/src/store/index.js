@@ -12,7 +12,8 @@ export default new Vuex.Store({
     products: [],
     banner: [],
     category: '',
-    bannerStatus: 'All'
+    bannerStatus: 'All',
+    images: []
   },
   mutations: {
     passingProducts (state, payload) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
     },
     passingBanner (state, payload) {
       state.banner = payload
+    },
+    passingImages (state, payload) {
+      state.images = payload
     }
   },
   actions: {
@@ -459,6 +463,16 @@ export default new Vuex.Store({
           return value.status === false
         })
       }
+    },
+    bannerImages: state => {
+      const raw = state.banner.filter((value) => {
+        return value.status === true
+      })
+      const data = []
+      raw.forEach(element => {
+        data.push(element.image_url)
+      })
+      return data
     }
   }
 })
