@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -48,16 +49,28 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           localStorage.setItem('access_token', data.access_token)
+          Swal.fire({
+            icon: 'success',
+            title: 'Login success'
+          })
           router.push('/home')
         })
         .catch((error) => {
           console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Login failed'
+          })
         })
     },
 
     logout () {
       localStorage.clear()
       router.push('/login')
+      Swal.fire({
+        icon: 'success',
+        title: 'Logout success'
+      })
     },
 
     fetchProducts (context) {
@@ -92,10 +105,18 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.commit('addProduct', data)
+          Swal.fire({
+            icon: 'success',
+            title: 'Added new product'
+          })
           router.push('/home')
         })
         .catch((error) => {
           console.log(error)
+          Swal.fire({
+            icon: 'error',
+            text: 'Failed add new product'
+          })
         })
     },
 
@@ -131,10 +152,18 @@ export default new Vuex.Store({
       })
         .then(({ data }) => {
           context.commit('updateProduct', data)
+          Swal.fire({
+            icon: 'success',
+            text: 'Product updated'
+          })
           router.push('/home')
         })
         .catch((error) => {
           console.log(error, 'UPDATE ERROR')
+          Swal.fire({
+            icon: 'error',
+            text: 'Failed updated product'
+          })
         })
     },
 
@@ -147,10 +176,31 @@ export default new Vuex.Store({
         }
       })
         .then(() => {
-          context.commit('removeProduct', payload.id)
+          // context.commit('removeProduct', payload.id)
+          Swal.fire({
+            title: 'Are you sure?',
+            text: 'You cant be ablee to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result) {
+              Swal.fire({
+                icon: 'success',
+                text: 'Product has been deleted'
+              })
+              context.commit('removeProduct', payload.id)
+            }
+          })
         })
         .catch((error) => {
           console.log(error)
+          Swal.fire({
+            icon: 'error',
+            text: 'Failed delete product'
+          })
         })
     }
   },
