@@ -6,7 +6,8 @@
         <h4 class="logo" style="color: white;"><b>Shoes Corner</b></h4>
           <div cols="8">
             <router-link to="/">Home</router-link> |
-            <router-link to="/login">Login</router-link>
+            <router-link to="/login">Login</router-link> |
+            <router-link to="/register">Register</router-link>
           </div>
           <div>
 
