@@ -8,7 +8,7 @@
       />
       <div class="card-body">
         <h5 class="card-title" style="height: 50px" > {{ product.name }} </h5>
-        <p class="card-text"  > Price : Rp.{{ product.price}} </p>
+        <p class="card-text"  > Price : {{ product.price}} </p>
         <p class="card-text"  > Stock : {{ product.stock}} </p>
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
