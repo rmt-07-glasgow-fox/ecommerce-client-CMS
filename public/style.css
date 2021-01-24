@@ -1,0 +1,16 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(225deg, #00eaff, #edcb6d, #e600ff);
+  background-size: 200% 200%;
+  animation: 10s linear infinite;
+}
+
+.card {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
