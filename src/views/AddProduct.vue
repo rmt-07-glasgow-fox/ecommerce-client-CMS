@@ -20,8 +20,9 @@
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Condition</label>
                     <select class="form-control" id="exampleFormControlSelect1" v-model="condition">
-                    <option id="condition" value="Seccond">New</option>
-                    <option id="condition" value="New">Seccond</option>
+                    <option disabled value="">Please select one</option>
+                    <option id="condition" value="Seccond">Seccond</option>
+                    <option id="condition" value="New">New</option>
                     </select>
                 </div>
                 <div class="form-group">

@@ -2,6 +2,8 @@
   <div>
   <NavBar/>
   <div class="container mt-5">
+  <h1> <b class="h1">List Product</b> </h1>
+  <br><br>
     <table class="table">
       <thead>
         <tr>
@@ -13,6 +15,7 @@
           <th scope="col">Price</th>
           <th scope="col">Stock</th>
           <th scope="col">Action</th>
+          <th scope="col">Change Condition</th>
         </tr>
       </thead>
       <tbody>
@@ -28,6 +31,9 @@
             <button v-on:click="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
             <br><br>
             <button v-on:click="editProduct(product.id)" class="btn btn-primary">Edit</button>
+          </td>
+          <td class="align-middle">
+            <button v-if="product.condition === Seccond" class="btn btn-primary btn-sm">Make It Seccond</button>
           </td>
         </tr>
       </tbody>
