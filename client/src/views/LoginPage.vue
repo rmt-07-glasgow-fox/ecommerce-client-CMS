@@ -50,6 +50,7 @@ export default {
           this.$router.push({ path: '/' })
         })
         .catch(error => {
+          console.log(error.response)
           this.errorMessage(error.response.data.message)
         })
     }
