@@ -2,7 +2,7 @@
 
   <tr>
     <th scope="row">{{ index+1 }}</th>
-    <td>{{ product.image_url }}</td>
+    <td><img :src="product.image_url"></td>
     <td>{{ product.name }}</td>
     <td>{{ product.price }}</td>
     <td>{{ product.stock }}</td>
