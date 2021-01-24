@@ -15,7 +15,7 @@
                                             <h3 class="h4 text-gray-900 mb-1">E-commerce Admin</h3>
                                             <h1 class="h5 text-gray-900 mb-4">Welcome Back! </h1>
                                         </div>
-                                        <form class="user">
+                                        <form @submit.prevent="login" class="user">
                                             <div class="form-group">
                                                 <input type="email" v-model="data.email" class="form-control form-control-user"
                                                     id="exampleInputEmail" aria-describedby="emailHelp"
@@ -25,7 +25,7 @@
                                                 <input type="password" v-model="data.password" class="form-control form-control-user"
                                                     id="exampleInputPassword" placeholder="Password">
                                             </div>
-                                            <a @click.prevent="login" class="btn btn-primary btn-user btn-block">
+                                            <a type="submit" class="btn btn-primary btn-user btn-block">
                                                 Login
                                             </a>
                                         </form>
