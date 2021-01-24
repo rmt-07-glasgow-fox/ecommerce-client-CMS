@@ -41,134 +41,188 @@ export default new Vuex.Store({
   },
   actions: {
     login (context, payload) {
-      axios({
-        method: 'POST',
-        url: '/login',
-        data: {
-          email: payload.email,
-          password: payload.password
-        }
-      })
-        .then((response) => {
-          localStorage.setItem('access_token', response.data.access_token)
-          router.push({ path: 'Home' })
-          Swal.fire({
-            title: 'Welcome',
-            width: 300,
-            padding: '1em',
-            timer: 1500
-          })
-        })
-        .catch((err) => {
-          console.log(err)
-          const errors = err.response.data.errors
-          errors.forEach((element) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: `${element}`,
-              footer: '<a >please follow the rules</a>'
+      Swal.queue([
+        {
+          title: 'Logging you in...',
+          text: 'It will take a several times',
+          showConfirmButton: false,
+          onOpen: async () => {
+            Swal.showLoading()
+            axios({
+              method: 'POST',
+              url: '/login',
+              data: {
+                email: payload.email,
+                password: payload.password
+              }
             })
-          })
-        })
+              .then((response) => {
+                Swal.close()
+                localStorage.setItem('access_token', response.data.access_token)
+                router.push({ path: 'Home' })
+                Swal.fire({
+                  title: 'Welcome',
+                  width: 300,
+                  padding: '1em',
+                  timer: 1500
+                })
+              })
+              .catch((err) => {
+                console.log(err)
+                const errors = err.response.data.errors
+                errors.forEach((element) => {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `${element}`,
+                    footer: '<a >please follow the rules</a>'
+                  })
+                })
+              })
+          }
+        }
+      ])
     },
     getProducts (context) {
-      axios({
-        method: 'get',
-        url: '/products',
-        headers: {
-          access_token: localStorage.access_token
+      Swal.queue([
+        {
+          title: 'Loading the data...',
+          text: 'It will take a several times',
+          showConfirmButton: false,
+          onOpen: async () => {
+            Swal.showLoading()
+            axios({
+              method: 'get',
+              url: '/products',
+              headers: {
+                access_token: localStorage.access_token
+              }
+            }).then(response => {
+              context.commit('passingProducts', response.data)
+              Swal.close()
+            }).catch(err => {
+              console.log(err.response.data.errors)
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error while getting product list',
+                footer: '<a >This might be caused by bad request</a>'
+              })
+            })
+          }
         }
-      }).then(response => {
-        context.commit('passingProducts', response.data)
-      }).catch(err => {
-        console.log(err.response.data.errors)
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Error while getting product list',
-          footer: '<a >This might be caused by bad request</a>'
-        })
-      })
+      ])
     },
     getBanner (context) {
-      axios({
-        method: 'get',
-        url: '/banner',
-        headers: {
-          access_token: localStorage.access_token
+      Swal.queue([
+        {
+          title: 'Loading the data...',
+          text: 'It will take a several times',
+          showConfirmButton: false,
+          onOpen: async () => {
+            Swal.showLoading()
+            axios({
+              method: 'get',
+              url: '/banner',
+              headers: {
+                access_token: localStorage.access_token
+              }
+            }).then(response => {
+              context.commit('passingBanner', response.data)
+              Swal.close()
+            }).catch(err => {
+              console.log(err.response.data.errors)
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error while getting banner list',
+                footer: '<a >This might be caused by bad request</a>'
+              })
+            })
+          }
         }
-      }).then(response => {
-        context.commit('passingBanner', response.data)
-      }).catch(err => {
-        console.log(err.response.data.errors)
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Error while getting banner list',
-          footer: '<a >This might be caused by bad request</a>'
-        })
-      })
+      ])
     },
     getCategories (context) {
-      axios({
-        method: 'get',
-        url: '/categories',
-        headers: {
-          access_token: localStorage.access_token
+      Swal.queue([
+        {
+          title: 'Loading the data...',
+          text: 'It will take a several times',
+          showConfirmButton: false,
+          onOpen: async () => {
+            Swal.showLoading()
+            axios({
+              method: 'get',
+              url: '/categories',
+              headers: {
+                access_token: localStorage.access_token
+              }
+            }).then(response => {
+              context.commit('passingCategories', response.data)
+              Swal.close()
+            }).catch(err => {
+              console.log(err.response.data.errors)
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Error while getting categories list',
+                footer: '<a >This might be caused by bad request</a>'
+              })
+            })
+          }
         }
-      }).then(response => {
-        context.commit('passingCategories', response.data)
-      }).catch(err => {
-        console.log(err.response.data.errors)
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Error while getting categories list',
-          footer: '<a >This might be caused by bad request</a>'
-        })
-      })
+      ])
     },
     addProduct (context, payload) {
-      console.log(payload)
-      axios({
-        method: 'post',
-        url: '/products',
-        data: {
-          name: payload[0],
-          description: payload[1],
-          price: payload[2],
-          stock: payload[3],
-          image_url: payload[4],
-          categoryId: 1
-        },
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then((response) => {
-          this.dispatch('getProducts')
-          const answers = JSON.stringify(payload)
-          Swal.fire({
-            title: 'Aircraft Added!',
-            html: `
+      Swal.queue([
+        {
+          title: 'Loading the data...',
+          text: 'It will take a several times',
+          showConfirmButton: false,
+          onOpen: async () => {
+            Swal.showLoading()
+            axios({
+              method: 'post',
+              url: '/products',
+              data: {
+                name: payload[0],
+                description: payload[1],
+                price: payload[2],
+                stock: payload[3],
+                image_url: payload[4],
+                categoryId: 1
+              },
+              headers: {
+                access_token: localStorage.access_token
+              }
+            })
+              .then((response) => {
+                Swal.close()
+                this.dispatch('getProducts')
+                const answers = JSON.stringify(payload)
+                Swal.fire({
+                  title: 'Aircraft Added!',
+                  html: `
               Your Input:
               <pre><code>${answers}</code></pre>
             `,
-            confirmButtonText: 'Nice!'
-          })
-        })
-        .catch((err) => {
-          const errors = err.response.data.errors
-          errors.forEach(element => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: `${element}`,
-              footer: '<a >please follow the rules</a>'
-            })
-          })
-        })
+                  confirmButtonText: 'Nice!'
+                })
+              })
+              .catch((err) => {
+                const errors = err.response.data.errors
+                errors.forEach(element => {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `${element}`,
+                    footer: '<a >please follow the rules</a>'
+                  })
+                })
+              })
+          }
+        }
+      ])
     },
     addBanner (context, payload) {
       console.log(payload)
