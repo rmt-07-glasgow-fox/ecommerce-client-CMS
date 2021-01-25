@@ -23,8 +23,6 @@
               <div class="btnGroup">
                 <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
               </div>
-              <hr class="my-4">
-              <a class="d-block text-center mt-2 small" href="#" @click.prevent="registerForm">Register</a>
             </form>
           </div>
         </div>
@@ -50,7 +48,7 @@ export default {
         await this.$store.dispatch('login', this.user)
         this.user.email = ''
         this.user.password = ''
-        this.$router.replace('/dashboard')
+        this.$router.replace('/')
       } catch (error) {
         this.$swal.fire({
           icon: 'error',
