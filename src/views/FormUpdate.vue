@@ -58,7 +58,6 @@ export default {
         price: this.price
       }
       this.$store.dispatch('updateProduct', payload)
-      this.$router.push('/')
     }
     // getOneFromDatabase () {
     //   const id = this.$route.params

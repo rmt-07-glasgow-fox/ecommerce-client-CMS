@@ -2,6 +2,9 @@
 node_modules
 template
 /dist
+firebase.json
+.firebaserc
+.firebase
 
 
 # local env files

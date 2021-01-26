@@ -126,6 +126,7 @@ export default new Vuex.Store({
             title: 'Product Updated Successfully'
           })
           this.dispatch('getAllProduct')
+          router.push('/')
         })
         .catch(err => {
           console.log(err.response.data)
@@ -169,10 +170,7 @@ export default new Vuex.Store({
       const password = payload.password
       axios({
         method: 'POST',
-        url: '/login',
-        headers: {
-          access_token: localStorage.getItem('access_token')
-        },
+        url: '/loginAdmin',
         data: {
           email, password
         }
@@ -192,6 +190,12 @@ export default new Vuex.Store({
             Swal.fire({
               icon: 'error',
               title: 'Wrong Login Info',
+              text: err.response.data.message
+            })
+          } else if (err.response.data.message === 'You\'re unauthorized to do this') {
+            Swal.fire({
+              icon: 'error',
+              title: 'Unauthorized',
               text: err.response.data.message
             })
           }
