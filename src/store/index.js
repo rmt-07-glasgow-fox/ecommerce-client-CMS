@@ -49,7 +49,6 @@ export default new Vuex.Store({
           this.dispatch('getAllProduct')
         })
         .catch(err => {
-          console.log(err.response.data)
           if (err.response.data.message === 'You\'re unauthorized to do this') {
             Swal.fire({
               icon: 'error',
@@ -71,7 +70,6 @@ export default new Vuex.Store({
           context.commit('insertAllProduct', data)
         })
         .catch(err => {
-          console.log(err.response.data)
           if (err.response.data.message === 'You\'re unauthorized to do this') {
             Swal.fire({
               icon: 'error',
@@ -93,7 +91,6 @@ export default new Vuex.Store({
           context.commit('insertOneProduct', data)
         })
         .catch(err => {
-          console.log(err.response.data)
           if (err.response.data.message === 'You\'re unauthorized to do this') {
             Swal.fire({
               icon: 'error',
@@ -129,7 +126,6 @@ export default new Vuex.Store({
           router.push('/')
         })
         .catch(err => {
-          console.log(err.response.data)
           if (err.response.data.message === 'You\'re unauthorized to do this') {
             Swal.fire({
               icon: 'error',
@@ -155,7 +151,6 @@ export default new Vuex.Store({
           this.dispatch('getAllProduct')
         })
         .catch(err => {
-          console.log(err.response.data)
           if (err.response.data.message === 'You\'re unauthorized to do this') {
             Swal.fire({
               icon: 'error',
@@ -185,7 +180,6 @@ export default new Vuex.Store({
           router.push('/')
         })
         .catch(err => {
-          console.log(err.response.data)
           if (err.response.data.message === 'Invalid email/password') {
             Swal.fire({
               icon: 'error',
