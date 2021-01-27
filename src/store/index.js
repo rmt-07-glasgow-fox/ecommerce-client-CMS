@@ -84,7 +84,7 @@ export default new Vuex.Store({
     isLoggedIn (context, payload) {
       ecommerceServer({
         method: 'POST',
-        url: '/login',
+        url: '/users/login',
         data: {
           email: payload.email,
           password: payload.password

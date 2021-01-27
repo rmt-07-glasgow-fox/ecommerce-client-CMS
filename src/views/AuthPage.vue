@@ -50,10 +50,7 @@ export default {
   },
   methods: {
     isLoggedIn () {
-      this.$store.dispatch('isLoggedIn', {
-        email: this.user.email,
-        password: this.user.password
-      })
+      this.$store.dispatch('isLoggedIn', this.user)
     }
   },
   created () {

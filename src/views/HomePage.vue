@@ -1,8 +1,5 @@
 <template>
   <div class="container-fluid">
-    <!-- <div id="navbar" class="row">
-        <navbar></navbar>
-    </div> -->
     <div class="row">
       <!-- Navbar -->
       <div id="navbar" class="col col-md-1">

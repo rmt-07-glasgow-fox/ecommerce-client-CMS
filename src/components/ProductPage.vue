@@ -140,7 +140,7 @@ export default {
           text: 'Stock cannot be less than zero',
           showConfirmButton: false
         })
-        this.$emit('doNotUpdated')
+        this.fetchProducts()
       } else {
         this.$store.dispatch('editStock', {
           id,
