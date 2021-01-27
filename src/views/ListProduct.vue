@@ -3,7 +3,7 @@
     <div class="container mt-3">
       <div class="row">
         <div class="col-12">
-        <h1 class="text-dark">List All Product</h1>
+        <h1 class="text-dark">List Of All Products</h1>
           <table class="table table-hover">
             <thead>
               <tr>

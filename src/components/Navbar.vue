@@ -13,7 +13,7 @@
       <b-dropdown-item
       to="/products"
       :active='$route.name == "ListProduct"'>
-      List Product
+      Product List
       </b-dropdown-item>
       <b-dropdown-item
       to="/products/add"
@@ -28,7 +28,7 @@
       text="Category"
       right
     >
-      <b-dropdown-item to="/categories" :active='$route.name == "ListCategory"'>List Category</b-dropdown-item>
+      <b-dropdown-item to="/categories" :active='$route.name == "ListCategory"'>Category List</b-dropdown-item>
       <b-dropdown-item
       to="/categories/add"
       :active='$route.name == "AddCategory"'
@@ -42,7 +42,7 @@
       text="Banner"
       right
     >
-      <b-dropdown-item to="/banners" :active='$route.name == "ListBanner"'>List Banner</b-dropdown-item>
+      <b-dropdown-item to="/banners" :active='$route.name == "ListBanner"'>Banner List</b-dropdown-item>
       <b-dropdown-item
       to="/banners/add"
       :active='$route.name == "AddBanner"'
