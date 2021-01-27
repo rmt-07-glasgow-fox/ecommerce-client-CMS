@@ -6,23 +6,23 @@
         <h1 class="text-dark">Dashboard</h1>
         <table class="table table-bordered">
           <tr>
-            <th scope="col" class="w-50">Total Product</th>
+            <th scope="col" class="w-50">Total Of Product</th>
             <td>{{ totalProduct }}</td>
           </tr>
           <tr>
-            <th scope="col">Total Product Stock 0</th>
+            <th scope="col">Total Of Product With Zero Stock</th>
             <td>{{ totalStockZero }}</td>
           </tr>
           <tr>
-            <th scope="col">Total Category</th>
+            <th scope="col">Total Of Category</th>
             <td>{{ totalCategory }}</td>
           </tr>
           <tr>
-            <th scope="col">Total Banner</th>
+            <th scope="col">Total Of Banner</th>
             <td>{{ totalBanner }}</td>
           </tr>
           <tr>
-            <th scope="col">Total Banner Aktif</th>
+            <th scope="col">Total Of Active Banner</th>
             <td>{{ totalBannerActive }}</td>
           </tr>
         </table>
