@@ -21,7 +21,7 @@ export default new Vuex.Store({
     login (context, payload) {
       return axios({
         method: 'POST',
-        url: 'https://server-watches-romi.herokuapp.com/login',
+        url: 'http://localhost:3000/login',
         data: payload
       })
         .then(res => {
@@ -35,7 +35,7 @@ export default new Vuex.Store({
     addProduct (context, payload) {
       return axios({
         method: 'POST',
-        url: 'https://server-watches-romi.herokuapp.com/products',
+        url: 'http://localhost:3000/products',
         headers: {
           access_token: localStorage.getItem('access_token')
         },
@@ -52,7 +52,7 @@ export default new Vuex.Store({
     editProduct (context, payload) {
       return axios({
         method: 'PUT',
-        url: `https://server-watches-romi.herokuapp.com/products/${payload.id}`,
+        url: `http://localhost:3000/products/${payload.id}`,
         headers: {
           access_token: localStorage.getItem('access_token')
         },
@@ -70,7 +70,7 @@ export default new Vuex.Store({
       console.log('masuk fetch data')
       return axios({
         method: 'GET',
-        url: 'https://server-watches-romi.herokuapp.com/products',
+        url: 'http://localhost:3000/products',
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -88,7 +88,7 @@ export default new Vuex.Store({
       console.log('masuk fetch data')
       return axios({
         method: 'GET',
-        url: `https://server-watches-romi.herokuapp.com/products/${payload}`,
+        url: `http://localhost:3000/products/${payload}`,
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -106,7 +106,7 @@ export default new Vuex.Store({
       console.log(payload, 'axios delete')
       return axios({
         method: 'DELETE',
-        url: 'https://server-watches-romi.herokuapp.com/products/' + payload,
+        url: 'http://localhost:3000/products/' + payload,
         headers: {
           access_token: localStorage.getItem('access_token')
         }
@@ -123,7 +123,7 @@ export default new Vuex.Store({
       console.log('masu store')
       return axios({
         method: 'PATCH',
-        url: 'https://server-watches-romi.herokuapp.com/products/' + payload,
+        url: 'http://localhost:3000/products/' + payload,
         headers: {
           access_token: localStorage.getItem('access_token')
         },
@@ -141,7 +141,7 @@ export default new Vuex.Store({
       console.log('masu store')
       return axios({
         method: 'PATCH',
-        url: 'https://server-watches-romi.herokuapp.com/products/' + payload,
+        url: 'http://localhost:3000/products/' + payload,
         headers: {
           access_token: localStorage.getItem('access_token')
         },

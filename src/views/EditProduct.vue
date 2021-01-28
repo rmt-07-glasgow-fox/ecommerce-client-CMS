@@ -103,7 +103,7 @@ export default {
       this.$store.dispatch('editProduct', payload)
         .then(data => {
           console.log(data)
-          if (temp.name && temp.description && temp.image_url && temp.condition && temp.price >= 1 && temp.stock >= 1) {
+          if (temp.name.length > 2 && temp.description.length > 3 && temp.image_url && temp.condition && temp.price >= 1 && temp.stock >= 1) {
             this.$router.push('/home')
           }
           this.error++

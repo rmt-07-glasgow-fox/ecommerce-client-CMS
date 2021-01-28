@@ -73,9 +73,7 @@ export default {
       const payload = { name: this.name, description: this.description, image_url: this.image_url, condition: this.condition, price: this.price, stock: this.stock }
       this.$store.dispatch('addProduct', payload)
         .then(data => {
-          console.log(data)
-          console.log(payload)
-          if (payload.name && payload.description && payload.image_url && payload.condition && payload.price > 0 && payload.stock > 0) {
+          if (this.name.length > 2 && this.description.length > 3 && this.image_url && this.condition && this.price > 0 && this.stock > 0) {
             this.$router.push('/home')
           }
           this.error++
