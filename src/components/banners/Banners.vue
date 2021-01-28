@@ -86,6 +86,12 @@ export default {
     hideAddForm() {
       this.showFormActive = false;
     },
+    clearForm() {
+      this.title = '';
+      this.status = false;
+      this.image = null;
+      this.imageName = 'Choose image file';
+    },
     onFileChange(event) {
       const f = event.target.files[0];
       this.image = f;
@@ -100,7 +106,7 @@ export default {
         fd.append('status', this.status);
 
         await this.$store.dispatch('addBanner', fd);
-        this.name = '';
+        this.clearForm();
         this.hideAddForm();
         this.$swal.fire({
           icon: 'success',

@@ -119,6 +119,14 @@ export default {
     hideAddForm() {
       this.showFormActive = false;
     },
+    clearForm() {
+      this.name = '';
+      this.price = null;
+      this.stock = null;
+      this.image = null;
+      this.CategoryId = '0';
+      this.imageName = 'Choose file image';
+    },
     onFileChange(event) {
       const f = event.target.files[0];
       this.image = f;
@@ -135,7 +143,7 @@ export default {
         fd.append('CategoryId', Number(this.CategoryId));
 
         await this.$store.dispatch('addProduct', fd);
-        this.name = '';
+        this.clearForm();
         this.hideAddForm();
         this.$swal.fire({
           icon: 'success',
