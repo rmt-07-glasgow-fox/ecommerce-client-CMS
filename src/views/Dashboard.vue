@@ -14,7 +14,7 @@
 
 <script>
 import ProductCard from '../components/ProductCard.vue'
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 
 export default {
   name: 'Dashboard',
@@ -40,9 +40,9 @@ export default {
     ProductCard
   },
   computed: {
-    ...mapState([
-      'products'
-    ])
+    products () {
+      return this.$store.state.products
+    }
   },
   created () {
     this.$store.dispatch('getProducts')

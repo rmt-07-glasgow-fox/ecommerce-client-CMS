@@ -50,6 +50,13 @@ export default {
       this.$store.dispatch('login', this.payload)
       this.$store.commit('changePage', 'dashboard')
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    if (localStorage.access_token) {
+      next('/dashboard')
+    } else {
+      next()
+    }
   }
 }
 </script>
