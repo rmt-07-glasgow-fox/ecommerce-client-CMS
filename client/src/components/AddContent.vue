@@ -10,6 +10,10 @@
       </div>
       <br>
       <div class="form-group">
+        <textarea type="text" class="form-control" id="add-description" aria-describedby="emailHelp" placeholder="description" style="text-align: center" v-model="newContent.description" required></textarea>
+      </div>
+      <br>
+      <div class="form-group">
         <input type="text" class="form-control" id="add-category" aria-describedby="emailHelp" placeholder="Category" style="text-align: center" v-model="newContent.category" required>
       </div>
       <br>
@@ -19,6 +23,10 @@
       <br>
       <div class="form-group">
         <input type="number" class="form-control" id="add-stock" placeholder="Stock" style="text-align: center" v-model="newContent.stock" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <input type="text" class="form-control" id="add-stock" placeholder="Tags" style="text-align: center" v-model="newContent.tags" required>
       </div>
       <br>
       <form enctype="multipart/form-data">
@@ -44,9 +52,11 @@ export default {
     return {
       newContent: {
         name: '',
+        description: '',
         category: '',
         stock: '',
-        price: ''
+        price: '',
+        tags: ''
       }
     }
   },
@@ -58,9 +68,11 @@ export default {
       try {
         console.log('MASUK')
         localStorage.setItem('name', this.newContent.name)
+        localStorage.setItem('description', this.newContent.description)
         localStorage.setItem('category', this.newContent.category)
         localStorage.setItem('stock', this.newContent.stock)
         localStorage.setItem('price', this.newContent.price)
+        localStorage.setItem('tags', this.newContent.tags)
         this.$store.dispatch('addNewContentImage', formData)
       } catch (err) {
         console.log(err, 'gagal')
@@ -80,7 +92,7 @@ export default {
 .my-container {
   padding-top: 25px;
   padding-bottom: 25px;
-  margin-top: 15vh;
+  margin-top: 12vh;
   background-color: #DBCFAB;
 }
 </style>

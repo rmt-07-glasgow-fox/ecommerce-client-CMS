@@ -12,8 +12,8 @@
       <div class="form-group">
         <label for="bannerStatus">Status</label>
         <select class="form-control" id="bannerStatus" v-model="newBanner.status">
-          <option>True</option>
-          <option selected>False</option>
+          <option>carousel</option>
+          <option selected>banner-top</option>
         </select>
       </div>
       <br>
