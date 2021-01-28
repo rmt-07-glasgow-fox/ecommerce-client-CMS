@@ -35,5 +35,9 @@ export default {
 </script>
 
 <style>
-
+img {
+  height: 200px;
+  width: 400px;
+  object-fit: cover;
+}
 </style>

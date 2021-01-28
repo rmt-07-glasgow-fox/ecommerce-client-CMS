@@ -64,8 +64,8 @@ export default {
 
 <style scoped>
 img {
-  width:  150px;
-  height: 150px;
+  width:  100%;
+  height: 175px;
   object-fit: cover;
 }
 td {
