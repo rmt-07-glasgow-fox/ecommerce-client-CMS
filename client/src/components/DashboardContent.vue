@@ -21,6 +21,10 @@
       <td style="font-size: 14px;">Stock</td>
       <td style="font-size: 14px;">{{content.stock}}</td>
     </tr>
+    <tr>
+      <td style="font-size: 14px;">Tags</td>
+      <td style="font-size: 14px;">{{content.tags}}</td>
+    </tr>
   </tbody>
 </table>
 <div style="display:flex; justify-content: center">

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import ecommerceServer from '../api/ecommerceServer'
 import router from '../router'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -94,9 +95,11 @@ export default new Vuex.Store({
           let newContent = {}
           newContent = {
             name: localStorage.getItem('name'),
+            description: localStorage.getItem('description'),
             category: localStorage.getItem('category'),
             stock: localStorage.getItem('stock'),
             price: localStorage.getItem('price'),
+            tags: localStorage.getItem('tags'),
             imageUrl: data.imageUrl
           }
           this.dispatch('addNewContent', newContent)
@@ -236,6 +239,7 @@ export default new Vuex.Store({
         })
         .catch(err => {
           console.log(err, 'INI')
+          Swal.fire('Invalid Username/Password')
         })
     }
   },

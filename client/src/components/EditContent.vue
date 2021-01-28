@@ -10,6 +10,10 @@
       </div>
       <br>
       <div class="form-group">
+        <textarea type="text" class="form-control" id="edit-description" style="text-align: center" v-model="singleContent.description"></textarea>
+      </div>
+      <br>
+      <div class="form-group">
         <input type="text" class="form-control" id="edit-category" placeholder="Category" style="text-align: center" v-model="singleContent.category">
       </div>
       <br>
@@ -19,6 +23,10 @@
       <br>
       <div class="form-group">
         <input type="number" class="form-control" id="edit-stock" placeholder="Stock" style="text-align: center" v-model="singleContent.stock">
+      </div>
+      <br>
+      <div class="form-group">
+        <input type="text" class="form-control" id="edit-tags" placeholder="Tags" style="text-align: center" v-model="singleContent.tags">
       </div>
       <br>
       <div class="form-group">
@@ -64,7 +72,7 @@ export default {
 .my-container {
   padding-top: 50px;
   padding-bottom: 50px;
-  margin-top: 15vh;
+  margin-top: 12vh;
   background-color: #DBCFAB;
 }
 </style>
