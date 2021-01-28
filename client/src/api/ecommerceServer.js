@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const ecommerceInstance = axios.create({
-  baseURL: 'https://server-gardara-ecommerce.herokuapp.com/'
+  baseURL: 'https://gardara-server.herokuapp.com/'
 })
 
 export default ecommerceInstance
