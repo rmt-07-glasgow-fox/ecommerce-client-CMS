@@ -9,7 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    product: {},
+    product: '',
     username: '',
     errors: [],
     categories: [],
@@ -33,7 +33,6 @@ export default new Vuex.Store({
       state.categories = [...new Set(result)]
     },
     catchError (state, payload) {
-      state.errors = []
       state.errors.push(payload)
     },
     changeCategory (state, payload) {
@@ -51,7 +50,9 @@ export default new Vuex.Store({
         .then(({ data }) => {
           context.commit('insertProduct', data)
         })
-        .catch(console.log)
+        .catch((err) => {
+          context.commit('catchError', err.response.data.errors)
+        })
     },
     fetchProducts (context) {
       axios
@@ -64,7 +65,9 @@ export default new Vuex.Store({
           context.commit('insertProducts', data)
           context.commit('insertCategories', data)
         })
-        .catch(console.log)
+        .catch((err) => {
+          context.commit('catchError', err.response.data.errors)
+        })
     },
     deleteProduct (context, payload) {
       return axios
