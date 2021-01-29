@@ -15,7 +15,7 @@
             <p class="card-text">Price: {{ product.price }}</p>
           </div>
           <div class='card-footer'>
-            <i class="fas fa-edit" @click='editProductForm(product.id)'></i>
+            <i class="fas fa-edit" @click='editProductForm(product[0].id)'></i>
           </div>
         </div>
       </div>
