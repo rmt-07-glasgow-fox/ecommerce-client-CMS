@@ -35,13 +35,6 @@
         </div>
       </div>
     </nav>
-
-    <!-- <router-link class='navbar-item' to='/login'>Login</router-link>
-          <router-link class='navbar-item' to='/'>Dashboard</router-link>
-          <router-link class='navbar-item' to='/add'>Add</router-link>
-          <router-link class='navbar-item' to='/edit'>Edit</router-link> -->
-
-  
   </div>
 </template>
 <script>
