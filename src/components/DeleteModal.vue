@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  props: ['products'],
+  props: ['product'],
   methods: {
     deleteProduct (id) {
       this.$store.dispatch('deleteProduct', id)

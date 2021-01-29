@@ -1,5 +1,5 @@
 <template>
-  <div id="product">
+  <div id="editProduct">
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -28,11 +28,12 @@
                                 <span class="icon text-white-50">
                                     <i class="fas fa-plus"></i>
                                 </span>
-                                <span class="text">Add Product</span>
+                                <span class="text">back</span>
                             </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                <form>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -44,25 +45,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="product in products" :key="product.id">
-                                            <td>{{ product.name }}</td>
+                                        <tr>
                                             <td>
-                                              <img :src="product.image_url" alt="products.name" width="100" height="100">
+                                                <input type="text" class="form-control" v-model="productById.name">
                                             </td>
-                                            <td>{{ product.price }}</td>
-                                            <td>{{ product.stock }}</td>
                                             <td>
-                                                <router-link class="btn btn-info btn-sm mr-1" :to="`product/edit/${product.id}`"><i class="fa fa-edit"></i></router-link>
-                                                <a href="#" class="btn btn-danger btn-sm" @click="deleteProduct(product.id)">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                                <!-- <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal">
-                                                    <i class="fas fa-trash"></i>
-                                                </a> -->
+                                              <input type="text" class="form-control" v-model="productById.image_url">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" v-model="productById.price">
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" v-model="productById.stock">
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" @click="updateProduct()">Update</button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -85,7 +87,6 @@
 
     <!-- Modal-->
     <LogoutModal/>
-    <AddModal/>
   </div>
 </template>
 
@@ -93,43 +94,55 @@
 import Topbar from '../components/Topbar.vue'
 import Sidebar from '../components/Sidebar.vue'
 import LogoutModal from '../components/LogoutModal.vue'
-import AddModal from '../components/AddModal.vue'
 import ScrollTopBtn from '../components/ScrollTopBtn.vue'
 import Footer from '../components/Footer.vue'
 
-import { mapState } from 'vuex'
-
 export default {
-  name: 'Product',
+  name: 'EditProduct',
   components: {
     Topbar,
     Sidebar,
-    AddModal,
     LogoutModal,
     ScrollTopBtn,
     Footer
   },
   methods: {
-    deleteProduct (id) {
-      this.$store.dispatch('deleteProduct', id)
+    editProduct () {
+      this.$store.dispatch('editProduct', this.$route.params.id)
+    },
+    updateProduct () {
+      const payload = {
+        id: +this.$route.params.id,
+        name: this.productById.name,
+        image_url: this.productById.image_url,
+        price: +this.productById.price,
+        stock: +this.productById.stock
+      }
+
+      this.$store.dispatch('updateProduct', payload)
         .then(() => {
+          this.$router.push('/product')
           this.$store.dispatch('fetchProduct')
         })
         .catch(err => {
-          console.log(err, 'gabisa delete gan!')
+          console.log(err)
         })
     }
   },
-  created () {
-    this.$store.dispatch('fetchProduct')
-      .catch(err => {
-        console.log(err.response.data.message)
-      })
-  },
   computed: {
-    ...mapState([
-      'products'
-    ])
+    currentRouteId () {
+      return +this.$route.params.id
+    },
+    productById () {
+      return this.$store.state.productById
+    }
+  },
+  created () {
+    this.editProduct()
   }
 }
 </script>
+
+<style>
+
+</style>

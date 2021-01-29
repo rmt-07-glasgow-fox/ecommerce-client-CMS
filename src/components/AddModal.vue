@@ -54,7 +54,7 @@ export default {
   methods: {
     addProduct () {
       this.$store.dispatch('addProduct', this.product)
-        .then(({ data }) => {
+        .then(() => {
           this.$router.push('/product')
           this.$store.dispatch('fetchProduct')
             .catch(err => {

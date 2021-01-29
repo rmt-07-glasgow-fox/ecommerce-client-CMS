@@ -1,11 +1,8 @@
 <template>
   <div class="container mt-5">
-
         <!-- Outer Row -->
         <div class="row justify-content-center">
-
             <div class="col-xl-10 col-lg-12 col-md-9">
-
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
@@ -32,10 +29,6 @@
                                         </a> -->
                                         <button class="btn btn-primary" type="submit">Login</button>
                                     </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Register</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +54,6 @@ export default {
       this.$store.dispatch('login', this.data)
         .then(response => {
           localStorage.access_token = response.data.access_token
-          console.log(response.data.access_token, 'bisa gan')
           this.$router.push('/product')
         })
         .catch(err => {

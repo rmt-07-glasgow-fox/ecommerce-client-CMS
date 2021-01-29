@@ -13,25 +13,25 @@
                     <form>
           <div class="form-group">
             <label class="col-form-label float-left">Product Name:</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" v-model="productById.name">
           </div>
           <div class="form-group">
             <label class="col-form-label float-left">Image:</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" v-model="productById.image_url">
           </div>
           <div class="form-group">
             <label class="col-form-label float-left">Price:</label>
-            <input type="number" class="form-control">
+            <input type="number" class="form-control" v-model="productById.price">
           </div>
           <div class="form-group">
             <label class="col-form-label float-left">Stock:</label>
-            <input type="number" class="form-control">
+            <input type="number" class="form-control" v-model="productById.stock">
           </div>
         </form>
-                </div>
+        </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-info" href="login.html">Add</a>
+                    <router-link class="btn btn-secondary" :to="`/product`" data-dismiss="modal">Cancel</router-link>
+                    <a class="btn btn-info" data-dismiss="modal" @click="updateProduct()">Update</a>
                 </div>
             </div>
         </div>
@@ -41,6 +41,46 @@
 <script>
 
 export default {
+  name: 'EditProduct',
+  data () {
+    return {
+      listProduct: {
+        name: '',
+        image_url: '',
+        price: 0,
+        stock: 0
+      }
+    }
+  },
+  methods: {
+    editProduct () {
+      // const id = this.currentRouteId
+      // console.log(id, 'route params id')
+      this.$store.dispatch('editProduct', this.currentRouteId)
+    },
+    updateProduct () {
+      this.$store.dispatch('updateProduct', this.listProduct)
+        .then(({ data }) => {
+          this.$router.push('/product')
+          this.$store.dispatch('fetchProduct')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+  },
+  computed: {
+    currentRouteId () {
+      // console.log(this.$route.params.id, 'route id')
+      return this.$route.params.id
+    },
+    productById () {
+      return this.$store.state.productById
+    }
+  },
+  created () {
+    this.editProduct()
+  }
 }
 </script>
 
