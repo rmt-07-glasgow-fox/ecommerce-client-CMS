@@ -5,7 +5,6 @@ import NotFound from '../views/NotFound.vue'
 import ProductDetail from '../views/ProductDetail.vue'
 import AddProduct from '../views/AddProduct.vue'
 import EditProduct from '../views/EditProduct.vue'
-import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -31,14 +30,7 @@ const routes = [
         path: 'edit',
         component: EditProduct
       }
-    ],
-    beforeEnter (to, from, next) {
-      if (!store.getters.productByID(to.params.id)) {
-        next({ name: 'NotFound' })
-      } else {
-        next()
-      }
-    }
+    ]
   },
   {
     path: '/addproduct',
