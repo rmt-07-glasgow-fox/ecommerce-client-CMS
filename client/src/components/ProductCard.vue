@@ -1,6 +1,6 @@
 <template>
   <div class="col-3 mb-3">
-    <div @click="goToDetail" class="card border" >
+    <div @click="goToDetail" class="card border">
       <div class="card-image">
         <img :src="product.image_url" class="card-img-top" alt="product image">
       </div>

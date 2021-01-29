@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import axios from '../api/axios'
 
 export default {
   name: 'ProductDetail',
@@ -57,13 +56,7 @@ export default {
   methods: {
     fetchProductDetail () {
       const { id } = this.$route.params
-      axios({
-        method: 'GET',
-        url: `/products/${id}`,
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
+      this.$store.dispatch('fetchProductDetail', id)
         .then(({ data }) => {
           this.product = data
         })

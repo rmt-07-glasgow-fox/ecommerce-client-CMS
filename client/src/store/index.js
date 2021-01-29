@@ -122,6 +122,16 @@ export default new Vuex.Store({
           localStorage.clear()
           router.push('/login')
         })
+    },
+    fetchProductDetail (context, payload) {
+      const { id } = payload
+      axios({
+        method: 'GET',
+        url: `/products/${id}`,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
     }
   }
 })
