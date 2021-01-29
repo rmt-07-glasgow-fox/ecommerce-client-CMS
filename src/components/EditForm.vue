@@ -31,6 +31,7 @@ export default {
           text: this.errors[0],
           footer: '<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400" target="_blank">400 Bad request</a>'
         })
+        this.router.push('/product/:id')
       }
     }
   },
@@ -39,10 +40,10 @@ export default {
       const { id } = this.$route.params
       const payload = {
         id,
-        name: this.name,
-        price: this.price,
-        stock: this.stock,
-        imageUrl: this.image_url
+        name: this.product.name,
+        price: this.product.price,
+        stock: this.product.stock,
+        imageUrl: this.product.image_url
       }
       this.$swal.fire({
         title: 'Update product?',
@@ -57,11 +58,12 @@ export default {
           this.$swal.fire('No update performed', '', 'info')
         }
       })
-        .then(({ data }) => {
+        .then(_ => {
           this.$swal.fire('Product updated!', '', 'success')
           this.$router.push('/dashboard')
         })
         .catch((err) => {
+          console.log('>>>>>>>', err)
           this.$store.commit('catchError', err.response.data.errors)
         })
     }

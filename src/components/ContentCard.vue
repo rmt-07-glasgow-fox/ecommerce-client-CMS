@@ -1,20 +1,5 @@
 <template>
-  <div class='container'>
-    <div class='row'>
-      <h1>Dashboard</h1>
-    </div>
-    <div class='row justify-content-end'>
-      <button class="btn btn-sm btn-outline-primary mb-3" @click='toAddProductPage'>Add a product</button>
-    </div>
-    <div class='row'>
-      <select id="inputState" class="form-control mb-4" v-model='category'>
-        <option selected>Choose a category...</option>
-        <option value='all'>All categories</option>
-        <option v-for='(category, idx) in categories' :key='idx' :value='category'>{{ category }}</option>
-      </select>
-    </div>
-    <div class='row'>
-      <div class='col-3 pl-0 pr-0 mb-4' v-for='product in products' :key='product.id'>
+      <div class='col-3 pl-0 pr-0 mb-4'>
         <div class='card'>
           <img :src="`${product.image_url}`" class="card-img-top img-fluid" alt="image not found" @click='productDetail(product.id)'>
           <div class='card-header'>
@@ -29,21 +14,22 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>
 export default {
   name: 'ContentCard',
-  data () {
-    return {
-      category: ''
-    }
-  },
+  props: ['product'],
   watch: {
-    category (newVal) {
-      this.$store.commit('changeCategory', newVal)
+    errors: function (val, oldVal) {
+      if (val.length > 0) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Please try again',
+          text: this.errors,
+          footer: '<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400" target="_blank">400 Bad request</a>'
+        })
+      }
     }
   },
   methods: {
@@ -79,21 +65,7 @@ export default {
         .catch((err) => {
           this.$store.commit('catchError', err.response.data.errors)
         })
-    },
-    toAddProductPage () {
-      this.$router.push('/addproduct')
     }
-  },
-  computed: {
-    products () {
-      return this.$store.getters.filterByCategory
-    },
-    categories () {
-      return this.$store.state.categories
-    }
-  },
-  created () {
-    this.$store.dispatch('fetchProducts')
   }
 }
 </script>

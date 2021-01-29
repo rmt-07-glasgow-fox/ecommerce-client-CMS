@@ -11,7 +11,7 @@ export default new Vuex.Store({
     products: [],
     product: '',
     username: '',
-    errors: [],
+    errors: '',
     categories: [],
     category: ''
   },
@@ -33,7 +33,7 @@ export default new Vuex.Store({
       state.categories = [...new Set(result)]
     },
     catchError (state, payload) {
-      state.errors.push(payload)
+      state.errors = payload
     },
     changeCategory (state, payload) {
       state.category = payload
@@ -51,7 +51,8 @@ export default new Vuex.Store({
           context.commit('insertProduct', data)
         })
         .catch((err) => {
-          context.commit('catchError', err.response.data.errors)
+          console.log(err)
+          router.push({ name: 'NotFound' })
         })
     },
     fetchProducts (context) {
