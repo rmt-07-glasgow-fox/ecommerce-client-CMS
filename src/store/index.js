@@ -99,7 +99,7 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    update (context, payload) {
+    updateProduct (context, payload) {
       console.log(payload)
       axios({
         method: 'put',

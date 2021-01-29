@@ -23,7 +23,7 @@ const routes = [
         component: AddProduct
       },
       {
-        path: '/edit',
+        path: '/edit/:id',
         component: EditProduct
       }
     ]
@@ -32,16 +32,6 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue')
-  // },
-  // {
-  //   path: '/add',
-  //   name: 'Add',
-  //   component: () => import('../views/AddProduct.vue')
-  // },
-  // {
-  //   path: '/edit',
-  //   name: 'Edit',
-  //   component: () => import('../views/EditProduct.vue')
   }
 ]
 
@@ -51,11 +41,11 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   const isAuthenticated = localStorage.getItem('access_token')
-//   if (to.name !== 'LoginPage' && !isAuthenticated) next({ name: 'LoginPage' })
-//   else if (to.name === 'LoginPage' && isAuthenticated) next({ name: 'ListProduct' })
-//   else next()
-// })
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('access_token')
+  if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  else if (to.name === 'Login' && isAuthenticated) next({ name: 'ListProduct' })
+  else next()
+})
 
 export default router

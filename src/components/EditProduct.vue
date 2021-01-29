@@ -1,55 +1,60 @@
 <template>
 <div class="edit">
-  <!-- <Navbar></Navbar> -->
-<!-- <div class="container"> -->
-<!-- <div class="columns"> -->
-  <div class="column"></div>
-  <!-- <div class="column is-three-fifths"> -->
-<form action="">
+  <div class="column"><img :src="currentData.imageUrl" alt="" srcset=""></div>
+<form @submit.prevent="doEdit" action="">
 <div class="field">
-  <!-- <label class="label">Product Name</label> -->
   <div class="control">
-    <input class="input" type="text" placeholder="edit: product name">
+    <input v-model="currentData.name" class="input" type="text">
   </div>
 </div>
 <div class="field">
-  <!-- <label class="label">Image Url</label> -->
   <div class="control">
-    <input class="input" type="text" placeholder="edit: image url">
+    <input class="input" type="text" img :src="currentData.imageUrl">
   </div>
 </div>
 <div class="field">
-  <!-- <label class="label">Price</label> -->
   <div class="control">
-    <input class="input" type="text" placeholder="edit: price">
+    <input class="input" type="text" v-model="currentData.price">
   </div>
 </div>
 <div class="field">
-  <!-- <label class="label">Stock</label> -->
   <div class="control">
-     <!-- import ListProduct from '../components/ListProduct' -->
-    <input class="input" type="text" placeholder="edit: stock">
+    <input class="input" type="text" v-model="currentData.stock">
   </div>
 </div>
 <button class="button is-link">Update</button>
 </form>
-<!-- </div> -->
 <div class="column"></div>
-<!-- </div> -->
-<!-- </div> -->
 </div>
 </template>
 
 <script>
-// import Navbar from '../components/Navbar'
 export default {
-  name: 'editProduct'
-  // components: {
-  //   Navbar
-  // }
+  name: 'EditProduct',
+  // props: ['product'],
+  methods: {
+    getPopulateData () {
+      const id = +this.$route.params.id
+      this.$store.dispatch('findByPk', id)
+    },
+    doEdit () {
+      this.$store.dispatch('updateProduct', this.currentData)
+    }
+  },
+  created () {
+    this.getPopulateData()
+  },
+  computed: {
+    currentData () {
+      return this.$store.state.editProduct
+    }
+  },
+  data () {
+    return {
+
+    }
+  }
 }
 </script>
-
 <style>
-
 </style>

@@ -22,11 +22,7 @@
 
       <div id='navbarBasicExample' class='navbar-menu'>
         <div class='navbar-start'>
-          <router-link class='navbar-item' to='/login'>Login</router-link>
-          <router-link class='navbar-item' to='/'>Dashboard</router-link>
-          <!-- $router.push(/home) -->
-          <router-link class='navbar-item' to='/add'>Add</router-link>
-          <router-link class='navbar-item' to='/edit'>Edit</router-link>
+          
         </div>
         <div class='navbar-end'>
           <div class='navbar-item'>
@@ -39,6 +35,13 @@
         </div>
       </div>
     </nav>
+
+    <!-- <router-link class='navbar-item' to='/login'>Login</router-link>
+          <router-link class='navbar-item' to='/'>Dashboard</router-link>
+          <router-link class='navbar-item' to='/add'>Add</router-link>
+          <router-link class='navbar-item' to='/edit'>Edit</router-link> -->
+
+  
   </div>
 </template>
 <script>
