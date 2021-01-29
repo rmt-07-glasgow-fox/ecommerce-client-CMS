@@ -45,10 +45,7 @@ export default new Vuex.Store({
       try {
         const products = await axios({
           method: 'GET',
-          url: '/products',
-          headers: {
-            access_token: localStorage.getItem('access_token')
-          }
+          url: '/products'
         })
         context.commit('setProducts', products.data)
       } catch (err) {
@@ -60,10 +57,7 @@ export default new Vuex.Store({
       try {
         const categories = await axios({
           method: 'GET',
-          url: '/categories',
-          headers: {
-            access_token: localStorage.getItem('access_token')
-          }
+          url: '/categories'
         })
         context.commit('setCategories', categories.data)
       } catch (err) {
@@ -75,10 +69,7 @@ export default new Vuex.Store({
       try {
         const banners = await axios({
           method: 'GET',
-          url: '/banners',
-          headers: {
-            access_token: localStorage.getItem('access_token')
-          }
+          url: '/banners'
         })
         context.commit('setBanners', banners.data)
       } catch (err) {
