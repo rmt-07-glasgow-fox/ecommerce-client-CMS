@@ -76,7 +76,9 @@ export default {
         .then(({ data }) => {
           this.$store.dispatch('fetchProducts')
         })
-        .catch(console.log)
+        .catch((err) => {
+          this.$store.commit('catchError', err.response.data.errors)
+        })
     },
     toAddProductPage () {
       this.$router.push('/addproduct')
