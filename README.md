@@ -27,7 +27,6 @@ Kang Bang server is built with getting help by a list of cool technologies. Whic
 * [axios](https://github.com/axios/axios)
 * [bootstrap](https://github.com/axios/axios)
 * [font awesome](https://fontawesome.com/)
-* [google oauth](https://developers.google.com/identity/protocols/oauth2)
 
 
 ## Contact Me
