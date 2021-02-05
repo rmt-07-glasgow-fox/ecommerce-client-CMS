@@ -13,7 +13,9 @@ _________________
 > notes
 - > contact me to get admin username & password 
 -------------------
-customer@mail.com 
-1234                      
+> email
+- > customer@mail.com 
+> password
+- > 1234                      
 
 Nb: Upload Image ada di modify product, dibawah gambar
