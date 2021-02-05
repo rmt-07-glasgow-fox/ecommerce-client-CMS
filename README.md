@@ -1,4 +1,4 @@
-<h1 align="center">Gardara Customer Client</h1><br>
+<h1 align="center">Gardara Admin(CMS) Client</h1><br>
 
 ## About The Project
 
