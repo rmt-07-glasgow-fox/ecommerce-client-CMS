@@ -10,8 +10,8 @@
 
 _________________
 **User/Password**
-:notes
--> contact me to get admin username & password 
+> notes
+- > contact me to get admin username & password 
 -------------------
 customer@mail.com 
 1234                      
