@@ -7,7 +7,7 @@ Gardara is a web-based single page application (SPA) developed using Vue.js. Gar
 
 ## Deployment 
 
-Kang bang is deployed using a server with two clients webpage. The clients are customer site and administrative site. Administrative site are built for content management system(CMS). Every promo on welcoming page and every item on the Gardara site are uploaded through this site. Admin on administrative site have an ability to create, read, update, and delete (CRUD) each items on the site. Each product image that uploaded by Admin will be deliver to Google Cloud Storage as the image storage. Customer site are built for a free or registered user. They have an ability to see all of the products on the site. However, they need to register to get a wishlist or cart feature. A registered user could delete or update their wishlist and cart. Link deployment: 
+Gardara is deployed using a server with two clients webpage. The clients are customer site and administrative site. Administrative site are built for content management system(CMS). Every promo on welcoming page and every item on the Gardara site are uploaded through this site. Admin on administrative site have an ability to create, read, update, and delete (CRUD) each items on the site. Each product image that uploaded by Admin will be deliver to Google Cloud Storage as the image storage. Customer site are built for a free or registered user. They have an ability to see all of the products on the site. However, they need to register to get a wishlist or cart feature. A registered user could delete or update their wishlist and cart. Link deployment: 
 * [Admin site(CMS)](https://gardara-1997.web.app/) (click)
 * [Customer site](https://the-gardara.web.app/) (click)
 * Server is using PostrgreSQL from Heroku
@@ -17,7 +17,7 @@ Kang bang is deployed using a server with two clients webpage. The clients are c
 
 ### Built With
 
-Kang Bang server is built with getting help by a list of cool technologies. Which are: 
+Gardara server is built with getting help by a list of cool technologies. Which are: 
 * [Node.js](https://nodejs.org/en/)
 * [Vue.js](https://vuejs.org/)
 * [Firebase](https://firebase.google.com/)
