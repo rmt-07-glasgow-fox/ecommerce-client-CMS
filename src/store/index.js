@@ -41,7 +41,7 @@ export default new Vuex.Store({
   actions: {
     login (context, payload) {
       axios({
-        url: '/login',
+        url: '/loginCMS',
         method: 'POST',
         data: {
           email: payload.email,
@@ -54,8 +54,8 @@ export default new Vuex.Store({
           router.push({ path: '/products' })
         })
         .catch((error) => {
-          console.log(error, 'ini error')
-          console.log(error.response, 'ini error response')
+          // console.log(error, 'ini error')
+          // console.log(error.response, 'ini error response')
           if (error.response) {
             // Request made and server responded
             // console.log(error.response.data.errors[0])
@@ -163,7 +163,7 @@ export default new Vuex.Store({
         })
     },
     updateProduct (context, payload) {
-      console.log(payload, 'ini yang mau diupdate')
+      // console.log(payload, 'ini yang mau diupdate')
       axios({
         url: '/products/' + payload.id,
         method: 'PUT',
